@@ -44,7 +44,7 @@ This plugin connects to the NetArz FX API (`https://netarz.ir/api/fx/v1`) to rea
 
 == Installation ==
 
-1. Download the ZIP from GitHub and install it from Plugins > Add New > Upload Plugin (or clone the repository into `/wp-content/plugins/netarz-fx/`), then activate it.
+1. Download `netarz-fx-1.0.0.zip` from https://github.com/netarz/netarz-fx-wordpress/releases and install it from Plugins > Add New > Upload Plugin (or clone the repository into `/wp-content/plugins/netarz-fx/`), then activate it.
 2. Sign in at https://netarz.ir/fx and create an app with your site's domain. Copy the key (`fx-ntz-v1-...`); it is shown once.
 3. Verify the domain in the same panel (a DNS TXT record, or the ready-made file under `/.well-known/`).
 4. In server mode, add your server's outgoing IP under the app's allowed IPs. The "Test connection" button tells you which IP NetArz sees.
