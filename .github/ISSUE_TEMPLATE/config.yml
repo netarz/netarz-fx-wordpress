@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: حساب، اعتبار، پرداخت و کلید (Account, billing and keys)
+    url: https://netarz.ir/tickets?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=issue-template
+    about: این‌ها را از پنل نِت اَرز با تیکت بپرسید، نه در Issue عمومی.
+  - name: مستندات (Documentation)
+    url: https://netarz.ir/docs/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=issue-template
+    about: پیش از گزارش، راهنمای endpoint و فهرست خطاها را ببینید.
+  - name: گزارش مشکل امنیتی (Security issue)
+    url: https://github.com/netarz/netarz-fx-wordpress/blob/main/SECURITY.md
+    about: مشکل امنیتی را فقط به dev@netarz.ir ایمیل کنید.

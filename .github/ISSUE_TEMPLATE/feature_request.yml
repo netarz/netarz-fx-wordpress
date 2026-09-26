@@ -1,0 +1,31 @@
+name: پیشنهاد (Feature request)
+description: امکان تازه برای افزونه را پیشنهاد کنید.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        اگر پیشنهاد شما دربارهٔ خودِ وب‌سرویس است (endpoint، طرح یا قیمت)، از پنل نِت اَرز تیکت بزنید تا به تیم مربوط برسد.
+  - type: textarea
+    id: problem
+    attributes:
+      label: چه کاری را می‌خواهید انجام بدهید؟ (What are you trying to do?)
+      description: مسئله را بگویید، نه فقط راه‌حل را.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: پیشنهاد شما (Your proposal)
+      description: شورت‌کد، تنظیم یا رفتاری که می‌خواهید، با یک مثال.
+    validations:
+      required: true
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: خودتان Pull Request می‌فرستید؟ (Will you send a PR?)
+      options:
+        - بله (Yes)
+        - شاید، با کمی راهنمایی (Maybe, with guidance)
+        - نه (No)
