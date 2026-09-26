@@ -1,0 +1,227 @@
+# NetArz FX Rates (WordPress plugin)
+# Copyright (C) 2026 NetArz
+# This file is distributed under the same license as the NetArz FX Rates package.
+# NetArz <dev@netarz.ir>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NetArz FX Rates 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/netarz/netarz-fx-wordpress/issues\n"
+"POT-Creation-Date: 2026-09-26 19:20+0330\n"
+"PO-Revision-Date: 2026-09-26 19:30+0330\n"
+"Last-Translator: NetArz <dev@netarz.ir>\n"
+"Language-Team: Persian\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: netarz-fx.php:55
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: includes/class-netarz-fx-client.php:105
+msgid "No API key is set."
+msgstr "کلید API وارد نشده است."
+
+#: includes/class-netarz-fx-render.php:85
+#: includes/class-netarz-fx-render.php:190
+msgid "Rate unavailable"
+msgstr "نرخ در دسترس نیست"
+
+#. translators: %s: a price in Iranian Toman, already formatted.
+#: includes/class-netarz-fx-render.php:98
+#: includes/class-netarz-fx-render.php:187
+#, php-format
+msgid "%s Toman"
+msgstr "%s تومان"
+
+#. translators: %s: number of currency units the price is for, e.g. 100.
+#: includes/class-netarz-fx-render.php:102
+#: includes/class-netarz-fx-render.php:189
+#, php-format
+msgid "(per %s units)"
+msgstr "(برای %s واحد)"
+
+#: includes/class-netarz-fx-render.php:116
+#: includes/class-netarz-fx-widget.php:61
+msgid "Buy"
+msgstr "خرید"
+
+#: includes/class-netarz-fx-render.php:117
+#: includes/class-netarz-fx-widget.php:60
+msgid "Sell"
+msgstr "فروش"
+
+#: includes/class-netarz-fx-render.php:118
+#: includes/class-netarz-fx-widget.php:62
+msgid "Average"
+msgstr "میانگین"
+
+#: includes/class-netarz-fx-render.php:121
+msgid "Currency"
+msgstr "ارز"
+
+#: includes/class-netarz-fx-render.php:167
+msgid "Rates by NetArz"
+msgstr "نرخ از نِت اَرز"
+
+#: includes/class-netarz-fx-settings.php:41
+#: includes/class-netarz-fx-settings.php:88
+msgid "NetArz FX Rates"
+msgstr "نرخ ارز نِت اَرز"
+
+#: includes/class-netarz-fx-settings.php:42
+msgid "NetArz FX"
+msgstr "نرخ ارز نِت اَرز"
+
+#: includes/class-netarz-fx-settings.php:67
+msgid ""
+"The key should start with fx-ntz-v1-. Copy it again from the NetArz panel."
+msgstr "کلید باید با fx-ntz-v1- شروع شود. آن را دوباره از پنل نِت اَرز کپی کنید."
+
+#: includes/class-netarz-fx-settings.php:96
+msgid "API key"
+msgstr "کلید API"
+
+#. translators: %s: link to the NetArz FX panel.
+#: includes/class-netarz-fx-settings.php:103
+#, php-format
+msgid ""
+"Create an app for this site's domain and copy its key from %s. Verify the "
+"domain in the same panel."
+msgstr "برای دامنهٔ این سایت یک اپ بسازید و کلیدش را از %s کپی کنید. تأیید دامنه هم در همان پنل است."
+
+#: includes/class-netarz-fx-settings.php:111
+msgid "Where rates are fetched"
+msgstr "نرخ از کجا گرفته شود"
+
+#: includes/class-netarz-fx-settings.php:113
+msgid ""
+"From this server (recommended). Add the server's outgoing IP to the app's "
+"allowed IPs."
+msgstr "از همین سرور (پیشنهادی). IP خروجی سرور را در «IPهای مجاز» اپ اضافه کنید."
+
+#: includes/class-netarz-fx-settings.php:114
+msgid ""
+"From the visitor's browser. For hosts without a fixed IP. The key appears in "
+"the page source but only works on your verified domain; each visitor uses "
+"some of the app's daily quota."
+msgstr "از مرورگر بازدیدکننده، برای هاستی که IP ثابت ندارد. کلید در سورس صفحه دیده می‌شود ولی فقط روی دامنهٔ تأییدشدهٔ شما کار می‌کند؛ هر بازدیدکننده بخشی از سهمیهٔ روزانهٔ اپ را مصرف می‌کند."
+
+#: includes/class-netarz-fx-settings.php:118
+msgid "Cache (minutes)"
+msgstr "کش (دقیقه)"
+
+#: includes/class-netarz-fx-settings.php:121
+msgid ""
+"Rates change every few minutes. One request refreshes every rate on the site."
+msgstr "نرخ‌ها هر چند دقیقه عوض می‌شوند. یک درخواست همهٔ نرخ‌های سایت را تازه می‌کند."
+
+#: includes/class-netarz-fx-settings.php:125
+msgid "Digits"
+msgstr "ارقام"
+
+#: includes/class-netarz-fx-settings.php:128
+msgid "Follow the site language"
+msgstr "مطابق زبان سایت"
+
+#: includes/class-netarz-fx-settings.php:129
+msgid "Persian digits"
+msgstr "ارقام فارسی"
+
+#: includes/class-netarz-fx-settings.php:130
+msgid "Latin digits"
+msgstr "ارقام لاتین"
+
+#: includes/class-netarz-fx-settings.php:135
+msgid "Credit link"
+msgstr "لینک منبع"
+
+#: includes/class-netarz-fx-settings.php:137
+msgid "Show a small \"Rates by NetArz\" link under the rates (once per page)."
+msgstr "لینک کوچک «نرخ از نِت اَرز» زیر نرخ‌ها نشان داده شود (یک بار در هر صفحه)."
+
+#: includes/class-netarz-fx-settings.php:138
+msgid ""
+"Optional. It tells readers where the numbers come from; turn it off whenever "
+"you like."
+msgstr "اختیاری است. به خواننده می‌گوید عددها از کجا آمده‌اند؛ هر وقت خواستید خاموشش کنید."
+
+#: includes/class-netarz-fx-settings.php:142
+msgid "Network"
+msgstr "شبکه"
+
+#: includes/class-netarz-fx-settings.php:144
+msgid ""
+"Connect over IPv4, so the IP NetArz sees is the IPv4 address you allow-"
+"listed."
+msgstr "اتصال با IPv4، تا IPی که نِت اَرز می‌بیند همان IPv4 ثبت‌شدهٔ شما باشد."
+
+#: includes/class-netarz-fx-settings.php:151
+#: includes/class-netarz-fx-settings.php:156
+msgid "Test connection"
+msgstr "آزمایش اتصال"
+
+#: includes/class-netarz-fx-settings.php:152
+msgid ""
+"Calls the API from this server with the saved key. If NetArz refuses the "
+"server's IP, the IP it saw is shown here so you can add exactly that one."
+msgstr "با کلید ذخیره‌شده از همین سرور به API وصل می‌شود. اگر نِت اَرز IP سرور را نپذیرد، IPی را که دیده همین‌جا نشان می‌دهیم تا دقیقاً همان را اضافه کنید."
+
+#: includes/class-netarz-fx-settings.php:159
+msgid "Usage"
+msgstr "نحوهٔ استفاده"
+
+#. translators: %s: link to the NetArz FX documentation.
+#: includes/class-netarz-fx-settings.php:165
+#, php-format
+msgid "Fields: buy, sell, mid. Documentation: %s"
+msgstr "فیلدها: buy (خرید)، sell (فروش)، mid (میانگین). مستندات: %s"
+
+#: includes/class-netarz-fx-settings.php:176
+msgid "You are not allowed to do this."
+msgstr "اجازهٔ این کار را ندارید."
+
+#. translators: 1: app name, 2: plan name (free or pro), 3: requests left today.
+#: includes/class-netarz-fx-settings.php:218
+#, php-format
+msgid "Connected. App: %1$s, plan: %2$s, requests left today: %3$s."
+msgstr "اتصال برقرار است. اپ: %1$s، طرح: %2$s، درخواست باقی‌ماندهٔ امروز: %3$s."
+
+#. translators: %s: an IP address.
+#: includes/class-netarz-fx-settings.php:232
+#, php-format
+msgid ""
+"NetArz saw this server as %s. Add exactly this address to the app's allowed "
+"IPs at netarz.ir/fx, or switch to browser mode."
+msgstr "نِت اَرز این سرور را با IP %s دید. دقیقاً همین آدرس را در «IPهای مجاز» اپ در netarz.ir/fx اضافه کنید، یا حالت مرورگر را انتخاب کنید."
+
+#: includes/class-netarz-fx-widget.php:18
+msgid "NetArz exchange rates"
+msgstr "نرخ ارز نِت اَرز"
+
+#: includes/class-netarz-fx-widget.php:20
+msgid "Rates in Toman from the NetArz FX API."
+msgstr "نرخ ارزها به تومان از API نرخ ارز نِت اَرز."
+
+#: includes/class-netarz-fx-widget.php:49
+msgid "Title"
+msgstr "عنوان"
+
+#: includes/class-netarz-fx-widget.php:53
+msgid "Currencies (comma-separated codes)"
+msgstr "ارزها (کدها را با کاما جدا کنید)"
+
+#: includes/class-netarz-fx-widget.php:57
+msgid "Show"
+msgstr "نمایش"
+
+#: includes/class-netarz-fx-widget.php:59
+msgid "Buy and sell"
+msgstr "خرید و فروش"
+
+#: includes/class-netarz-fx-widget.php:78
+msgid "Exchange rates"
+msgstr "نرخ ارز"

@@ -1,0 +1,27 @@
+.netarz-fx-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-variant-numeric: tabular-nums;
+}
+
+.netarz-fx-table th,
+.netarz-fx-table td {
+	padding: 0.4em 0.5em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	text-align: start;
+}
+
+.netarz-fx-rate {
+	white-space: nowrap;
+}
+
+.netarz-fx-unavailable {
+	opacity: 0.6;
+}
+
+.netarz-fx-credit {
+	display: inline-block;
+	margin-top: 0.3em;
+	font-size: 0.8em;
+	opacity: 0.8;
+}
