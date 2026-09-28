@@ -22,7 +22,10 @@ define( 'NETARZ_FX_VERSION', '1.0.0' );
 define( 'NETARZ_FX_FILE', __FILE__ );
 define( 'NETARZ_FX_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NETARZ_FX_URL', plugin_dir_url( __FILE__ ) );
-define( 'NETARZ_FX_API', 'https://netarz.ir/api/fx/v1' );
+// A staging or test site may point the plugin at another base URL from wp-config.php.
+if ( ! defined( 'NETARZ_FX_API' ) ) {
+	define( 'NETARZ_FX_API', 'https://netarz.ir/api/fx/v1' );
+}
 
 require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-client.php';
 require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-render.php';
