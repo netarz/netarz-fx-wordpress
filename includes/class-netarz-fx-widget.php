@@ -38,7 +38,7 @@ class Netarz_FX_Widget extends WP_Widget {
 		if ( '' !== (string) $title ) {
 			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme markup.
 		}
-		echo Netarz_FX_Render::board_html( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the renderer.
+		$html = Netarz_FX_Render::board_html(
 			$codes,
 			$fields,
 			array(
@@ -46,6 +46,7 @@ class Netarz_FX_Widget extends WP_Widget {
 				'updated' => ! empty( $instance['updated'] ),
 			)
 		);
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the renderer.
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme markup.
 	}
 

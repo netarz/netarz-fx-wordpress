@@ -56,9 +56,9 @@ class Netarz_FX_Render {
 	}
 
 	/** Normalises "usd, EUR ,aed" into array( 'USD', 'EUR', 'AED' ). */
-	public static function codes( $list ) {
+	public static function codes( $value ) {
 		$codes = array();
-		foreach ( explode( ',', (string) $list ) as $code ) {
+		foreach ( explode( ',', (string) $value ) as $code ) {
 			$code = strtoupper( preg_replace( '/[^A-Za-z]/', '', $code ) );
 			if ( 3 === strlen( $code ) ) {
 				$codes[] = $code;
@@ -92,19 +92,19 @@ class Netarz_FX_Render {
 		return strtr(
 			(string) $text,
 			array(
-				','  => '٬',
-				'.'  => '٫',
-				'%'  => '٪',
-				'0'  => '۰',
-				'1'  => '۱',
-				'2'  => '۲',
-				'3'  => '۳',
-				'4'  => '۴',
-				'5'  => '۵',
-				'6'  => '۶',
-				'7'  => '۷',
-				'8'  => '۸',
-				'9'  => '۹',
+				',' => '٬',
+				'.' => '٫',
+				'%' => '٪',
+				'0' => '۰',
+				'1' => '۱',
+				'2' => '۲',
+				'3' => '۳',
+				'4' => '۴',
+				'5' => '۵',
+				'6' => '۶',
+				'7' => '۷',
+				'8' => '۸',
+				'9' => '۹',
 			)
 		);
 	}
@@ -353,15 +353,15 @@ class Netarz_FX_Render {
 
 		self::$needs_converter = true;
 		++self::$converter_count;
-		$id     = 'netarz-fx-convert-' . self::$converter_count;
-		$notes  = array(
+		$id    = 'netarz-fx-convert-' . self::$converter_count;
+		$notes = array(
 			'buy'  => __( 'Calculated with the buy rate. Rates are for information only.', 'netarz-fx' ),
 			'sell' => __( 'Calculated with the sell rate. Rates are for information only.', 'netarz-fx' ),
 			'mid'  => __( 'Calculated with the average rate. Rates are for information only.', 'netarz-fx' ),
 		);
-		$first  = $rows[0];
-		$toman  = isset( $first['price'] ) ? round( $amount * $first['price'] / $first['unit'] ) : null;
-		$data   = self::browser_mode() ? '' : ' data-netarz-rates="' . esc_attr( wp_json_encode( $rows ) ) . '"';
+		$first = $rows[0];
+		$toman = isset( $first['price'] ) ? round( $amount * $first['price'] / $first['unit'] ) : null;
+		$data  = self::browser_mode() ? '' : ' data-netarz-rates="' . esc_attr( wp_json_encode( $rows ) ) . '"';
 
 		$html  = '<div class="netarz-fx netarz-fx-convert" data-netarz-convert="1" data-netarz-field="' . esc_attr( $field ) . '" data-netarz-persian="' . ( self::persian_digits() ? '1' : '0' ) . '"' . self::digits_attr() . $data . '>';
 		$html .= '<div class="netarz-fx-convert-row">';
