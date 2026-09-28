@@ -101,7 +101,7 @@ class Netarz_FX_Settings {
 								printf(
 									/* translators: %s: link to the NetArz FX panel. */
 									esc_html__( 'Create an app for this site\'s domain and copy its key from %s. Verify the domain in the same panel.', 'netarz-fx' ),
-									'<a href="' . esc_url( 'https://netarz.ir/fx' ) . '" target="_blank" rel="noopener">netarz.ir/fx</a>'
+									'<a href="' . esc_url( Netarz_FX_Render::url( '/fx', 'settings-key' ) ) . '" target="_blank" rel="noopener">netarz.ir/fx</a>'
 								);
 								?>
 							</p>
@@ -163,7 +163,7 @@ class Netarz_FX_Settings {
 				printf(
 					/* translators: %s: link to the NetArz FX documentation. */
 					esc_html__( 'Fields: buy, sell, mid. Documentation: %s', 'netarz-fx' ),
-					'<a href="' . esc_url( 'https://netarz.ir/docs/fx' ) . '" target="_blank" rel="noopener">netarz.ir/docs/fx</a>'
+					'<a href="' . esc_url( Netarz_FX_Render::url( '/docs/fx', 'settings-usage' ) ) . '" target="_blank" rel="noopener">netarz.ir/docs/fx</a>'
 				);
 				?>
 			</p>
