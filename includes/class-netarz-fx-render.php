@@ -22,6 +22,24 @@ class Netarz_FX_Render {
 	/** Codes a browser-mode page asks for, so the script makes one request. */
 	private static $codes = array();
 
+	/**
+	 * A netarz.ir link tagged so NetArz can tell visits that came from the plugin.
+	 *
+	 * @param string $path    Path on netarz.ir, e.g. "/rates".
+	 * @param string $content Where the link sits (utm_content), e.g. "credit".
+	 */
+	public static function url( $path, $content ) {
+		return add_query_arg(
+			array(
+				'utm_source'   => 'wp-plugin',
+				'utm_medium'   => 'referral',
+				'utm_campaign' => 'netarz-fx',
+				'utm_content'  => sanitize_key( $content ),
+			),
+			'https://netarz.ir' . $path
+		);
+	}
+
 	public static function field( $field ) {
 		$field = strtolower( (string) $field );
 		return in_array( $field, self::FIELDS, true ) ? $field : 'sell';
@@ -164,7 +182,7 @@ class Netarz_FX_Render {
 		}
 		self::$attributed = true;
 
-		return ' <span class="netarz-fx-credit"><a href="' . esc_url( 'https://netarz.ir/rates' ) . '">' . esc_html__( 'Rates by NetArz', 'netarz-fx' ) . '</a></span>';
+		return ' <span class="netarz-fx-credit"><a href="' . esc_url( self::url( '/rates', 'credit' ) ) . '">' . esc_html__( 'Rates by NetArz', 'netarz-fx' ) . '</a></span>';
 	}
 
 	/** Enqueue the browser-mode script once, only on pages that need it. */
