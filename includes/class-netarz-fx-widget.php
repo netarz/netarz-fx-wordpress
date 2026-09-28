@@ -1,7 +1,7 @@
 <?php
 /**
- * Classic widget: a small table of rates. (In block themes, use the
- * Shortcode block with [netarz_rates] instead.)
+ * Classic widget: a small table of rates. (In block themes and the block
+ * widget editor, use the "NetArz rates table" block instead.)
  *
  * @package NetArzFX
  */
