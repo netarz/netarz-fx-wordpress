@@ -21,6 +21,11 @@ class Netarz_FX_Render {
 
 	private static $needs_script = false;
 
+	private static $needs_converter = false;
+
+	/** Gives each converter on a page its own element ids. */
+	private static $converter_count = 0;
+
 	/** Codes a browser-mode page asks for, so the script makes one request. */
 	private static $codes = array();
 
@@ -307,6 +312,80 @@ class Netarz_FX_Render {
 	}
 
 	/**
+	 * A Toman <-> currency converter. The rates travel with the markup (server
+	 * mode) or come from the browser-mode request, so typing costs no request.
+	 *
+	 * @param string[] $codes Currency codes for the list; the first is selected.
+	 * @param string   $field buy, sell or mid: the rate the conversion uses.
+	 * @param float    $amount Starting amount of the currency.
+	 * @param array    $opts   updated (bool), digits ("persian" | "latin" | "").
+	 */
+	public static function converter( array $codes, $field, $amount, array $opts = array() ) {
+		self::use_digits( isset( $opts['digits'] ) ? $opts['digits'] : '' );
+		$field  = self::field( $field );
+		$amount = max( 0, (float) $amount );
+		$rows   = array();
+
+		if ( self::browser_mode() ) {
+			self::$needs_script = true;
+			self::$codes        = array_merge( self::$codes, $codes );
+			foreach ( $codes as $code ) {
+				$rows[] = array( 'code' => $code );
+			}
+		} else {
+			foreach ( $codes as $code ) {
+				$row = Netarz_FX_Client::rate( $code );
+				if ( $row && isset( $row[ $field ] ) ) {
+					$rows[] = array(
+						'code'  => (string) $row['code'],
+						'name'  => self::currency_name( $row ),
+						'unit'  => isset( $row['unit'] ) ? max( 1, (int) $row['unit'] ) : 1,
+						'price' => (float) $row[ $field ],
+					);
+				}
+			}
+			if ( ! $rows ) {
+				$html = self::unavailable( $codes ? $codes[0] : '' );
+				self::use_digits( null );
+				return $html;
+			}
+		}
+
+		self::$needs_converter = true;
+		++self::$converter_count;
+		$id     = 'netarz-fx-convert-' . self::$converter_count;
+		$notes  = array(
+			'buy'  => __( 'Calculated with the buy rate. Rates are for information only.', 'netarz-fx' ),
+			'sell' => __( 'Calculated with the sell rate. Rates are for information only.', 'netarz-fx' ),
+			'mid'  => __( 'Calculated with the average rate. Rates are for information only.', 'netarz-fx' ),
+		);
+		$first  = $rows[0];
+		$toman  = isset( $first['price'] ) ? round( $amount * $first['price'] / $first['unit'] ) : null;
+		$data   = self::browser_mode() ? '' : ' data-netarz-rates="' . esc_attr( wp_json_encode( $rows ) ) . '"';
+
+		$html  = '<div class="netarz-fx netarz-fx-convert" data-netarz-convert="1" data-netarz-field="' . esc_attr( $field ) . '" data-netarz-persian="' . ( self::persian_digits() ? '1' : '0' ) . '"' . self::digits_attr() . $data . '>';
+		$html .= '<div class="netarz-fx-convert-row">';
+		$html .= '<label for="' . esc_attr( $id . '-amount' ) . '">' . esc_html__( 'Amount', 'netarz-fx' ) . '</label>';
+		$html .= '<input type="text" inputmode="decimal" autocomplete="off" dir="ltr" class="netarz-fx-amount" id="' . esc_attr( $id . '-amount' ) . '" value="' . esc_attr( self::number( $amount ) ) . '">';
+		$html .= '<select class="netarz-fx-currency" aria-label="' . esc_attr__( 'Currency', 'netarz-fx' ) . '">';
+		foreach ( $rows as $row ) {
+			$label = isset( $row['name'] ) ? $row['name'] . ' (' . $row['code'] . ')' : $row['code'];
+			$html .= '<option value="' . esc_attr( $row['code'] ) . '">' . esc_html( $label ) . '</option>';
+		}
+		$html .= '</select></div>';
+		$html .= '<div class="netarz-fx-convert-row">';
+		$html .= '<label for="' . esc_attr( $id . '-toman' ) . '">' . esc_html__( 'In Toman', 'netarz-fx' ) . '</label>';
+		$html .= '<input type="text" inputmode="decimal" autocomplete="off" dir="ltr" class="netarz-fx-toman" id="' . esc_attr( $id . '-toman' ) . '" value="' . esc_attr( null === $toman ? '' : self::number( $toman ) ) . '">';
+		$html .= '<span class="netarz-fx-unit">' . esc_html__( 'Toman', 'netarz-fx' ) . '</span>';
+		$html .= '</div>';
+		$html .= '<p class="netarz-fx-convert-note">' . esc_html( $notes[ $field ] ) . '</p>';
+		$html .= ( ! empty( $opts['updated'] ) ? self::updated() : '' ) . self::attribution() . '</div>';
+
+		self::use_digits( null );
+		return $html;
+	}
+
+	/**
 	 * "Updated 14:20 (15-minute delay)": when the rates were taken, from meta.as_of.
 	 * The free plan's rates run a few minutes behind; the line says so.
 	 */
@@ -354,11 +433,23 @@ class Netarz_FX_Render {
 		return ' <span class="netarz-fx-credit"><a href="' . esc_url( self::url( '/rates', 'credit' ) ) . '">' . esc_html__( 'Rates by NetArz', 'netarz-fx' ) . '</a></span>';
 	}
 
-	/** Enqueue the browser-mode script once, only on pages that need it. */
+	/** Enqueue the scripts once, only on pages that need them. */
 	public static function maybe_enqueue() {
-		if ( ! self::$needs_script ) {
-			return;
+		if ( self::$needs_script ) {
+			self::enqueue_browser_mode();
 		}
+		if ( self::$needs_converter ) {
+			wp_enqueue_script(
+				'netarz-fx-convert',
+				NETARZ_FX_URL . 'assets/netarz-fx-convert.js',
+				self::$needs_script ? array( 'netarz-fx' ) : array(),
+				NETARZ_FX_VERSION,
+				true
+			);
+		}
+	}
+
+	private static function enqueue_browser_mode() {
 		wp_enqueue_script( 'netarz-fx', NETARZ_FX_URL . 'assets/netarz-fx.js', array(), NETARZ_FX_VERSION, true );
 		// wp_localize_script() would turn 0 into "0", which is truthy in JavaScript;
 		// wp_json_encode() keeps numbers as numbers.
