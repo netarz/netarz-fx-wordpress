@@ -31,12 +31,14 @@
 		return digits(Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 }), persian);
 	}
 
-	function priceText(row, field, persian) {
+	function unitNote(row, persian) {
+		return row.unit > 1 ? cfg.perUnits.replace('%s', number(row.unit, persian)) : '';
+	}
+
+	function priceText(row, field, persian, withUnit) {
 		var text = cfg.toman.replace('%s', number(row[field], persian));
-		if (row.unit > 1) {
-			text += ' ' + cfg.perUnits.replace('%s', number(row.unit, persian));
-		}
-		return text;
+		var unit = withUnit ? unitNote(row, persian) : '';
+		return unit ? text + ' ' + unit : text;
 	}
 
 	function nameOf(row) {
@@ -111,7 +113,7 @@
 				el.textContent = cfg.unavailable;
 				return;
 			}
-			var text = priceText(row, field, persianFor(el));
+			var text = priceText(row, field, persianFor(el), el.getAttribute('data-netarz-unit') !== '0');
 			if (el.getAttribute('data-netarz-name') === '1') {
 				text = nameOf(row) + ': ' + text;
 			}
@@ -121,7 +123,9 @@
 		document.querySelectorAll('.netarz-fx-name[data-netarz-code]').forEach(function (el) {
 			var row = byCode[el.getAttribute('data-netarz-code')];
 			if (row) {
-				el.textContent = nameOf(row);
+				// Tables print "(per 100 units)" once, beside the name.
+				var unit = unitNote(row, persianFor(el));
+				el.textContent = unit ? nameOf(row) + ' ' + unit : nameOf(row);
 			}
 		});
 

@@ -23,6 +23,11 @@ div.netarz-fx {
 	white-space: nowrap;
 }
 
+.netarz-fx-unit-note {
+	font-size: 0.8em;
+	opacity: 0.75;
+}
+
 .netarz-fx-unavailable {
 	opacity: 0.6;
 }

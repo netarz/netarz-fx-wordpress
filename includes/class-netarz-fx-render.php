@@ -161,15 +161,28 @@ class Netarz_FX_Render {
 		return '<span class="netarz-fx-rate" data-netarz-code="' . esc_attr( $code ) . '">' . esc_html( $text ) . '</span>';
 	}
 
-	public static function price_text( array $row, $field ) {
+	/**
+	 * "102,900 Toman", plus "(per 100 units)" for currencies quoted per 100 or 1,000.
+	 *
+	 * @param array  $row       One rate row from the API.
+	 * @param string $field     buy, sell or mid.
+	 * @param bool   $with_unit False in tables, where the note sits once beside the name.
+	 */
+	public static function price_text( array $row, $field, $with_unit = true ) {
 		/* translators: %s: a price in Iranian Toman, already formatted. */
 		$text = sprintf( __( '%s Toman', 'netarz-fx' ), self::number( $row[ $field ] ) );
+		$unit = $with_unit ? self::unit_note( $row ) : '';
+		return '' === $unit ? $text : $text . ' ' . $unit;
+	}
+
+	/** "(per 100 units)", or "" when the rate is for one unit. */
+	public static function unit_note( array $row ) {
 		$unit = isset( $row['unit'] ) ? (int) $row['unit'] : 1;
-		if ( $unit > 1 ) {
-			/* translators: %s: number of currency units the price is for, e.g. 100. */
-			$text .= ' ' . sprintf( __( '(per %s units)', 'netarz-fx' ), self::number( $unit ) );
+		if ( $unit <= 1 ) {
+			return '';
 		}
-		return $text;
+		/* translators: %s: number of currency units the price is for, e.g. 100. */
+		return sprintf( __( '(per %s units)', 'netarz-fx' ), self::number( $unit ) );
 	}
 
 	/**
@@ -261,7 +274,7 @@ class Netarz_FX_Render {
 				self::$codes[]      = $code;
 				$html              .= '<tr><td><span class="netarz-fx-name" data-netarz-code="' . esc_attr( $code ) . '">' . esc_html( $code ) . '</span></td>';
 				foreach ( $fields as $f ) {
-					$html .= '<td><span class="netarz-fx-rate" data-netarz-code="' . esc_attr( $code ) . '" data-netarz-field="' . esc_attr( $f ) . '" data-netarz-name="0">&hellip;</span></td>';
+					$html .= '<td><span class="netarz-fx-rate" data-netarz-code="' . esc_attr( $code ) . '" data-netarz-field="' . esc_attr( $f ) . '" data-netarz-name="0" data-netarz-unit="0">&hellip;</span></td>';
 				}
 				if ( $change ) {
 					$html .= '<td><span class="netarz-fx-rate netarz-fx-change" data-netarz-code="' . esc_attr( $code ) . '" data-netarz-field="change" dir="ltr">&hellip;</span></td>';
@@ -278,9 +291,11 @@ class Netarz_FX_Render {
 				}
 				continue;
 			}
-			$html .= '<tr><td>' . esc_html( self::currency_name( $row ) ) . '</td>';
+			// The unit note goes beside the name once, not into every price cell, so the table stays narrow.
+			$unit  = self::unit_note( $row );
+			$html .= '<tr><td>' . esc_html( self::currency_name( $row ) ) . ( '' === $unit ? '' : ' <small class="netarz-fx-unit-note">' . esc_html( $unit ) . '</small>' ) . '</td>';
 			foreach ( $fields as $f ) {
-				$html .= '<td>' . esc_html( isset( $row[ $f ] ) ? self::price_text( $row, $f ) : '-' ) . '</td>';
+				$html .= '<td>' . esc_html( isset( $row[ $f ] ) ? self::price_text( $row, $f, false ) : '-' ) . '</td>';
 			}
 			if ( $change ) {
 				$html .= '<td>' . self::change( isset( $row['change_24h_percent'] ) ? $row['change_24h_percent'] : null ) . '</td>';
