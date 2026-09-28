@@ -374,7 +374,7 @@ class Netarz_FX_Render {
 		}
 		$html .= '</select></div>';
 		$html .= '<div class="netarz-fx-convert-row">';
-		$html .= '<label for="' . esc_attr( $id . '-toman' ) . '">' . esc_html__( 'In Toman', 'netarz-fx' ) . '</label>';
+		$html .= '<label for="' . esc_attr( $id . '-toman' ) . '">' . esc_html__( 'Equals', 'netarz-fx' ) . '</label>';
 		$html .= '<input type="text" inputmode="decimal" autocomplete="off" dir="ltr" class="netarz-fx-toman" id="' . esc_attr( $id . '-toman' ) . '" value="' . esc_attr( null === $toman ? '' : self::number( $toman ) ) . '">';
 		$html .= '<span class="netarz-fx-unit">' . esc_html__( 'Toman', 'netarz-fx' ) . '</span>';
 		$html .= '</div>';

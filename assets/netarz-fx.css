@@ -11,6 +11,14 @@
 	text-align: start;
 }
 
+.netarz-fx-table td:not(:first-child) {
+	white-space: nowrap;
+}
+
+div.netarz-fx {
+	overflow-x: auto;
+}
+
 .netarz-fx-rate {
 	white-space: nowrap;
 }
@@ -73,11 +81,16 @@
 	flex: 0 0 6em;
 }
 
-.netarz-fx-convert-row input,
-.netarz-fx-convert-row select {
+.netarz-fx-convert-row input {
 	flex: 1 1 8em;
 	min-width: 0;
 	font-variant-numeric: tabular-nums;
+}
+
+.netarz-fx-convert-row select,
+.netarz-fx-convert-row .netarz-fx-unit {
+	flex: 0 1 11em;
+	min-width: 0;
 }
 
 .netarz-fx-convert-note {
