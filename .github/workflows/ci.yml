@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    name: PHP ${{ matrix.php }} syntax
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: none
+      - name: php -l on every PHP file
+        run: find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
+
+  assets:
+    name: JavaScript, block.json and translations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: node --check on every script
+        run: for f in assets/*.js; do node --check "$f"; done
+      - name: block.json files are valid JSON
+        run: for f in blocks/*/block.json; do node -e "JSON.parse(require('fs').readFileSync('$f', 'utf8'))" && echo "$f ok"; done
+      - name: Persian translation compiles
+        run: |
+          sudo apt-get install -y -qq gettext >/dev/null
+          msgfmt --check --statistics -o /dev/null languages/netarz-fx-fa_IR.po
+
+  package:
+    name: Build the plugin ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build.sh
+        run: ./build.sh dist
+      - name: List the ZIP
+        run: unzip -l dist/netarz-fx-*.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: netarz-fx-zip
+          path: dist/
+          retention-days: 14
+
+  phpcs:
+    name: WordPress Coding Standards (advisory)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer
+      - name: Install WPCS
+        run: |
+          composer global config --no-interaction allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer global require --no-interaction --quiet wp-coding-standards/wpcs:"^3.0" phpcompatibility/phpcompatibility-wp:"*"
+      - name: phpcs
+        run: "$(composer global config bin-dir --absolute --quiet)/phpcs"
