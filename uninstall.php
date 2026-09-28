@@ -12,3 +12,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 delete_option( 'netarz_fx_settings' );
 delete_option( 'netarz_fx_last_board' );
 delete_transient( 'netarz_fx_board' );
+delete_transient( 'netarz_fx_catalogue' );
