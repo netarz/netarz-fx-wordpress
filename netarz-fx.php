@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NetArz FX Rates
  * Plugin URI:        https://github.com/netarz/netarz-fx-wordpress
- * Description:       Show exchange rates in Iranian Toman (USD, EUR, AED, TRY, ...) from the NetArz FX API with a shortcode or a widget. Cached, escaped and translation-ready.
+ * Description:       Show exchange rates in Iranian Toman (USD, EUR, AED, TRY, ...) from the NetArz FX API with shortcodes, blocks, a converter or a widget. Cached, escaped and translation-ready.
  * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
