@@ -85,8 +85,9 @@ WordPress plugin for Iranian Toman exchange rates (USD, EUR, AED, TRY and more) 
 
 ## لینک منبع
 
-به‌طور پیش‌فرض یک لینک کوچک «نرخ از نِت اَرز» به صفحهٔ [نرخ ارز](https://netarz.ir/rates?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=credit) زیر نرخ‌ها نشان داده می‌شود،
-یک بار در هر صفحه. این لینک پنهان نیست و هر وقت خواستید از «تنظیمات ← نرخ ارز نِت اَرز» خاموشش کنید، یا با کد:
+لینک کوچک «نرخ از نِت اَرز» به صفحهٔ [نرخ ارز](https://netarz.ir/rates?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=credit) به‌طور پیش‌فرض **خاموش** است.
+اگر خواستید به خوانندگان بگویید اعداد از کجا می‌آیند، از «تنظیمات ← نرخ ارز نِت اَرز» روشنش کنید؛ یک بار در هر صفحه زیر نرخ‌ها می‌آید.
+با کد هم می‌شود آن را خاموش نگه داشت:
 
 ```php
 add_filter( 'netarz_fx_show_attribution', '__return_false' );
@@ -151,7 +152,7 @@ from the [NetArz FX API](https://netarz.ir/fx-api?utm_source=github&utm_medium=r
 
 - A classic widget with the same table; in block themes use the Shortcode block with `[netarz_rates]`.
 - Settings > NetArz FX: API key, server or browser mode, cache minutes (default 5), Persian/Latin digits,
-  a visible "Rates by NetArz" credit link (on by default, can be turned off, or filtered with `netarz_fx_show_attribution`),
+  an optional "Rates by NetArz" credit link (off by default; turn it on in settings, or filter it with `netarz_fx_show_attribution`),
   and "Connect over IPv4".
 - One API request per cache period for the whole site; the last good board is kept as a fallback.
 - "Test connection" calls `/me` and, when the API refuses the server, prints the exact IP NetArz saw.

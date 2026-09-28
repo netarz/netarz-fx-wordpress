@@ -19,7 +19,7 @@ class Netarz_FX_Settings {
 		'mode'          => 'server',  // server | browser
 		'cache_minutes' => 5,
 		'digits'        => 'auto',    // auto | persian | latin
-		'attribution'   => 1,         // visible «نرخ از نِت اَرز» link; the owner may turn it off
+		'attribution'   => 0,         // «نرخ از نِت اَرز» link: off until the owner turns it on (WordPress.org guideline 10)
 		'force_ipv4'    => 1,
 	);
 
