@@ -151,8 +151,8 @@ class Netarz_FX_Render {
 	}
 
 	/**
-	 * «نرخ از نِت اَرز»: a visible credit link, shown once per page unless the
-	 * site owner turns it off in Settings > NetArz FX (or with the filter).
+	 * «نرخ از نِت اَرز»: a visible credit link, shown once per page only when the
+	 * site owner turns it on in Settings > NetArz FX (or with the filter).
 	 */
 	public static function attribution() {
 		if ( self::$attributed ) {

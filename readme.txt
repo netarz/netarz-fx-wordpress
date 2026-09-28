@@ -31,7 +31,7 @@ What it does for you:
 
 = Credit link =
 
-By default a small "Rates by NetArz" link («نرخ از نِت اَرز») to netarz.ir/rates is shown under the rates, once per page. It is visible, not hidden, and you can turn it off at any time in Settings > NetArz FX, or with the filter `add_filter( 'netarz_fx_show_attribution', '__return_false' );`.
+A small "Rates by NetArz" link («نرخ از نِت اَرز») to netarz.ir/rates can be shown under the rates, once per page. It is off by default: turn it on in Settings > NetArz FX if you want readers to see where the numbers come from. The filter `netarz_fx_show_attribution` overrides the setting, for example `add_filter( 'netarz_fx_show_attribution', '__return_false' );`.
 
 = External service =
 
