@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "netarz-fx/rate",
+	"version": "1.1.0",
+	"title": "NetArz exchange rate",
+	"category": "widgets",
+	"icon": "money-alt",
+	"description": "One exchange rate in Toman from the NetArz FX API, for example the dollar sell rate.",
+	"keywords": [ "currency", "dollar", "toman", "exchange rate" ],
+	"textdomain": "netarz-fx",
+	"attributes": {
+		"currency": { "type": "string", "default": "USD" },
+		"field": { "type": "string", "enum": [ "buy", "sell", "mid" ], "default": "sell" },
+		"showName": { "type": "boolean", "default": false },
+		"digits": { "type": "string", "enum": [ "", "persian", "latin" ], "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true },
+		"color": { "text": true, "background": true }
+	},
+	"editorScript": "netarz-fx-blocks",
+	"style": "netarz-fx"
+}

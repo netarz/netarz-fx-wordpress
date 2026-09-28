@@ -20,7 +20,9 @@ class Netarz_FX_Shortcode {
 		add_shortcode( 'netarz_rate', array( __CLASS__, 'rate' ) );
 		add_shortcode( 'netarz_rates', array( __CLASS__, 'rates' ) );
 		add_shortcode( 'netarz_convert', array( __CLASS__, 'convert' ) );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'styles' ) );
+		// Registered on init, not wp_enqueue_scripts: the blocks name this style in
+		// block.json and the block editor needs it too.
+		add_action( 'init', array( __CLASS__, 'styles' ) );
 		// Priority 1: after all content and widgets have rendered, before footer scripts print.
 		add_action( 'wp_footer', array( 'Netarz_FX_Render', 'maybe_enqueue' ), 1 );
 	}

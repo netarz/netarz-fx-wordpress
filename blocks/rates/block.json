@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "netarz-fx/rates",
+	"version": "1.1.0",
+	"title": "NetArz rates table",
+	"category": "widgets",
+	"icon": "editor-table",
+	"description": "A table of exchange rates in Toman from the NetArz FX API, with buy, sell, average and the change since yesterday.",
+	"keywords": [ "currency", "dollar", "toman", "exchange rate", "table" ],
+	"textdomain": "netarz-fx",
+	"attributes": {
+		"currencies": { "type": "string", "default": "USD,EUR,AED,TRY" },
+		"showBuy": { "type": "boolean", "default": true },
+		"showSell": { "type": "boolean", "default": true },
+		"showMid": { "type": "boolean", "default": false },
+		"showChange": { "type": "boolean", "default": true },
+		"showUpdated": { "type": "boolean", "default": true },
+		"digits": { "type": "string", "enum": [ "", "persian", "latin" ], "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true },
+		"color": { "text": true, "background": true }
+	},
+	"editorScript": "netarz-fx-blocks",
+	"style": "netarz-fx"
+}
