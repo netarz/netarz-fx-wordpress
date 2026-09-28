@@ -139,7 +139,7 @@ class Netarz_FX_Settings {
 						<th scope="row"><?php esc_html_e( 'Credit link', 'netarz-fx' ); ?></th>
 						<td>
 							<label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[attribution]" value="1" <?php checked( (int) $o['attribution'], 1 ); ?>> <?php esc_html_e( 'Show a small "Rates by NetArz" link under the rates (once per page).', 'netarz-fx' ); ?></label>
-							<p class="description"><?php esc_html_e( 'Optional. It tells readers where the numbers come from; turn it off whenever you like.', 'netarz-fx' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Optional, off by default. Turn it on if you want readers to see where the numbers come from.', 'netarz-fx' ); ?></p>
 						</td>
 					</tr>
 					<tr>
