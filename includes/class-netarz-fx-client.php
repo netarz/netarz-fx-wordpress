@@ -17,6 +17,7 @@ class Netarz_FX_Client {
 
 	const TRANSIENT = 'netarz_fx_board';
 	const LAST_GOOD = 'netarz_fx_last_board';
+	const CATALOGUE = 'netarz_fx_catalogue';
 
 	public static function init() {
 		// Keep the source address on IPv4 (optional, on by default) so it matches
@@ -91,6 +92,45 @@ class Netarz_FX_Client {
 	}
 
 	/**
+	 * The board's meta block (as_of, delayed_minutes, plan, ...), or an empty array.
+	 *
+	 * @return array
+	 */
+	public static function meta() {
+		$board = self::board();
+		return is_wp_error( $board ) || ! isset( $board['meta'] ) ? array() : (array) $board['meta'];
+	}
+
+	/**
+	 * True when NetArz serves this currency to Pro apps only (GET /currencies
+	 * flags it `pro_only`). The free plan's board simply leaves such a code
+	 * out, so this is how the plugin tells "Pro only" from "not a currency".
+	 *
+	 * The catalogue has no prices and rarely changes: it is fetched at most
+	 * once a day, and only when a page asks for a code the board lacks.
+	 */
+	public static function is_pro_only( $code ) {
+		$catalogue = get_transient( self::CATALOGUE );
+		if ( ! is_array( $catalogue ) ) {
+			$catalogue = array();
+			$response  = self::request( '/currencies' );
+			if ( ! is_wp_error( $response ) && isset( $response['data'] ) && is_array( $response['data'] ) ) {
+				foreach ( $response['data'] as $row ) {
+					if ( isset( $row['code'] ) ) {
+						$catalogue[ strtoupper( (string) $row['code'] ) ] = ! empty( $row['pro_only'] );
+					}
+				}
+				set_transient( self::CATALOGUE, $catalogue, DAY_IN_SECONDS );
+			} else {
+				// Remember the failure for an hour instead of asking again on every view.
+				set_transient( self::CATALOGUE, $catalogue, HOUR_IN_SECONDS );
+			}
+		}
+		$code = strtoupper( (string) $code );
+		return ! empty( $catalogue[ $code ] );
+	}
+
+	/**
 	 * GET a path on the API. Returns the decoded body or a WP_Error whose data
 	 * carries the API's error object (code, message, and `ip` for IP refusals).
 	 *
@@ -140,5 +180,6 @@ class Netarz_FX_Client {
 
 	public static function flush() {
 		delete_transient( self::TRANSIENT );
+		delete_transient( self::CATALOGUE );
 	}
 }

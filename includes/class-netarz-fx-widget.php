@@ -38,7 +38,14 @@ class Netarz_FX_Widget extends WP_Widget {
 		if ( '' !== (string) $title ) {
 			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme markup.
 		}
-		echo '<div class="netarz-fx">' . Netarz_FX_Render::table( $codes, $fields ) . Netarz_FX_Render::attribution() . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the renderer.
+		echo Netarz_FX_Render::board_html( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the renderer.
+			$codes,
+			$fields,
+			array(
+				'change'  => ! empty( $instance['change'] ),
+				'updated' => ! empty( $instance['updated'] ),
+			)
+		);
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme markup.
 	}
 
@@ -62,6 +69,12 @@ class Netarz_FX_Widget extends WP_Widget {
 				<option value="mid" <?php selected( $instance['field'], 'mid' ); ?>><?php esc_html_e( 'Average', 'netarz-fx' ); ?></option>
 			</select>
 		</p>
+		<p>
+			<input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'change' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'change' ) ); ?>" value="1" <?php checked( ! empty( $instance['change'] ) ); ?>>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'change' ) ); ?>"><?php esc_html_e( 'Show the change since yesterday', 'netarz-fx' ); ?></label><br>
+			<input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'updated' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'updated' ) ); ?>" value="1" <?php checked( ! empty( $instance['updated'] ) ); ?>>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'updated' ) ); ?>"><?php esc_html_e( 'Show when the rates were updated', 'netarz-fx' ); ?></label>
+		</p>
 		<?php
 	}
 
@@ -70,6 +83,8 @@ class Netarz_FX_Widget extends WP_Widget {
 			'title'      => sanitize_text_field( isset( $new_instance['title'] ) ? $new_instance['title'] : '' ),
 			'currencies' => implode( ',', Netarz_FX_Render::codes( isset( $new_instance['currencies'] ) ? $new_instance['currencies'] : '' ) ),
 			'field'      => isset( $new_instance['field'] ) && in_array( $new_instance['field'], array( 'both', 'buy', 'sell', 'mid' ), true ) ? $new_instance['field'] : 'both',
+			'change'     => empty( $new_instance['change'] ) ? 0 : 1,
+			'updated'    => empty( $new_instance['updated'] ) ? 0 : 1,
 		);
 	}
 
@@ -78,6 +93,8 @@ class Netarz_FX_Widget extends WP_Widget {
 			'title'      => __( 'Exchange rates', 'netarz-fx' ),
 			'currencies' => 'USD,EUR,AED,TRY',
 			'field'      => 'both',
+			'change'     => 0,
+			'updated'    => 0,
 		);
 	}
 }

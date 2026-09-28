@@ -1,7 +1,9 @@
 <?php
 /**
- * [netarz_rate currency="usd" field="sell" show_name="0"]
- * [netarz_rates currencies="usd,eur,aed" fields="buy,sell"]
+ * [netarz_rate currency="usd" field="sell" show_name="0" digits=""]
+ * [netarz_rates currencies="usd,eur,aed" fields="buy,sell" change="0" updated="0" digits=""]
+ *
+ * digits: "persian" or "latin" overrides Settings > NetArz FX for one shortcode.
  *
  * @package NetArzFX
  */
@@ -30,6 +32,7 @@ class Netarz_FX_Shortcode {
 				'currency'  => 'usd',
 				'field'     => 'sell',
 				'show_name' => '0',
+				'digits'    => '',
 			),
 			$atts,
 			'netarz_rate'
@@ -42,8 +45,12 @@ class Netarz_FX_Shortcode {
 
 		wp_enqueue_style( 'netarz-fx' );
 
-		return Netarz_FX_Render::inline( $codes[0], $atts['field'], '1' === (string) $atts['show_name'] )
+		Netarz_FX_Render::use_digits( $atts['digits'] );
+		$html = Netarz_FX_Render::inline( $codes[0], $atts['field'], self::yes( $atts['show_name'] ) )
 			. Netarz_FX_Render::attribution();
+		Netarz_FX_Render::use_digits( null );
+
+		return $html;
 	}
 
 	public static function rates( $atts ) {
@@ -51,6 +58,9 @@ class Netarz_FX_Shortcode {
 			array(
 				'currencies' => 'usd,eur,aed,try,gbp',
 				'fields'     => 'buy,sell',
+				'change'     => '0',
+				'updated'    => '0',
+				'digits'     => '',
 			),
 			$atts,
 			'netarz_rates'
@@ -64,6 +74,19 @@ class Netarz_FX_Shortcode {
 		wp_enqueue_style( 'netarz-fx' );
 		$fields = array_map( 'trim', explode( ',', strtolower( (string) $atts['fields'] ) ) );
 
-		return '<div class="netarz-fx">' . Netarz_FX_Render::table( $codes, $fields ) . Netarz_FX_Render::attribution() . '</div>';
+		return Netarz_FX_Render::board_html(
+			$codes,
+			$fields,
+			array(
+				'change'  => self::yes( $atts['change'] ),
+				'updated' => self::yes( $atts['updated'] ),
+				'digits'  => $atts['digits'],
+			)
+		);
+	}
+
+	/** "1", "yes", "true" and "on" all switch a shortcode option on. */
+	public static function yes( $value ) {
+		return in_array( strtolower( trim( (string) $value ) ), array( '1', 'yes', 'true', 'on' ), true );
 	}
 }

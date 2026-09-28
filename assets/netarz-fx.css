@@ -25,3 +25,34 @@
 	font-size: 0.8em;
 	opacity: 0.8;
 }
+
+.netarz-fx-change {
+	white-space: nowrap;
+	unicode-bidi: isolate;
+}
+
+.netarz-fx-up {
+	color: #1a7f37;
+}
+
+.netarz-fx-down {
+	color: #c62828;
+}
+
+.netarz-fx-flat {
+	opacity: 0.7;
+}
+
+.netarz-fx-updated {
+	margin: 0.4em 0 0;
+	font-size: 0.8em;
+	opacity: 0.75;
+}
+
+.netarz-fx-pro-note {
+	display: inline-block;
+	padding: 0.2em 0.5em;
+	border-inline-start: 3px solid #ffc700;
+	background: rgba(255, 199, 0, 0.12);
+	font-size: 0.85em;
+}
