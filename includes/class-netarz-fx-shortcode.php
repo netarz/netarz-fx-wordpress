@@ -3,6 +3,8 @@
  * [netarz_rate currency="usd" field="sell" show_name="0" digits=""]
  * [netarz_rates currencies="usd,eur,aed" fields="buy,sell" change="0" updated="0" digits=""]
  *
+ * [netarz_convert currencies="usd,eur,aed,try" field="sell" amount="1" updated="0" digits=""]
+ *
  * digits: "persian" or "latin" overrides Settings > NetArz FX for one shortcode.
  *
  * @package NetArzFX
@@ -17,6 +19,7 @@ class Netarz_FX_Shortcode {
 	public static function init() {
 		add_shortcode( 'netarz_rate', array( __CLASS__, 'rate' ) );
 		add_shortcode( 'netarz_rates', array( __CLASS__, 'rates' ) );
+		add_shortcode( 'netarz_convert', array( __CLASS__, 'convert' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'styles' ) );
 		// Priority 1: after all content and widgets have rendered, before footer scripts print.
 		add_action( 'wp_footer', array( 'Netarz_FX_Render', 'maybe_enqueue' ), 1 );
@@ -79,6 +82,37 @@ class Netarz_FX_Shortcode {
 			$fields,
 			array(
 				'change'  => self::yes( $atts['change'] ),
+				'updated' => self::yes( $atts['updated'] ),
+				'digits'  => $atts['digits'],
+			)
+		);
+	}
+
+	public static function convert( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'currencies' => 'usd,eur,aed,try',
+				'field'      => 'sell',
+				'amount'     => '1',
+				'updated'    => '0',
+				'digits'     => '',
+			),
+			$atts,
+			'netarz_convert'
+		);
+
+		$codes = Netarz_FX_Render::codes( $atts['currencies'] );
+		if ( ! $codes ) {
+			return '';
+		}
+
+		wp_enqueue_style( 'netarz-fx' );
+
+		return Netarz_FX_Render::converter(
+			$codes,
+			$atts['field'],
+			is_numeric( $atts['amount'] ) ? (float) $atts['amount'] : 1,
+			array(
 				'updated' => self::yes( $atts['updated'] ),
 				'digits'  => $atts['digits'],
 			)

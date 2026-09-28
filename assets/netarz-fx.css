@@ -56,3 +56,32 @@
 	background: rgba(255, 199, 0, 0.12);
 	font-size: 0.85em;
 }
+
+.netarz-fx-convert {
+	max-width: 32em;
+}
+
+.netarz-fx-convert-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.netarz-fx-convert-row label {
+	flex: 0 0 6em;
+}
+
+.netarz-fx-convert-row input,
+.netarz-fx-convert-row select {
+	flex: 1 1 8em;
+	min-width: 0;
+	font-variant-numeric: tabular-nums;
+}
+
+.netarz-fx-convert-note {
+	margin: 0;
+	font-size: 0.8em;
+	opacity: 0.75;
+}
