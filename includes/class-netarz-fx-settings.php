@@ -16,12 +16,12 @@ class Netarz_FX_Settings {
 
 	const DEFAULTS = array(
 		'api_key'       => '',
-		'mode'          => 'server',  // server | browser
+		'mode'          => 'server',  // server | browser.
 		'cache_minutes' => 5,
-		'digits'        => 'auto',    // auto | persian | latin
-		'attribution'   => 0,         // «نرخ از نِت اَرز» link: off until the owner turns it on (WordPress.org guideline 10)
+		'digits'        => 'auto',    // auto | persian | latin.
+		'attribution'   => 0,         // «نرخ از نِت اَرز» link: off until the owner turns it on (WordPress.org guideline 10).
 		'force_ipv4'    => 1,
-		'woo_toman'     => 0,         // WooCommerce: "about X Toman" after foreign-currency prices
+		'woo_toman'     => 0,         // WooCommerce: "about X Toman" after foreign-currency prices.
 		'woo_field'     => 'sell',
 	);
 

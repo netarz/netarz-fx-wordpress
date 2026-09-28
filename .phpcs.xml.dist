@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="NetArz FX">
+	<description>WordPress Coding Standards for the NetArz FX Rates plugin.</description>
+
+	<file>.</file>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/dist/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<!-- PHP 7.4 and newer, WordPress 6.0 and newer. -->
+	<config name="testVersion" value="7.4-"/>
+	<config name="minimum_wp_version" value="6.0"/>
+
+	<rule ref="WordPress">
+		<!-- Class files are named class-netarz-fx-*.php; the plugin uses static classes, not a namespace. -->
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<!-- Doc comments are written where they add something, not on every method. -->
+		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+		<exclude name="Squiz.Commenting.ClassComment.Missing"/>
+		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+		<exclude name="Squiz.Commenting.VariableComment.MissingVar"/>
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+	</rule>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="netarz-fx"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="netarz_fx"/>
+				<element value="Netarz_FX"/>
+				<element value="NETARZ_FX"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
