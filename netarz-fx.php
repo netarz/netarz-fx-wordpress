@@ -33,6 +33,7 @@ require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-settings.php';
 require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-shortcode.php';
 require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-widget.php';
 require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-blocks.php';
+require_once NETARZ_FX_DIR . 'includes/class-netarz-fx-woo.php';
 
 add_action(
 	'init',
@@ -45,6 +46,7 @@ Netarz_FX_Client::init();
 Netarz_FX_Settings::init();
 Netarz_FX_Shortcode::init();
 Netarz_FX_Blocks::init();
+Netarz_FX_Woo::init();
 
 add_action(
 	'widgets_init',
