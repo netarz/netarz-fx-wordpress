@@ -360,27 +360,26 @@ class Netarz_FX_Render {
 			return;
 		}
 		wp_enqueue_script( 'netarz-fx', NETARZ_FX_URL . 'assets/netarz-fx.js', array(), NETARZ_FX_VERSION, true );
-		wp_localize_script(
-			'netarz-fx',
-			'netarzFx',
-			array(
-				'api'            => NETARZ_FX_API,
-				'key'            => (string) Netarz_FX_Settings::get( 'api_key' ),
-				'codes'          => array_values( array_unique( self::$codes ) ),
-				'cacheMs'        => Netarz_FX_Client::cache_seconds() * 1000,
-				'persian'        => self::persian_digits() ? 1 : 0,
-				'nameFa'         => 0 === strpos( determine_locale(), 'fa' ) ? 1 : 0,
-				'tz'             => wp_timezone_string(),
-				/* translators: %s: a price in Iranian Toman, already formatted. */
-				'toman'          => __( '%s Toman', 'netarz-fx' ),
-				/* translators: %s: number of currency units the price is for, e.g. 100. */
-				'perUnits'       => __( '(per %s units)', 'netarz-fx' ),
-				'unavailable'    => __( 'Rate unavailable', 'netarz-fx' ),
-				/* translators: %s: time (and date, if not today) the rates were taken. */
-				'updated'        => __( 'Updated %s', 'netarz-fx' ),
-				/* translators: 1: time (and date, if not today) the rates were taken, 2: minutes of delay. */
-				'updatedDelayed' => __( 'Updated %1$s (%2$s-minute delay)', 'netarz-fx' ),
-			)
+		// wp_localize_script() would turn 0 into "0", which is truthy in JavaScript;
+		// wp_json_encode() keeps numbers as numbers.
+		$config = array(
+			'api'            => NETARZ_FX_API,
+			'key'            => (string) Netarz_FX_Settings::get( 'api_key' ),
+			'codes'          => array_values( array_unique( self::$codes ) ),
+			'cacheMs'        => Netarz_FX_Client::cache_seconds() * 1000,
+			'persian'        => self::persian_digits() ? 1 : 0,
+			'nameFa'         => 0 === strpos( determine_locale(), 'fa' ) ? 1 : 0,
+			'tz'             => wp_timezone_string(),
+			/* translators: %s: a price in Iranian Toman, already formatted. */
+			'toman'          => __( '%s Toman', 'netarz-fx' ),
+			/* translators: %s: number of currency units the price is for, e.g. 100. */
+			'perUnits'       => __( '(per %s units)', 'netarz-fx' ),
+			'unavailable'    => __( 'Rate unavailable', 'netarz-fx' ),
+			/* translators: %s: time (and date, if not today) the rates were taken. */
+			'updated'        => __( 'Updated %s', 'netarz-fx' ),
+			/* translators: 1: time (and date, if not today) the rates were taken, 2: minutes of delay. */
+			'updatedDelayed' => __( 'Updated %1$s (%2$s-minute delay)', 'netarz-fx' ),
 		);
+		wp_add_inline_script( 'netarz-fx', 'var netarzFx = ' . wp_json_encode( $config ) . ';', 'before' );
 	}
 }
