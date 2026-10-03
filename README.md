@@ -162,6 +162,7 @@ add_filter( 'netarz_fx_show_attribution', '__return_false' );
 |---|---|
 | [fx-api-examples](https://github.com/netarz/fx-api-examples) | نمونه‌کد همین API برای PHP، JavaScript، Python، Laravel، Google Sheets و Excel، و [راهنمای قفل دامنه و IP](https://github.com/netarz/fx-api-examples/blob/main/guides/domain-and-ip-allow-list.md) |
 | [ai-api-examples](https://github.com/netarz/ai-api-examples) | نمونه‌کد وب‌سرویس هوش مصنوعی: GPT، Claude، Gemini و DeepSeek با یک کلید سازگار با OpenAI |
+| [gisoo](https://github.com/netarz/gisoo) | **گیسو**، برند هوش مصنوعی نِت اَرز: اپ فارسی برای گفت‌وگو با بیش از ۴۰۰ مدل، ساخت تصویر، ویدیو، موسیقی و صدا، کارشناس‌های هوش مصنوعی و گفت‌وگوی صوتی، و وب‌سرویس سازگار با OpenAI و Anthropic (Claude Code) ([gisoo.pro](https://gisoo.pro/?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=related)) |
 | [netarz](https://github.com/netarz/netarz) | معرفی همهٔ وب‌سرویس‌ها و مخزن‌های نِت اَرز |
 
 همهٔ پروژه‌های متن‌باز ما یک‌جا: [netarz.ir/open-source](https://netarz.ir/open-source?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=related) · همهٔ مستندات فنی: [netarz.ir/docs](https://netarz.ir/docs?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=related)
@@ -216,7 +217,7 @@ paste the key in Settings > NetArz FX and click "Test connection".
 
 Links: [FX API docs](https://netarz.ir/docs/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english) · [Plans and limits](https://netarz.ir/docs/fx/plans?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english) ·
 [All NetArz open-source projects](https://netarz.ir/open-source?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english) · Related: [fx-api-examples](https://github.com/netarz/fx-api-examples) ·
-[ai-api-examples](https://github.com/netarz/ai-api-examples)
+[ai-api-examples](https://github.com/netarz/ai-api-examples) · [gisoo](https://github.com/netarz/gisoo) (Gisoo, our Persian AI app and API, [gisoo.pro](https://gisoo.pro/?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english))
 
 Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). CI lints every change on PHP 7.4 to 8.4 and
 `./build.sh` builds the plugin ZIP; changes per version are in [CHANGELOG.md](CHANGELOG.md). Report security issues privately to `dev@netarz.ir`
