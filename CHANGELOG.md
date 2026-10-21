@@ -6,6 +6,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [2.0.3] - 2026-10-21
+
+### Changed
+
+- Readme: NetArz's keyless public board (`/api/markets/v1/public/board`) is now open, so the "coming soon" and
+  "a key is needed for now" wording is gone; a key is optional and only adds other symbols and charts.
+
 ## [2.0.2] - 2026-10-21
 
 ### Changed
