@@ -50,7 +50,14 @@ class Netarz_FX_Render {
 		);
 	}
 
+	/**
+	 * The field to show: buy, sell or mid. Without a key the keyless board has one (average) rate
+	 * per currency, so every field reads as "mid" and is labelled so.
+	 */
 	public static function field( $field ) {
+		if ( Netarz_FX_Client::connected() && ! Netarz_FX_Client::has_key() ) {
+			return 'mid';
+		}
 		$field = strtolower( (string) $field );
 		return in_array( $field, self::FIELDS, true ) ? $field : 'sell';
 	}
@@ -255,6 +262,9 @@ class Netarz_FX_Render {
 		$fields = array_values( array_intersect( (array) $fields, self::FIELDS ) );
 		if ( ! $fields ) {
 			$fields = array( 'buy', 'sell' );
+		}
+		if ( Netarz_FX_Client::connected() && ! Netarz_FX_Client::has_key() ) {
+			$fields = array( 'mid' );
 		}
 		$change = ! empty( $opts['change'] );
 		$labels = array(
