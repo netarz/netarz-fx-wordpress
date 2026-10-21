@@ -4,7 +4,7 @@ Tags: exchange rate, currency, gold price, toman, woocommerce
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,12 @@ No. Naming the source of the numbers is a condition of the data licence. It is p
 
 == Changelog ==
 
+= 2.0.1 =
+* Matched to the live NetArz markets API: history points, `unit_amount`, bid and ask.
+* Keyless mode also reads a board made of tabs (the box payload).
+* Without a key, currencies show the average rate, and tables say so in their one column, because the keyless board has no separate buy and sell rates.
+* The chart block describes what it charts: the gold ounce, the silver ounce and 18k gold.
+
 = 2.0.0 =
 * New name: NetArz Currency & Gold Rates (the slug stays `netarz-fx`).
 * New: gold and coins. `[netarz_gold]`, `[netarz_coins]`, `[netarz_metals]` and `[netarz_market symbols="..."]`, plus the "NetArz gold and coins" block: the global gold and silver ounce, and a computed value of 18k gold, the mesghal and five Iranian gold coins, always labelled as computed and not the Tehran market price.
@@ -137,6 +143,9 @@ No. Naming the source of the numbers is a condition of the data licence. It is p
 * First release.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Matches the live NetArz markets API. Update if you use gold, coins or charts.
 
 = 2.0.0 =
 Gold, coins, silver and charts. The plugin now asks before it contacts NetArz; sites with a saved key stay connected.

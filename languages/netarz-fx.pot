@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: NetArz Currency & Gold Rates 2.0.0\n"
+"Project-Id-Version: NetArz Currency & Gold Rates 2.0.1\n"
 "Report-Msgid-Bugs-To: https://github.com/netarz/netarz-fx-wordpress/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,8 +48,8 @@ msgid "Settings"
 msgstr ""
 
 #: includes/class-netarz-fx-blocks.php:71
-#: includes/class-netarz-fx-render.php:266
-#: includes/class-netarz-fx-render.php:395
+#: includes/class-netarz-fx-render.php:276
+#: includes/class-netarz-fx-render.php:405
 msgid "Currency"
 msgstr ""
 
@@ -69,21 +69,21 @@ msgid "Rate"
 msgstr ""
 
 #: includes/class-netarz-fx-blocks.php:75
-#: includes/class-netarz-fx-render.php:261
+#: includes/class-netarz-fx-render.php:271
 #: includes/class-netarz-fx-settings.php:217
 #: includes/class-netarz-fx-widget.php:69
 msgid "Buy"
 msgstr ""
 
 #: includes/class-netarz-fx-blocks.php:76
-#: includes/class-netarz-fx-render.php:262
+#: includes/class-netarz-fx-render.php:272
 #: includes/class-netarz-fx-settings.php:216
 #: includes/class-netarz-fx-widget.php:68
 msgid "Sell"
 msgstr ""
 
 #: includes/class-netarz-fx-blocks.php:77
-#: includes/class-netarz-fx-render.php:263
+#: includes/class-netarz-fx-render.php:273
 #: includes/class-netarz-fx-settings.php:218
 #: includes/class-netarz-fx-widget.php:70
 msgid "Average"
@@ -208,8 +208,8 @@ msgstr ""
 
 #. translators: %s: a price in Iranian Toman, already formatted.
 #: includes/class-netarz-fx-market-render.php:63
-#: includes/class-netarz-fx-render.php:177
-#: includes/class-netarz-fx-render.php:490
+#: includes/class-netarz-fx-render.php:184
+#: includes/class-netarz-fx-render.php:500
 #, php-format
 msgid "%s Toman"
 msgstr ""
@@ -246,16 +246,16 @@ msgstr ""
 
 #. translators: 1: time (and date, if not today) the rates were taken, 2: minutes of delay.
 #: includes/class-netarz-fx-market-render.php:152
-#: includes/class-netarz-fx-render.php:435
-#: includes/class-netarz-fx-render.php:497
+#: includes/class-netarz-fx-render.php:445
+#: includes/class-netarz-fx-render.php:507
 #, php-format
 msgid "Updated %1$s (%2$s-minute delay)"
 msgstr ""
 
 #. translators: %s: time (and date, if not today) the rates were taken.
 #: includes/class-netarz-fx-market-render.php:155
-#: includes/class-netarz-fx-render.php:438
-#: includes/class-netarz-fx-render.php:495
+#: includes/class-netarz-fx-render.php:448
+#: includes/class-netarz-fx-render.php:505
 #, php-format
 msgid "Updated %s"
 msgstr ""
@@ -282,7 +282,7 @@ msgid "Price"
 msgstr ""
 
 #: includes/class-netarz-fx-market-render.php:215
-#: includes/class-netarz-fx-render.php:271
+#: includes/class-netarz-fx-render.php:281
 msgid "Since yesterday"
 msgstr ""
 
@@ -391,52 +391,52 @@ msgid "Charts need a NetArz FX API key and server mode."
 msgstr ""
 
 #. translators: %s: number of currency units the price is for, e.g. 100.
-#: includes/class-netarz-fx-render.php:189
-#: includes/class-netarz-fx-render.php:492
+#: includes/class-netarz-fx-render.php:196
+#: includes/class-netarz-fx-render.php:502
 #, php-format
 msgid "(per %s units)"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:221
-#: includes/class-netarz-fx-render.php:493
+#: includes/class-netarz-fx-render.php:228
+#: includes/class-netarz-fx-render.php:503
 msgid "Rate unavailable"
 msgstr ""
 
 #. translators: %s: a currency code, e.g. UZS.
-#: includes/class-netarz-fx-render.php:240
+#: includes/class-netarz-fx-render.php:247
 #, php-format
 msgid "%s is available on the Pro plan of the NetArz FX API; the free plan does not include it. Only administrators see this note."
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:244
+#: includes/class-netarz-fx-render.php:251
 msgid "Compare plans"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:383
+#: includes/class-netarz-fx-render.php:393
 msgid "Calculated with the buy rate. Rates are for information only."
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:384
+#: includes/class-netarz-fx-render.php:394
 msgid "Calculated with the sell rate. Rates are for information only."
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:385
+#: includes/class-netarz-fx-render.php:395
 msgid "Calculated with the average rate. Rates are for information only."
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:393
+#: includes/class-netarz-fx-render.php:403
 msgid "Amount"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:402
+#: includes/class-netarz-fx-render.php:412
 msgid "Equals"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:404
+#: includes/class-netarz-fx-render.php:414
 msgid "Toman"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:458
+#: includes/class-netarz-fx-render.php:468
 msgid "Rates by NetArz"
 msgstr ""
 
@@ -632,7 +632,7 @@ msgstr ""
 
 #: blocks/chart/block.json
 msgctxt "block description"
-msgid "A line chart of the gold ounce, silver ounce, 18k gold or a currency over a period, drawn on your server as SVG. Needs a free NetArz FX API key."
+msgid "A line chart of the gold ounce, the silver ounce or 18k gold over a period, drawn on your server as SVG. Needs a free NetArz FX API key."
 msgstr ""
 
 #: blocks/chart/block.json

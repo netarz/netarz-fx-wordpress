@@ -6,6 +6,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-10-21
+
+### Fixed
+
+- Matched to the live markets API (package D): `history/{symbol}` returns `data.points` with OHLC and the instrument
+  fields; rows carry `unit_amount`, `bid` and `ask`. The client reads these.
+- Keyless mode also accepts a tab-shaped board (`tabs[].rows[]`, the box payload), so the public board can reuse it.
+- Without a key the board has one (average) rate per currency: `field` resolves to `mid` and currency tables show one
+  "Average" column instead of buy and sell columns holding the same number.
+- The chart block no longer says it charts currencies (the markets API sends currency history to `/api/fx/v1/history`).
+
 ## [2.0.0] - 2026-10-21
 
 ### Added
@@ -82,7 +93,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   browser modes, "Test connection" with the IP NetArz saw, cache with a last-good fallback, and the
   Persian translation.
 
-[Unreleased]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/netarz/netarz-fx-wordpress/releases/tag/v1.0.0

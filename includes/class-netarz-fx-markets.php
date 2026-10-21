@@ -198,6 +198,9 @@ class Netarz_FX_Markets {
 	 * @return array
 	 */
 	public static function normalise( array $body ) {
+		if ( ! isset( $body['data'] ) && isset( $body['tabs'] ) && is_array( $body['tabs'] ) ) {
+			$body = self::from_tabs( $body['tabs'] );
+		}
 		$meta    = isset( $body['meta'] ) && is_array( $body['meta'] ) ? $body['meta'] : array();
 		$sources = array();
 		if ( isset( $meta['sources'] ) && is_array( $meta['sources'] ) ) {
@@ -224,6 +227,78 @@ class Netarz_FX_Markets {
 			'meta'       => $meta,
 			'sources'    => $sources,
 			'stale_copy' => false,
+		);
+	}
+
+	/**
+	 * A payload made of tabs (fx, gold, coin), each with rows of symbol, name,
+	 * price, change and decimals, turned into the data/meta shape. The class,
+	 * quote currency and source follow from the symbol.
+	 *
+	 * @param array $tabs Tabs from the payload.
+	 * @return array
+	 */
+	private static function from_tabs( array $tabs ) {
+		$rows  = array();
+		$meta  = array(
+			'delayed_minutes' => 0,
+			'stale'           => false,
+		);
+		$times = array();
+		foreach ( $tabs as $tab ) {
+			if ( ! is_array( $tab ) || ! isset( $tab['rows'] ) || ! is_array( $tab['rows'] ) ) {
+				continue;
+			}
+			if ( ! empty( $tab['as_of'] ) ) {
+				$times[] = (string) $tab['as_of'];
+			}
+			if ( ! empty( $tab['stale'] ) ) {
+				$meta['stale'] = true;
+			}
+			if ( ! empty( $tab['delayed_minutes'] ) ) {
+				$meta['delayed_minutes'] = max( $meta['delayed_minutes'], (int) $tab['delayed_minutes'] );
+			}
+			foreach ( $tab['rows'] as $row ) {
+				if ( ! is_array( $row ) || empty( $row['symbol'] ) ) {
+					continue;
+				}
+				$symbol = strtoupper( (string) $row['symbol'] );
+				if ( in_array( $symbol, array( 'XAU', 'XAG' ), true ) ) {
+					$class  = 'metal';
+					$quote  = 'USD';
+					$source = 'goldapi';
+				} elseif ( 0 === strpos( $symbol, 'COIN_' ) ) {
+					$class  = 'coin_ir';
+					$quote  = 'IRT';
+					$source = 'computed';
+				} elseif ( in_array( $symbol, array( 'GOLD18', 'MESGHAL' ), true ) || 0 === strpos( $symbol, 'GOLD' ) ) {
+					$class  = 'gold_ir';
+					$quote  = 'IRT';
+					$source = 'computed';
+				} else {
+					$class  = 'fiat';
+					$quote  = 'IRT';
+					$source = 'netarz';
+				}
+				$rows[] = array_merge(
+					$row,
+					array(
+						'asset_class'    => $class,
+						'quote_currency' => $quote,
+						'source'         => $source,
+						'name_fa'        => isset( $row['name'] ) ? $row['name'] : $symbol,
+						'change_pct_24h' => isset( $row['change'] ) ? $row['change'] : null,
+					)
+				);
+			}
+		}
+		if ( $times ) {
+			sort( $times );
+			$meta['as_of'] = $times[0];
+		}
+		return array(
+			'data' => $rows,
+			'meta' => $meta,
 		);
 	}
 
@@ -310,9 +385,9 @@ class Netarz_FX_Markets {
 			'symbol'      => $symbol,
 			'class'       => $class,
 			'name'        => (string) self::pick( $raw, array( 'name_fa', 'name' ), $symbol ),
-			'name_en'     => (string) self::pick( $raw, array( 'name_en' ), $symbol ),
+			'name_en'     => (string) self::pick( $raw, array( 'name_en' ), self::pick( $raw, array( 'name_fa', 'name' ), $symbol ) ),
 			'unit'        => is_numeric( self::pick( $raw, array( 'unit' ), '' ) ) ? '' : (string) self::pick( $raw, array( 'unit' ), '' ),
-			'per'         => is_numeric( self::pick( $raw, array( 'unit' ), '' ) ) ? max( 1, (int) $raw['unit'] ) : 1,
+			'per'         => max( 1, (int) self::pick( $raw, array( 'unit_amount' ), is_numeric( self::pick( $raw, array( 'unit' ), '' ) ) ? $raw['unit'] : 1 ) ),
 			'quote'       => strtoupper( (string) self::pick( $raw, array( 'quote_currency', 'quote' ), 'IRT' ) ),
 			'decimals'    => self::number_or_null( self::pick( $raw, array( 'decimals' ), null ) ),
 			'price'       => self::number_or_null( self::pick( $raw, array( 'price', 'value', 'mid', 'sell', 'close' ), null ) ),

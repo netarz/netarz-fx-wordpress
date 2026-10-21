@@ -8,7 +8,7 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 [![CI](https://github.com/netarz/netarz-fx-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/netarz/netarz-fx-wordpress/actions/workflows/ci.yml)
 [![License: GPL v2+](https://img.shields.io/badge/license-GPL--2.0--or--later-ffc700?style=flat-square&labelColor=14161f)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-ffc700?style=flat-square&labelColor=14161f)](https://github.com/netarz/netarz-fx-wordpress/releases)
+[![Version](https://img.shields.io/badge/version-2.0.1-ffc700?style=flat-square&labelColor=14161f)](https://github.com/netarz/netarz-fx-wordpress/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-ffc700?style=flat-square&labelColor=14161f&logo=wordpress&logoColor=white)](readme.txt)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-ffc700?style=flat-square&labelColor=14161f&logo=php&logoColor=white)](netarz-fx.php)
 [![Docs](https://img.shields.io/badge/docs-netarz.ir%2Fdocs%2Ffx-ffc700?style=flat-square&labelColor=14161f)](https://netarz.ir/docs/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=header)
@@ -70,7 +70,7 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 ## نصب در چهار قدم
 
-1. فایل `netarz-fx-2.0.0.zip` را از [صفحهٔ نسخه‌ها (Releases)](https://github.com/netarz/netarz-fx-wordpress/releases/latest) دانلود کنید و از
+1. فایل `netarz-fx-2.0.1.zip` را از [صفحهٔ نسخه‌ها (Releases)](https://github.com/netarz/netarz-fx-wordpress/releases/latest) دانلود کنید و از
    «افزونه‌ها ← افزودن ← بارگذاری افزونه» نصب و فعال کنید. دکمهٔ سبز «Code ← Download ZIP» هم کار می‌کند، ولی پوشهٔ افزونه
    نام دیگری می‌گیرد؛ فایل Releases پوشهٔ درست `netarz-fx` را دارد.
 2. در وردپرس به «تنظیمات ← نرخ ارز نِت اَرز» بروید (در وردپرس انگلیسی: Settings ← NetArz FX)، گزینهٔ «اجازهٔ دریافت نرخ از
@@ -256,7 +256,7 @@ from the [NetArz FX API](https://netarz.ir/fx-api?utm_source=github&utm_medium=r
 - Server mode sends no Origin/Referer: calls are matched by the server's IP. Browser mode relies on the domain lock.
 - Translation-ready (`netarz-fx`), Persian translation included; all output escaped; `uninstall.php` removes its options.
 
-**Install:** download `netarz-fx-2.0.0.zip` from [Releases](https://github.com/netarz/netarz-fx-wordpress/releases/latest),
+**Install:** download `netarz-fx-2.0.1.zip` from [Releases](https://github.com/netarz/netarz-fx-wordpress/releases/latest),
 upload it under Plugins > Add New > Upload Plugin, turn on the connection in Settings > NetArz FX; for charts and any
 symbol of your plan, create an app and key at [netarz.ir/fx](https://netarz.ir/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english), verify the domain,
 paste the key in Settings > NetArz FX and click "Test connection".

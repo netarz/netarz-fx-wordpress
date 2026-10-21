@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "netarz-fx/chart",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"title": "NetArz price chart",
 	"category": "widgets",
 	"icon": "chart-line",
-	"description": "A line chart of the gold ounce, silver ounce, 18k gold or a currency over a period, drawn on your server as SVG. Needs a free NetArz FX API key.",
+	"description": "A line chart of the gold ounce, the silver ounce or 18k gold over a period, drawn on your server as SVG. Needs a free NetArz FX API key.",
 	"keywords": [ "chart", "gold", "history", "price", "graph" ],
 	"textdomain": "netarz-fx",
 	"attributes": {
