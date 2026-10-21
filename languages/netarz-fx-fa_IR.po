@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NetArz Currency & Gold Rates 2.0.1\n"
+"Project-Id-Version: NetArz Currency & Gold Rates 2.0.2\n"
 "Report-Msgid-Bugs-To: https://github.com/netarz/netarz-fx-wordpress/issues\n"
 "POT-Creation-Date: 2026-10-21 12:00+0330\n"
 "PO-Revision-Date: 2026-10-21 12:30+0330\n"
@@ -126,7 +126,7 @@ msgstr "ارقام فارسی"
 #: includes/class-netarz-fx-blocks.php:85
 #: includes/class-netarz-fx-settings.php:194
 msgid "Latin digits"
-msgstr "ارقام لاتین"
+msgstr "ارقام انگلیسی"
 
 #: includes/class-netarz-fx-blocks.php:86
 msgid "Rates load in the visitor's browser (browser mode), so this preview shows placeholders. The published page shows the numbers."
@@ -142,11 +142,11 @@ msgstr "نمودار به کلید رایگان API نرخ ارز نِت اَر�
 
 #: includes/class-netarz-fx-blocks.php:89
 msgid "Symbols (comma-separated)"
-msgstr "نمادها (با ویرگول جدا کنید)"
+msgstr "نمادها (با کامای انگلیسی جدا کنید)"
 
 #: includes/class-netarz-fx-blocks.php:90
 msgid "For example XAU, XAG, GOLD18, MESGHAL, COIN_EMAMI, COIN_BAHAR, COIN_HALF, COIN_QUARTER, COIN_GERAMI, USD."
-msgstr "مثلاً XAU، XAG، GOLD18، MESGHAL، COIN_EMAMI، COIN_BAHAR، COIN_HALF، COIN_QUARTER، COIN_GERAMI یا USD."
+msgstr "مثلاً XAU,XAG,GOLD18,MESGHAL,COIN_EMAMI,COIN_BAHAR,COIN_HALF,COIN_QUARTER,COIN_GERAMI,USD."
 
 #: includes/class-netarz-fx-blocks.php:91
 msgid "Symbol"
@@ -271,7 +271,7 @@ msgstr "وقتی اتصال را در «تنظیمات ← نرخ ارز نِت 
 #: includes/class-netarz-fx-market-render.php:204
 #: includes/class-netarz-fx-market-render.php:241
 msgid "Rates unavailable"
-msgstr "نرخ‌ها در دسترس نیست"
+msgstr "نرخ‌ها الان در دسترس نیستند"
 
 #: includes/class-netarz-fx-market-render.php:213
 msgid "Item"
@@ -279,7 +279,7 @@ msgstr "نام"
 
 #: includes/class-netarz-fx-market-render.php:213
 msgid "Price"
-msgstr "قیمت"
+msgstr "قیمت / ارزش"
 
 #: includes/class-netarz-fx-market-render.php:215
 #: includes/class-netarz-fx-render.php:281
@@ -313,7 +313,7 @@ msgstr "نِت اَرز هنوز برای %s در این بازه تاریخچه
 #: includes/class-netarz-fx-market-render.php:378
 #, php-format
 msgid "Price chart of %1$s, %2$s"
-msgstr "نمودار قیمت %1$s، %2$s"
+msgstr "نمودار %1$s، %2$s"
 
 #. translators: 1: lowest price in the period, 2: highest price in the period.
 #: includes/class-netarz-fx-market-render.php:391
@@ -484,7 +484,7 @@ msgstr "کلید API"
 #: includes/class-netarz-fx-settings.php:167
 #, php-format
 msgid "Optional. Without a key the plugin reads the keyless public board: a fixed set of currencies, gold and coins, a few minutes behind. With a free key you choose any currency or symbol of your plan and can draw charts. Create an app for this site's domain and copy its key from %s, then verify the domain in the same panel."
-msgstr "اختیاری است. بدون کلید، افزونه تابلوی عمومی را می‌خواند: مجموعهٔ ثابتی از ارز، طلا و سکه با چند دقیقه تأخیر. با کلید رایگان هر ارز یا نمادی را که طرح شما دارد انتخاب می‌کنید و نمودار هم می‌کشید. در %s برای دامنهٔ این سایت اپ بسازید، کلیدش را کپی کنید و دامنه را در همان پنل تأیید کنید."
+msgstr "اختیاری است. بدون کلید، افزونه تابلوی عمومی را می‌خواند: مجموعهٔ ثابتی از ارز و طلا. با کلید رایگان هر ارز یا نمادی را که طرح شما دارد انتخاب می‌کنید و نمودار هم می‌کشید. در %s برای دامنهٔ این سایت اپ بسازید، کلیدش را کپی کنید و دامنه را در همان پنل تأیید کنید."
 
 #: includes/class-netarz-fx-settings.php:175
 msgid "Where rates are fetched"
@@ -565,7 +565,7 @@ msgstr "طلای ۱۸ عیار، مثقال و سکه ارزش محاسبه‌ا
 
 #: includes/class-netarz-fx-settings.php:240
 msgid "In the block editor, search for \"NetArz\" to add the exchange rate, rates table, converter, gold and coins, or chart block."
-msgstr "در ویرایشگر بلوک «نِت اَرز» را جستجو کنید تا بلوک نرخ ارز، جدول نرخ، مبدل، طلا و سکه یا نمودار را اضافه کنید."
+msgstr "در ویرایشگر بلوک «نِت اَرز» را جست‌وجو کنید تا بلوک نرخ ارز، جدول نرخ، مبدل، طلا و سکه یا نمودار را اضافه کنید."
 
 #. translators: %s: link to the NetArz FX documentation.
 #: includes/class-netarz-fx-settings.php:245
@@ -628,7 +628,7 @@ msgstr "حدود %s تومان"
 #: blocks/chart/block.json
 msgctxt "block title"
 msgid "NetArz price chart"
-msgstr "نمودار قیمت نِت اَرز"
+msgstr "نمودار انس و طلای نِت اَرز"
 
 #: blocks/chart/block.json
 msgctxt "block description"
@@ -698,7 +698,7 @@ msgstr "ماشین‌حساب"
 #: blocks/market/block.json
 msgctxt "block title"
 msgid "NetArz gold and coins"
-msgstr "طلا و سکهٔ نِت اَرز"
+msgstr "طلا و سکه از نِت اَرز"
 
 #: blocks/market/block.json
 msgctxt "block description"
