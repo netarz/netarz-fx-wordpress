@@ -2,23 +2,23 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: NetArz FX Rates 1.1.0\n"
+"Project-Id-Version: NetArz Currency & Gold Rates 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/netarz/netarz-fx-wordpress/issues\n"
-"Last-Translator: NetArz <dev@netarz.ir>\n"
-"Language-Team: NetArz <dev@netarz.ir>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-28 12:00+0330\n"
+"POT-Creation-Date: 2026-10-21 12:00+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: netarz-fx\n"
 
 #. Plugin Name of the plugin
 #: netarz-fx.php
-#: includes/class-netarz-fx-settings.php:43
-#: includes/class-netarz-fx-settings.php:92
-msgid "NetArz FX Rates"
+#: includes/class-netarz-fx-settings.php:85
+#: includes/class-netarz-fx-settings.php:135
+msgid "NetArz Currency & Gold Rates"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -28,11 +28,12 @@ msgstr ""
 
 #. Description of the plugin
 #: netarz-fx.php
-msgid "Show exchange rates in Iranian Toman (USD, EUR, AED, TRY, ...) from the NetArz FX API with shortcodes, blocks, a converter or a widget. Cached, escaped and translation-ready."
+msgid "Exchange rates in Iranian Toman, the global gold and silver price and a clearly labelled computed value of 18k gold and Iranian gold coins, from NetArz. Shortcodes, blocks, charts and widgets. Nothing is fetched until you turn the connection on."
 msgstr ""
 
 #. Author of the plugin
 #: netarz-fx.php
+#: includes/class-netarz-fx-market-render.php:30
 msgid "NetArz"
 msgstr ""
 
@@ -41,289 +42,559 @@ msgstr ""
 msgid "https://netarz.ir/fx-api"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:66
-#: netarz-fx.php:62
+#: includes/class-netarz-fx-blocks.php:70
+#: netarz-fx.php:69
 msgid "Settings"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:67
-#: includes/class-netarz-fx-render.php:262
-#: includes/class-netarz-fx-render.php:385
+#: includes/class-netarz-fx-blocks.php:71
+#: includes/class-netarz-fx-render.php:266
+#: includes/class-netarz-fx-render.php:395
 msgid "Currency"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:68
+#: includes/class-netarz-fx-blocks.php:72
+#: includes/class-netarz-fx-market-widget.php:86
 #: includes/class-netarz-fx-widget.php:61
 msgid "Currencies (comma-separated codes)"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:69
+#: includes/class-netarz-fx-blocks.php:73
 msgid "Three-letter codes, for example USD,EUR,AED,TRY."
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:70
-#: includes/class-netarz-fx-settings.php:155
+#: includes/class-netarz-fx-blocks.php:74
+#: includes/class-netarz-fx-settings.php:215
 msgid "Rate"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:71
-#: includes/class-netarz-fx-render.php:257
-#: includes/class-netarz-fx-settings.php:157
+#: includes/class-netarz-fx-blocks.php:75
+#: includes/class-netarz-fx-render.php:261
+#: includes/class-netarz-fx-settings.php:217
 #: includes/class-netarz-fx-widget.php:69
 msgid "Buy"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:72
-#: includes/class-netarz-fx-render.php:258
-#: includes/class-netarz-fx-settings.php:156
+#: includes/class-netarz-fx-blocks.php:76
+#: includes/class-netarz-fx-render.php:262
+#: includes/class-netarz-fx-settings.php:216
 #: includes/class-netarz-fx-widget.php:68
 msgid "Sell"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:73
-#: includes/class-netarz-fx-render.php:259
-#: includes/class-netarz-fx-settings.php:158
+#: includes/class-netarz-fx-blocks.php:77
+#: includes/class-netarz-fx-render.php:263
+#: includes/class-netarz-fx-settings.php:218
 #: includes/class-netarz-fx-widget.php:70
 msgid "Average"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:74
+#: includes/class-netarz-fx-blocks.php:78
 msgid "Show the currency name"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:75
+#: includes/class-netarz-fx-blocks.php:79
+#: includes/class-netarz-fx-market-widget.php:77
 #: includes/class-netarz-fx-widget.php:75
 msgid "Show the change since yesterday"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:76
+#: includes/class-netarz-fx-blocks.php:80
+#: includes/class-netarz-fx-market-widget.php:78
 #: includes/class-netarz-fx-widget.php:77
 msgid "Show when the rates were updated"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:77
+#: includes/class-netarz-fx-blocks.php:81
 msgid "Starting amount"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:78
-#: includes/class-netarz-fx-settings.php:129
+#: includes/class-netarz-fx-blocks.php:82
+#: includes/class-netarz-fx-settings.php:189
 msgid "Digits"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:79
+#: includes/class-netarz-fx-blocks.php:83
 msgid "As in the plugin settings"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:80
-#: includes/class-netarz-fx-settings.php:133
+#: includes/class-netarz-fx-blocks.php:84
+#: includes/class-netarz-fx-settings.php:193
 msgid "Persian digits"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:81
-#: includes/class-netarz-fx-settings.php:134
+#: includes/class-netarz-fx-blocks.php:85
+#: includes/class-netarz-fx-settings.php:194
 msgid "Latin digits"
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:82
+#: includes/class-netarz-fx-blocks.php:86
 msgid "Rates load in the visitor's browser (browser mode), so this preview shows placeholders. The published page shows the numbers."
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:83
-msgid "Add your NetArz FX API key in Settings > NetArz FX to see rates."
+#: includes/class-netarz-fx-blocks.php:87
+msgid "Rates appear once you turn on the connection to NetArz in Settings > NetArz FX."
 msgstr ""
 
-#: includes/class-netarz-fx-blocks.php:84
+#: includes/class-netarz-fx-blocks.php:88
+msgid "Charts need a free NetArz FX API key and server mode (Settings > NetArz FX)."
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:89
+msgid "Symbols (comma-separated)"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:90
+msgid "For example XAU, XAG, GOLD18, MESGHAL, COIN_EMAMI, COIN_BAHAR, COIN_HALF, COIN_QUARTER, COIN_GERAMI, USD."
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:91
+msgid "Symbol"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:92
+msgid "For example XAU (gold ounce), XAG (silver ounce) or GOLD18."
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:93
+msgid "Period"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:95
+msgid "Height (pixels)"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:96
+#: includes/class-netarz-fx-market-widget.php:41
+msgid "Gold"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:97
+#: includes/class-netarz-fx-market-widget.php:44
+msgid "Coins"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:98
+msgid "Gold and silver ounce"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:99
+msgid "Quick choice"
+msgstr ""
+
+#: includes/class-netarz-fx-blocks.php:105
+#: includes/class-netarz-fx-market-render.php:180
+#: includes/class-netarz-fx-settings.php:72
 msgid "Open settings"
 msgstr ""
 
-#: includes/class-netarz-fx-client.php:145
+#: includes/class-netarz-fx-client.php:171
 msgid "No API key is set."
 msgstr ""
 
+#: includes/class-netarz-fx-client.php:224
+msgid "The connection to NetArz is off. Turn it on in Settings > NetArz FX."
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:29
+msgid "NetArz computed value (ounce from gold-api.com)"
+msgstr ""
+
+#. translators: %s: a price in US dollars, already formatted.
+#: includes/class-netarz-fx-market-render.php:59
+#, php-format
+msgid "%s USD"
+msgstr ""
+
 #. translators: %s: a price in Iranian Toman, already formatted.
-#: includes/class-netarz-fx-render.php:173
-#: includes/class-netarz-fx-render.php:480
+#: includes/class-netarz-fx-market-render.php:63
+#: includes/class-netarz-fx-render.php:177
+#: includes/class-netarz-fx-render.php:490
 #, php-format
 msgid "%s Toman"
 msgstr ""
 
-#. translators: %s: number of currency units the price is for, e.g. 100.
-#: includes/class-netarz-fx-render.php:185
-#: includes/class-netarz-fx-render.php:482
+#: includes/class-netarz-fx-market-render.php:70
+msgid "Computed value"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:75
+msgid "Computed value:"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:76
+msgid "worked out from the global gold ounce and the NetArz dollar rate. It is not the Tehran market price and leaves out the coin premium and making charges."
+msgstr ""
+
+#. translators: %s: names of the data sources, comma-separated.
+#: includes/class-netarz-fx-market-render.php:113
 #, php-format
-msgid "(per %s units)"
+msgid "Source: %s"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:217
-#: includes/class-netarz-fx-render.php:483
-msgid "Rate unavailable"
+#. translators: %s: names of the data sources, comma-separated.
+#: includes/class-netarz-fx-market-render.php:113
+msgctxt "list separator"
+msgid ", "
 msgstr ""
 
-#. translators: %s: a currency code, e.g. UZS.
-#: includes/class-netarz-fx-render.php:236
+#. translators: %s: time (and date, if not today) of the last numbers NetArz sent.
+#: includes/class-netarz-fx-market-render.php:149
 #, php-format
-msgid "%s is available on the Pro plan of the NetArz FX API; the free plan does not include it. Only administrators see this note."
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:240
-msgid "Compare plans"
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:267
-msgid "Since yesterday"
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:373
-msgid "Calculated with the buy rate. Rates are for information only."
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:374
-msgid "Calculated with the sell rate. Rates are for information only."
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:375
-msgid "Calculated with the average rate. Rates are for information only."
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:383
-msgid "Amount"
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:392
-msgid "Equals"
-msgstr ""
-
-#: includes/class-netarz-fx-render.php:394
-msgid "Toman"
+msgid "Last updated %s"
 msgstr ""
 
 #. translators: 1: time (and date, if not today) the rates were taken, 2: minutes of delay.
-#: includes/class-netarz-fx-render.php:425
-#: includes/class-netarz-fx-render.php:487
+#: includes/class-netarz-fx-market-render.php:152
+#: includes/class-netarz-fx-render.php:435
+#: includes/class-netarz-fx-render.php:497
 #, php-format
 msgid "Updated %1$s (%2$s-minute delay)"
 msgstr ""
 
 #. translators: %s: time (and date, if not today) the rates were taken.
-#: includes/class-netarz-fx-render.php:428
-#: includes/class-netarz-fx-render.php:485
+#: includes/class-netarz-fx-market-render.php:155
+#: includes/class-netarz-fx-render.php:438
+#: includes/class-netarz-fx-render.php:495
 #, php-format
 msgid "Updated %s"
 msgstr ""
 
-#: includes/class-netarz-fx-render.php:448
+#: includes/class-netarz-fx-market-render.php:170
+msgid "Only administrators see this note."
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:179
+msgid "NetArz rates appear here once you turn on the connection in Settings > NetArz FX. Only administrators see this note."
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:204
+#: includes/class-netarz-fx-market-render.php:241
+msgid "Rates unavailable"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:213
+msgid "Item"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:213
+msgid "Price"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:215
+#: includes/class-netarz-fx-render.php:271
+msgid "Since yesterday"
+msgstr ""
+
+#. translators: %s: symbols, comma-separated, e.g. XAG, COIN_EMAMI.
+#: includes/class-netarz-fx-market-render.php:248
+#, php-format
+msgid "NetArz did not return %s. Check the symbols; some are available on the Pro plan only."
+msgstr ""
+
+#. translators: %s: symbols, comma-separated, e.g. XAG, COIN_EMAMI.
+#: includes/class-netarz-fx-market-render.php:250
+#, php-format
+msgid "%s is not on the keyless board. Add a free NetArz FX API key in the settings to show it."
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:317
+#: includes/class-netarz-fx-market-render.php:323
+msgid "Chart unavailable"
+msgstr ""
+
+#. translators: %s: a symbol, e.g. XAU.
+#: includes/class-netarz-fx-market-render.php:325
+#, php-format
+msgid "NetArz has no history for %s in this range yet."
+msgstr ""
+
+#. translators: 1: item name, e.g. Gold ounce, 2: period, e.g. last 30 days.
+#: includes/class-netarz-fx-market-render.php:378
+#, php-format
+msgid "Price chart of %1$s, %2$s"
+msgstr ""
+
+#. translators: 1: lowest price in the period, 2: highest price in the period.
+#: includes/class-netarz-fx-market-render.php:391
+#, php-format
+msgid "Low %1$s, high %2$s"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:418
+msgid "last 7 days"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:419
+msgid "last 30 days"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:420
+msgid "last 90 days"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:421
+msgid "last 6 months"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:422
+msgid "last year"
+msgstr ""
+
+#: includes/class-netarz-fx-market-render.php:423
+msgid "last 5 years"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:18
+msgid "NetArz currency and gold rates"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:20
+msgid "Currencies, gold and coins from NetArz, in tabs."
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:37
+msgid "Currencies"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:74
+msgid "Currencies tab"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:75
+msgid "Gold tab (ounce, 18k gram, mesghal)"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:76
+msgid "Coins tab"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:82
+#: includes/class-netarz-fx-widget.php:57
+msgid "Title"
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:95
+msgid "18k gold, the mesghal and the coins are a computed value, not the Tehran market price, and are labelled so."
+msgstr ""
+
+#: includes/class-netarz-fx-market-widget.php:112
+msgid "Currency and gold rates"
+msgstr ""
+
+#: includes/class-netarz-fx-markets.php:82
+msgid "No symbols were given."
+msgstr ""
+
+#: includes/class-netarz-fx-markets.php:120
+msgid "Charts need a NetArz FX API key and server mode."
+msgstr ""
+
+#. translators: %s: number of currency units the price is for, e.g. 100.
+#: includes/class-netarz-fx-render.php:189
+#: includes/class-netarz-fx-render.php:492
+#, php-format
+msgid "(per %s units)"
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:221
+#: includes/class-netarz-fx-render.php:493
+msgid "Rate unavailable"
+msgstr ""
+
+#. translators: %s: a currency code, e.g. UZS.
+#: includes/class-netarz-fx-render.php:240
+#, php-format
+msgid "%s is available on the Pro plan of the NetArz FX API; the free plan does not include it. Only administrators see this note."
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:244
+msgid "Compare plans"
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:383
+msgid "Calculated with the buy rate. Rates are for information only."
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:384
+msgid "Calculated with the sell rate. Rates are for information only."
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:385
+msgid "Calculated with the average rate. Rates are for information only."
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:393
+msgid "Amount"
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:402
+msgid "Equals"
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:404
+msgid "Toman"
+msgstr ""
+
+#: includes/class-netarz-fx-render.php:458
 msgid "Rates by NetArz"
 msgstr ""
 
-#: includes/class-netarz-fx-settings.php:44
+#. translators: %s: link to the plugin settings.
+#: includes/class-netarz-fx-settings.php:71
+#, php-format
+msgid "NetArz Currency & Gold Rates does not contact NetArz until you allow it. %s"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:86
 msgid "NetArz FX"
 msgstr ""
 
-#: includes/class-netarz-fx-settings.php:69
+#: includes/class-netarz-fx-settings.php:111
 msgid "The key should start with fx-ntz-v1-. Copy it again from the NetArz panel."
 msgstr ""
 
-#: includes/class-netarz-fx-settings.php:100
+#: includes/class-netarz-fx-settings.php:143
+msgid "Connection to NetArz"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:145
+msgid "Allow this site to fetch rates from netarz.ir"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:147
+msgid "Off by default. While it is off the plugin sends nothing anywhere and the shortcodes, blocks and widgets show nothing to visitors."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:148
+msgid "When it is on, this site requests rates from netarz.ir (and, in browser mode, each visitor's browser does). NetArz sees the requesting IP address and, with a key, your key."
+msgstr ""
+
+#. translators: %s: link to the NetArz terms and privacy page.
+#: includes/class-netarz-fx-settings.php:152
+#, php-format
+msgid "Terms of use and privacy: %s"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:160
 msgid "API key"
 msgstr ""
 
 #. translators: %s: link to the NetArz FX panel.
-#: includes/class-netarz-fx-settings.php:107
-#, php-format
-msgid "Create an app for this site's domain and copy its key from %s. Verify the domain in the same panel."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:115
-msgid "Where rates are fetched"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:117
-msgid "From this server (recommended). Add the server's outgoing IP to the app's allowed IPs."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:118
-msgid "From the visitor's browser. For hosts without a fixed IP. The key appears in the page source but only works on your verified domain; each visitor uses some of the app's daily quota."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:122
-msgid "Cache (minutes)"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:125
-msgid "Rates change every few minutes. One request refreshes every rate on the site."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:132
-msgid "Follow the site language"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:139
-msgid "Credit link"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:141
-msgid "Show a small \"Rates by NetArz\" link under the rates (once per page)."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:142
-msgid "Optional, off by default. Turn it on if you want readers to see where the numbers come from."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:146
-msgid "Network"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:148
-msgid "Connect over IPv4, so the IP NetArz sees is the IPv4 address you allow-listed."
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:152
-msgid "WooCommerce"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:154
-msgid "Show the Toman equivalent after product prices"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:160
-msgid "For a store priced in a foreign currency such as USD: each price gets \"about ... Toman\" after it. Needs WooCommerce and works in server mode only; it uses the cached rates, so it adds no requests."
-msgstr ""
-
 #: includes/class-netarz-fx-settings.php:167
-#: includes/class-netarz-fx-settings.php:172
-msgid "Test connection"
-msgstr ""
-
-#: includes/class-netarz-fx-settings.php:168
-msgid "Calls the API from this server with the saved key. If NetArz refuses the server's IP, the IP it saw is shown here so you can add exactly that one."
+#, php-format
+msgid "Optional. Without a key the plugin reads the keyless public board: a fixed set of currencies, gold and coins, a few minutes behind. With a free key you choose any currency or symbol of your plan and can draw charts. Create an app for this site's domain and copy its key from %s, then verify the domain in the same panel."
 msgstr ""
 
 #: includes/class-netarz-fx-settings.php:175
-msgid "Usage"
+msgid "Where rates are fetched"
 msgstr ""
 
 #: includes/class-netarz-fx-settings.php:177
-msgid "In the block editor, search for \"NetArz\" to add the exchange rate, rates table or converter block."
+msgid "From this server (recommended). Add the server's outgoing IP to the app's allowed IPs."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:178
+msgid "From the visitor's browser. For hosts without a fixed IP. The key appears in the page source but only works on your verified domain; each visitor uses some of the app's daily quota."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:182
+msgid "Cache (minutes)"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:185
+msgid "Rates change every few minutes. One request refreshes every rate on the site."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:192
+msgid "Follow the site language"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:199
+msgid "Credit link"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:201
+msgid "Show a small \"Rates by NetArz\" link under the rates (once per page)."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:202
+msgid "Optional, off by default. Turn it on if you want readers to see where the numbers come from."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:206
+msgid "Network"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:208
+msgid "Connect over IPv4, so the IP NetArz sees is the IPv4 address you allow-listed."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:212
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:214
+msgid "Show the Toman equivalent after product prices"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:220
+msgid "For a store priced in a foreign currency such as USD: each price gets \"about ... Toman\" after it. Needs WooCommerce and works in server mode only; it uses the cached rates, so it adds no requests."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:227
+#: includes/class-netarz-fx-settings.php:232
+msgid "Test connection"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:228
+msgid "Calls NetArz from this server with the saved settings (the connection must be on). With a key, if NetArz refuses the server's IP, the IP it saw is shown here so you can add exactly that one."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:235
+msgid "Usage"
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:238
+msgid "Symbols: XAU (gold ounce), XAG (silver ounce), GOLD18 (18k gold per gram), MESGHAL (18k gold per mesghal), COIN_EMAMI, COIN_BAHAR, COIN_HALF, COIN_QUARTER, COIN_GERAMI, and currency codes such as USD. Chart ranges: 7d, 30d, 90d, 6m, 1y, 5y (the free plan covers 30 days)."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:239
+msgid "18k gold, the mesghal and the coins are a computed value from the global gold ounce and the NetArz dollar rate, not the Tehran market price. The plugin always labels them so."
+msgstr ""
+
+#: includes/class-netarz-fx-settings.php:240
+msgid "In the block editor, search for \"NetArz\" to add the exchange rate, rates table, converter, gold and coins, or chart block."
 msgstr ""
 
 #. translators: %s: link to the NetArz FX documentation.
-#: includes/class-netarz-fx-settings.php:182
+#: includes/class-netarz-fx-settings.php:245
 #, php-format
 msgid "Fields: buy, sell, mid. Documentation: %s"
 msgstr ""
 
-#: includes/class-netarz-fx-settings.php:193
+#: includes/class-netarz-fx-settings.php:256
 msgid "You are not allowed to do this."
 msgstr ""
 
+#: includes/class-netarz-fx-settings.php:267
+msgid "NetArz could not be reached; the last saved rates are shown."
+msgstr ""
+
+#. translators: %s: number of rows on the keyless public board.
+#: includes/class-netarz-fx-settings.php:321
+#, php-format
+msgid "Connected without a key. The public board has %s items."
+msgstr ""
+
 #. translators: 1: app name, 2: plan name (free or pro), 3: requests left today.
-#: includes/class-netarz-fx-settings.php:235
+#: includes/class-netarz-fx-settings.php:332
 #, php-format
 msgid "Connected. App: %1$s, plan: %2$s, requests left today: %3$s."
 msgstr ""
 
 #. translators: %s: an IP address.
-#: includes/class-netarz-fx-settings.php:249
+#: includes/class-netarz-fx-settings.php:346
 #, php-format
 msgid "NetArz saw this server as %s. Add exactly this address to the app's allowed IPs at netarz.ir/fx, or switch to browser mode."
 msgstr ""
@@ -334,10 +605,6 @@ msgstr ""
 
 #: includes/class-netarz-fx-widget.php:20
 msgid "Rates in Toman from the NetArz FX API."
-msgstr ""
-
-#: includes/class-netarz-fx-widget.php:57
-msgid "Title"
 msgstr ""
 
 #: includes/class-netarz-fx-widget.php:65
@@ -353,9 +620,46 @@ msgid "Exchange rates"
 msgstr ""
 
 #. translators: %s: a price in Iranian Toman, already formatted.
-#: includes/class-netarz-fx-woo.php:69
+#: includes/class-netarz-fx-woo.php:71
 #, php-format
 msgid "about %s Toman"
+msgstr ""
+
+#: blocks/chart/block.json
+msgctxt "block title"
+msgid "NetArz price chart"
+msgstr ""
+
+#: blocks/chart/block.json
+msgctxt "block description"
+msgid "A line chart of the gold ounce, silver ounce, 18k gold or a currency over a period, drawn on your server as SVG. Needs a free NetArz FX API key."
+msgstr ""
+
+#: blocks/chart/block.json
+msgctxt "block keyword"
+msgid "chart"
+msgstr ""
+
+#: blocks/chart/block.json
+#: blocks/market/block.json
+msgctxt "block keyword"
+msgid "gold"
+msgstr ""
+
+#: blocks/chart/block.json
+msgctxt "block keyword"
+msgid "history"
+msgstr ""
+
+#: blocks/chart/block.json
+#: blocks/market/block.json
+msgctxt "block keyword"
+msgid "price"
+msgstr ""
+
+#: blocks/chart/block.json
+msgctxt "block keyword"
+msgid "graph"
 msgstr ""
 
 #: blocks/convert/block.json
@@ -397,6 +701,31 @@ msgstr ""
 #: blocks/convert/block.json
 msgctxt "block keyword"
 msgid "calculator"
+msgstr ""
+
+#: blocks/market/block.json
+msgctxt "block title"
+msgid "NetArz gold and coins"
+msgstr ""
+
+#: blocks/market/block.json
+msgctxt "block description"
+msgid "The global gold and silver ounce and the computed value of 18k gold and Iranian gold coins, from NetArz. Computed values are always labelled; they are not the Tehran market price."
+msgstr ""
+
+#: blocks/market/block.json
+msgctxt "block keyword"
+msgid "coin"
+msgstr ""
+
+#: blocks/market/block.json
+msgctxt "block keyword"
+msgid "silver"
+msgstr ""
+
+#: blocks/market/block.json
+msgctxt "block keyword"
+msgid "ounce"
 msgstr ""
 
 #: blocks/rate/block.json

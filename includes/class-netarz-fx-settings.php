@@ -1,7 +1,8 @@
 <?php
 /**
- * Settings > NetArz FX: API key, mode, cache, digits, attribution, and a
- * "Test connection" button that reports the IP NetArz saw when it refuses one.
+ * Settings > NetArz FX: the consent to connect, API key, mode, cache, digits,
+ * attribution, and a "Test connection" button that reports the IP NetArz saw
+ * when it refuses one.
  *
  * @package NetArzFX
  */
@@ -14,7 +15,11 @@ class Netarz_FX_Settings {
 
 	const OPTION = 'netarz_fx_settings';
 
+	/** Stores the plugin version whose upgrade steps have run. */
+	const VERSION_OPTION = 'netarz_fx_version';
+
 	const DEFAULTS = array(
+		'connect'       => 0,         // No request to NetArz until an administrator turns this on (WordPress.org guideline 7).
 		'api_key'       => '',
 		'mode'          => 'server',  // server | browser.
 		'cache_minutes' => 5,
@@ -30,6 +35,43 @@ class Netarz_FX_Settings {
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
 		add_action( 'admin_post_netarz_fx_test', array( __CLASS__, 'test_connection' ) );
 		add_action( 'update_option_' . self::OPTION, array( 'Netarz_FX_Client', 'flush' ) );
+		add_action( 'init', array( __CLASS__, 'upgrade' ), 5 );
+		add_action( 'admin_notices', array( __CLASS__, 'connect_notice' ) );
+	}
+
+	/**
+	 * 1.x had no consent switch: a site that had saved an API key had already
+	 * chosen to use NetArz, so it keeps working after the update. A site
+	 * without a key stays disconnected until an administrator says yes.
+	 */
+	public static function upgrade() {
+		if ( NETARZ_FX_VERSION === get_option( self::VERSION_OPTION ) ) {
+			return;
+		}
+		$options = get_option( self::OPTION, null );
+		if ( is_array( $options ) && ! isset( $options['connect'] ) ) {
+			$options['connect'] = ! empty( $options['api_key'] ) ? 1 : 0;
+			update_option( self::OPTION, $options );
+		}
+		update_option( self::VERSION_OPTION, NETARZ_FX_VERSION );
+	}
+
+	/** On the Plugins screen only: one line saying the plugin waits for the administrator's consent. */
+	public static function connect_notice() {
+		if ( ! current_user_can( 'manage_options' ) || self::get( 'connect' ) ) {
+			return;
+		}
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || 'plugins' !== $screen->id ) {
+			return;
+		}
+		echo '<div class="notice notice-info"><p>';
+		printf(
+			/* translators: %s: link to the plugin settings. */
+			esc_html__( 'NetArz Currency & Gold Rates does not contact NetArz until you allow it. %s', 'netarz-fx' ),
+			'<a href="' . esc_url( admin_url( 'options-general.php?page=netarz-fx' ) ) . '">' . esc_html__( 'Open settings', 'netarz-fx' ) . '</a>'
+		);
+		echo '</p></div>';
 	}
 
 	public static function get( $key ) {
@@ -40,7 +82,7 @@ class Netarz_FX_Settings {
 
 	public static function menu() {
 		add_options_page(
-			__( 'NetArz FX Rates', 'netarz-fx' ),
+			__( 'NetArz Currency & Gold Rates', 'netarz-fx' ),
 			__( 'NetArz FX', 'netarz-fx' ),
 			'manage_options',
 			'netarz-fx',
@@ -70,6 +112,7 @@ class Netarz_FX_Settings {
 		}
 		$out['api_key'] = $key;
 
+		$out['connect']       = empty( $input['connect'] ) ? 0 : 1;
 		$out['mode']          = isset( $input['mode'] ) && 'browser' === $input['mode'] ? 'browser' : 'server';
 		$out['cache_minutes'] = isset( $input['cache_minutes'] ) ? max( 1, min( 60, absint( $input['cache_minutes'] ) ) ) : 5;
 		$out['digits']        = isset( $input['digits'] ) && in_array( $input['digits'], array( 'auto', 'persian', 'latin' ), true ) ? $input['digits'] : 'auto';
@@ -89,13 +132,30 @@ class Netarz_FX_Settings {
 		$n = self::OPTION;
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'NetArz FX Rates', 'netarz-fx' ); ?></h1>
+			<h1><?php esc_html_e( 'NetArz Currency & Gold Rates', 'netarz-fx' ); ?></h1>
 			<?php self::print_test_result(); ?>
 			<?php settings_errors( self::OPTION ); ?>
 
 			<form method="post" action="options.php">
 				<?php settings_fields( 'netarz_fx' ); ?>
 				<table class="form-table" role="presentation">
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Connection to NetArz', 'netarz-fx' ); ?></th>
+						<td>
+							<label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[connect]" value="1" <?php checked( (int) $o['connect'], 1 ); ?>> <strong><?php esc_html_e( 'Allow this site to fetch rates from netarz.ir', 'netarz-fx' ); ?></strong></label>
+							<p class="description">
+								<?php esc_html_e( 'Off by default. While it is off the plugin sends nothing anywhere and the shortcodes, blocks and widgets show nothing to visitors.', 'netarz-fx' ); ?>
+								<?php esc_html_e( 'When it is on, this site requests rates from netarz.ir (and, in browser mode, each visitor\'s browser does). NetArz sees the requesting IP address and, with a key, your key.', 'netarz-fx' ); ?>
+								<?php
+								printf(
+									/* translators: %s: link to the NetArz terms and privacy page. */
+									esc_html__( 'Terms of use and privacy: %s', 'netarz-fx' ),
+									'<a href="' . esc_url( 'https://netarz.ir/terms' ) . '" target="_blank" rel="noopener">netarz.ir/terms</a>'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
 					<tr>
 						<th scope="row"><label for="netarz-fx-key"><?php esc_html_e( 'API key', 'netarz-fx' ); ?></label></th>
 						<td>
@@ -104,7 +164,7 @@ class Netarz_FX_Settings {
 								<?php
 								printf(
 									/* translators: %s: link to the NetArz FX panel. */
-									esc_html__( 'Create an app for this site\'s domain and copy its key from %s. Verify the domain in the same panel.', 'netarz-fx' ),
+									esc_html__( 'Optional. Without a key the plugin reads the keyless public board: a fixed set of currencies, gold and coins, a few minutes behind. With a free key you choose any currency or symbol of your plan and can draw charts. Create an app for this site\'s domain and copy its key from %s, then verify the domain in the same panel.', 'netarz-fx' ),
 									'<a href="' . esc_url( Netarz_FX_Render::url( '/fx', 'settings-key' ) ) . '" target="_blank" rel="noopener">netarz.ir/fx</a>'
 								);
 								?>
@@ -165,7 +225,7 @@ class Netarz_FX_Settings {
 			</form>
 
 			<h2><?php esc_html_e( 'Test connection', 'netarz-fx' ); ?></h2>
-			<p><?php esc_html_e( 'Calls the API from this server with the saved key. If NetArz refuses the server\'s IP, the IP it saw is shown here so you can add exactly that one.', 'netarz-fx' ); ?></p>
+			<p><?php esc_html_e( 'Calls NetArz from this server with the saved settings (the connection must be on). With a key, if NetArz refuses the server\'s IP, the IP it saw is shown here so you can add exactly that one.', 'netarz-fx' ); ?></p>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="netarz_fx_test">
 				<?php wp_nonce_field( 'netarz_fx_test' ); ?>
@@ -174,7 +234,10 @@ class Netarz_FX_Settings {
 
 			<h2><?php esc_html_e( 'Usage', 'netarz-fx' ); ?></h2>
 			<p><code>[netarz_rate currency="usd"]</code> <code>[netarz_rate currency="eur" field="buy" show_name="1"]</code> <code>[netarz_rates currencies="usd,eur,aed,try" change="1" updated="1"]</code> <code>[netarz_convert currencies="usd,eur"]</code></p>
-			<p><?php esc_html_e( 'In the block editor, search for "NetArz" to add the exchange rate, rates table or converter block.', 'netarz-fx' ); ?></p>
+			<p><code>[netarz_gold]</code> <code>[netarz_coins]</code> <code>[netarz_metals]</code> <code>[netarz_market symbols="XAU,GOLD18,COIN_EMAMI"]</code> <code>[netarz_chart symbol="XAU" range="30d"]</code></p>
+			<p><?php esc_html_e( 'Symbols: XAU (gold ounce), XAG (silver ounce), GOLD18 (18k gold per gram), MESGHAL (18k gold per mesghal), COIN_EMAMI, COIN_BAHAR, COIN_HALF, COIN_QUARTER, COIN_GERAMI, and currency codes such as USD. Chart ranges: 7d, 30d, 90d, 6m, 1y, 5y (the free plan covers 30 days).', 'netarz-fx' ); ?></p>
+			<p><?php esc_html_e( '18k gold, the mesghal and the coins are a computed value from the global gold ounce and the NetArz dollar rate, not the Tehran market price. The plugin always labels them so.', 'netarz-fx' ); ?></p>
+			<p><?php esc_html_e( 'In the block editor, search for "NetArz" to add the exchange rate, rates table, converter, gold and coins, or chart block.', 'netarz-fx' ); ?></p>
 			<p>
 				<?php
 				printf(
@@ -194,7 +257,30 @@ class Netarz_FX_Settings {
 		}
 		check_admin_referer( 'netarz_fx_test' );
 
-		$result = Netarz_FX_Client::request( '/me' );
+		if ( Netarz_FX_Client::connected() && ! Netarz_FX_Client::has_key() ) {
+			Netarz_FX_Client::flush();
+			$board = Netarz_FX_Markets::board();
+			if ( is_wp_error( $board ) || ! empty( $board['stale_copy'] ) ) {
+				$store = array(
+					'ok'      => false,
+					'code'    => is_wp_error( $board ) ? $board->get_error_code() : 'unreachable',
+					'message' => is_wp_error( $board ) ? $board->get_error_message() : __( 'NetArz could not be reached; the last saved rates are shown.', 'netarz-fx' ),
+					'ip'      => '',
+				);
+			} else {
+				$store = array(
+					'ok'      => true,
+					'keyless' => true,
+					'count'   => count( $board['rows'] ),
+				);
+			}
+			set_transient( 'netarz_fx_test_' . get_current_user_id(), $store, 5 * MINUTE_IN_SECONDS );
+			wp_safe_redirect( admin_url( 'options-general.php?page=netarz-fx' ) );
+			exit;
+		}
+
+		// Not connected: nothing is sent, and the error says why.
+		$result = Netarz_FX_Client::connected() ? Netarz_FX_Client::request( '/me' ) : Netarz_FX_Client::not_connected();
 
 		if ( is_wp_error( $result ) ) {
 			$data  = $result->get_error_data();
@@ -227,6 +313,17 @@ class Netarz_FX_Settings {
 			return;
 		}
 		delete_transient( $key );
+
+		if ( ! empty( $result['ok'] ) && ! empty( $result['keyless'] ) ) {
+			echo '<div class="notice notice-success"><p>';
+			printf(
+				/* translators: %s: number of rows on the keyless public board. */
+				esc_html__( 'Connected without a key. The public board has %s items.', 'netarz-fx' ),
+				esc_html( number_format_i18n( (int) $result['count'] ) )
+			);
+			echo '</p></div>';
+			return;
+		}
 
 		if ( ! empty( $result['ok'] ) ) {
 			echo '<div class="notice notice-success"><p>';

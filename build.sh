@@ -3,17 +3,28 @@
 # Builds the installable plugin: netarz-fx-<version>.zip with a netarz-fx/
 # folder holding only the plugin files, plus a .sha256 next to it.
 #
-#   ./build.sh            # writes to ./dist
-#   ./build.sh /some/dir  # writes there
+#   ./build.sh                  # writes to ./dist
+#   ./build.sh /some/dir        # writes there
+#   ./build.sh wporg [dir]      # WordPress.org package: <dir>/netarz-fx/ (what goes into SVN trunk/)
+#                               # and <dir>/netarz-fx.zip (what is uploaded); default dir ./dist/wporg
 #
 # It refuses to build when the version in the plugin header, the
-# NETARZ_FX_VERSION constant and readme.txt's Stable tag disagree.
+# NETARZ_FX_VERSION constant and readme.txt's Stable tag disagree, and the
+# wporg target also refuses a header with an Update URI.
 
 set -euo pipefail
 
 cd "$(dirname "$0")"
 ROOT=$(pwd)
-OUT=${1:-dist}
+
+TARGET=release
+if [ "${1:-}" = "wporg" ]; then
+	TARGET=wporg
+	shift
+	OUT=${1:-dist/wporg}
+else
+	OUT=${1:-dist}
+fi
 mkdir -p "$OUT"
 OUT=$(cd "$OUT" && pwd)
 
@@ -23,6 +34,10 @@ stable=$(sed -n 's/^Stable tag: *//p' readme.txt | tr -d '[:space:]')
 
 if [ -z "$header" ] || [ "$header" != "$constant" ] || [ "$header" != "$stable" ]; then
 	echo "Version mismatch: header=$header constant=$constant readme Stable tag=$stable" >&2
+	exit 1
+fi
+if [ "$TARGET" = "wporg" ] && grep -qi '^ \* Update URI:' netarz-fx.php; then
+	echo "WordPress.org does not allow an Update URI header." >&2
 	exit 1
 fi
 
@@ -41,7 +56,13 @@ find "$work/netarz-fx" \( -name '.DS_Store' -o -name '*.po~' -o -name '*.orig' \
 stamp=$(git -C "$ROOT" log -1 --format=%ct 2>/dev/null || date +%s)
 find "$work/netarz-fx" -exec touch -h -d "@$stamp" {} +
 
-zip_name="netarz-fx-$header.zip"
+if [ "$TARGET" = "wporg" ]; then
+	zip_name="netarz-fx.zip"
+	rm -rf "$OUT/netarz-fx"
+	cp -a "$work/netarz-fx" "$OUT/netarz-fx"
+else
+	zip_name="netarz-fx-$header.zip"
+fi
 rm -f "$OUT/$zip_name" "$OUT/$zip_name.sha256"
 (cd "$work" && find netarz-fx | LC_ALL=C sort | TZ=UTC zip -X -q "$OUT/$zip_name" -@)
 (cd "$OUT" && sha256sum "$zip_name" > "$zip_name.sha256")

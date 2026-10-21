@@ -1,6 +1,7 @@
 <?php
 /**
- * Three dynamic blocks: netarz-fx/rate, netarz-fx/rates and netarz-fx/convert.
+ * Five dynamic blocks: netarz-fx/rate, netarz-fx/rates, netarz-fx/convert,
+ * netarz-fx/market (gold, coins, metals) and netarz-fx/chart.
  *
  * Built without a build step: block.json describes each block, the editor
  * script (assets/blocks.js) uses the wp.* globals and ServerSideRender, and
@@ -36,6 +37,8 @@ class Netarz_FX_Blocks {
 		register_block_type( NETARZ_FX_DIR . 'blocks/rate', array( 'render_callback' => array( __CLASS__, 'render_rate' ) ) );
 		register_block_type( NETARZ_FX_DIR . 'blocks/rates', array( 'render_callback' => array( __CLASS__, 'render_rates' ) ) );
 		register_block_type( NETARZ_FX_DIR . 'blocks/convert', array( 'render_callback' => array( __CLASS__, 'render_convert' ) ) );
+		register_block_type( NETARZ_FX_DIR . 'blocks/market', array( 'render_callback' => array( __CLASS__, 'render_market' ) ) );
+		register_block_type( NETARZ_FX_DIR . 'blocks/chart', array( 'render_callback' => array( __CLASS__, 'render_chart' ) ) );
 	}
 
 	/**
@@ -43,9 +46,9 @@ class Netarz_FX_Blocks {
 	 * and, in server mode, the currencies on the cached board for the picker.
 	 */
 	public static function editor_data() {
-		$browser    = 'browser' === Netarz_FX_Settings::get( 'mode' );
+		$browser    = 'browser' === Netarz_FX_Settings::get( 'mode' ) && Netarz_FX_Client::has_key();
 		$currencies = array();
-		if ( ! $browser && '' !== (string) Netarz_FX_Settings::get( 'api_key' ) ) {
+		if ( ! $browser && Netarz_FX_Client::connected() && Netarz_FX_Client::has_key() ) {
 			$board = Netarz_FX_Client::board();
 			if ( ! is_wp_error( $board ) ) {
 				foreach ( $board['rates'] as $code => $row ) {
@@ -59,29 +62,47 @@ class Netarz_FX_Blocks {
 
 		$data = array(
 			'browserMode' => $browser ? 1 : 0,
-			'hasKey'      => '' !== (string) Netarz_FX_Settings::get( 'api_key' ) ? 1 : 0,
+			'connected'   => Netarz_FX_Client::connected() ? 1 : 0,
+			'hasKey'      => Netarz_FX_Client::has_key() ? 1 : 0,
 			'settingsUrl' => admin_url( 'options-general.php?page=netarz-fx' ),
 			'currencies'  => $currencies,
 			'l'           => array(
-				'settings'     => __( 'Settings', 'netarz-fx' ),
-				'currency'     => __( 'Currency', 'netarz-fx' ),
-				'currencies'   => __( 'Currencies (comma-separated codes)', 'netarz-fx' ),
-				'codesHelp'    => __( 'Three-letter codes, for example USD,EUR,AED,TRY.', 'netarz-fx' ),
-				'rate'         => __( 'Rate', 'netarz-fx' ),
-				'buy'          => __( 'Buy', 'netarz-fx' ),
-				'sell'         => __( 'Sell', 'netarz-fx' ),
-				'mid'          => __( 'Average', 'netarz-fx' ),
-				'showName'     => __( 'Show the currency name', 'netarz-fx' ),
-				'showChange'   => __( 'Show the change since yesterday', 'netarz-fx' ),
-				'showUpdated'  => __( 'Show when the rates were updated', 'netarz-fx' ),
-				'amount'       => __( 'Starting amount', 'netarz-fx' ),
-				'digits'       => __( 'Digits', 'netarz-fx' ),
-				'digitsAuto'   => __( 'As in the plugin settings', 'netarz-fx' ),
-				'persian'      => __( 'Persian digits', 'netarz-fx' ),
-				'latin'        => __( 'Latin digits', 'netarz-fx' ),
-				'browserNote'  => __( 'Rates load in the visitor\'s browser (browser mode), so this preview shows placeholders. The published page shows the numbers.', 'netarz-fx' ),
-				'noKey'        => __( 'Add your NetArz FX API key in Settings > NetArz FX to see rates.', 'netarz-fx' ),
-				'openSettings' => __( 'Open settings', 'netarz-fx' ),
+				'settings'      => __( 'Settings', 'netarz-fx' ),
+				'currency'      => __( 'Currency', 'netarz-fx' ),
+				'currencies'    => __( 'Currencies (comma-separated codes)', 'netarz-fx' ),
+				'codesHelp'     => __( 'Three-letter codes, for example USD,EUR,AED,TRY.', 'netarz-fx' ),
+				'rate'          => __( 'Rate', 'netarz-fx' ),
+				'buy'           => __( 'Buy', 'netarz-fx' ),
+				'sell'          => __( 'Sell', 'netarz-fx' ),
+				'mid'           => __( 'Average', 'netarz-fx' ),
+				'showName'      => __( 'Show the currency name', 'netarz-fx' ),
+				'showChange'    => __( 'Show the change since yesterday', 'netarz-fx' ),
+				'showUpdated'   => __( 'Show when the rates were updated', 'netarz-fx' ),
+				'amount'        => __( 'Starting amount', 'netarz-fx' ),
+				'digits'        => __( 'Digits', 'netarz-fx' ),
+				'digitsAuto'    => __( 'As in the plugin settings', 'netarz-fx' ),
+				'persian'       => __( 'Persian digits', 'netarz-fx' ),
+				'latin'         => __( 'Latin digits', 'netarz-fx' ),
+				'browserNote'   => __( 'Rates load in the visitor\'s browser (browser mode), so this preview shows placeholders. The published page shows the numbers.', 'netarz-fx' ),
+				'notConnected'  => __( 'Rates appear once you turn on the connection to NetArz in Settings > NetArz FX.', 'netarz-fx' ),
+				'chartNeedsKey' => __( 'Charts need a free NetArz FX API key and server mode (Settings > NetArz FX).', 'netarz-fx' ),
+				'symbols'       => __( 'Symbols (comma-separated)', 'netarz-fx' ),
+				'symbolsHelp'   => __( 'For example XAU, XAG, GOLD18, MESGHAL, COIN_EMAMI, COIN_BAHAR, COIN_HALF, COIN_QUARTER, COIN_GERAMI, USD.', 'netarz-fx' ),
+				'symbol'        => __( 'Symbol', 'netarz-fx' ),
+				'symbolHelp'    => __( 'For example XAU (gold ounce), XAG (silver ounce) or GOLD18.', 'netarz-fx' ),
+				'range'         => __( 'Period', 'netarz-fx' ),
+				'ranges'        => Netarz_FX_Market_Render::range_labels(),
+				'height'        => __( 'Height (pixels)', 'netarz-fx' ),
+				'goldSet'       => __( 'Gold', 'netarz-fx' ),
+				'coinsSet'      => __( 'Coins', 'netarz-fx' ),
+				'metalsSet'     => __( 'Gold and silver ounce', 'netarz-fx' ),
+				'presets'       => __( 'Quick choice', 'netarz-fx' ),
+				'presetSets'    => array(
+					'gold'   => implode( ',', Netarz_FX_Markets::GOLD ),
+					'coins'  => implode( ',', Netarz_FX_Markets::COINS ),
+					'metals' => implode( ',', Netarz_FX_Markets::METALS ),
+				),
+				'openSettings'  => __( 'Open settings', 'netarz-fx' ),
 			),
 		);
 
@@ -140,6 +161,44 @@ class Netarz_FX_Blocks {
 					'change'  => ! empty( $attributes['showChange'] ),
 					'updated' => ! empty( $attributes['showUpdated'] ),
 					'digits'  => self::digits( $attributes ),
+				)
+			)
+		);
+	}
+
+	public static function render_market( $attributes ) {
+		$symbols = Netarz_FX_Markets::symbols( isset( $attributes['symbols'] ) ? $attributes['symbols'] : '' );
+		if ( ! $symbols ) {
+			return '';
+		}
+		wp_enqueue_style( 'netarz-fx' );
+
+		return self::wrap(
+			Netarz_FX_Market_Render::table(
+				$symbols,
+				array(
+					'change'  => ! empty( $attributes['showChange'] ),
+					'updated' => ! empty( $attributes['showUpdated'] ),
+					'digits'  => self::digits( $attributes ),
+				)
+			)
+		);
+	}
+
+	public static function render_chart( $attributes ) {
+		$symbols = Netarz_FX_Markets::symbols( isset( $attributes['symbol'] ) ? $attributes['symbol'] : 'XAU' );
+		if ( ! $symbols ) {
+			return '';
+		}
+		wp_enqueue_style( 'netarz-fx' );
+
+		return self::wrap(
+			Netarz_FX_Market_Render::chart(
+				$symbols[0],
+				isset( $attributes['range'] ) ? (string) $attributes['range'] : '30d',
+				array(
+					'height' => isset( $attributes['height'] ) ? (int) $attributes['height'] : 220,
+					'digits' => self::digits( $attributes ),
 				)
 			)
 		);

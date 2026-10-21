@@ -6,6 +6,9 @@
  * the site reads from that one cached copy, so the daily quota is spent at
  * most once per cache period, whatever the traffic.
  *
+ * Nothing leaves the site until an administrator turns on "Connect to
+ * NetArz" in Settings > NetArz FX: get() refuses before it sends anything.
+ *
  * @package NetArzFX
  */
 
@@ -27,12 +30,26 @@ class Netarz_FX_Client {
 	}
 
 	/**
+	 * True once an administrator has agreed, in the settings, that the plugin
+	 * may contact NetArz. Every request goes through this check.
+	 */
+	public static function connected() {
+		return (bool) Netarz_FX_Settings::get( 'connect' );
+	}
+
+	/** True when a NetArz FX API key is saved. Without one the plugin uses the keyless public board. */
+	public static function has_key() {
+		return '' !== (string) Netarz_FX_Settings::get( 'api_key' );
+	}
+
+	/**
 	 * @param resource|\CurlHandle $handle
 	 * @param array                $args
 	 * @param string               $url
 	 */
 	public static function force_ipv4( $handle, $args, $url ) {
-		if ( 0 !== strpos( (string) $url, NETARZ_FX_API ) ) {
+		$url = (string) $url;
+		if ( 0 !== strpos( $url, NETARZ_FX_API ) && 0 !== strpos( $url, NETARZ_FX_MARKETS_API ) ) {
 			return;
 		}
 		if ( Netarz_FX_Settings::get( 'force_ipv4' ) && defined( 'CURLOPT_IPRESOLVE' ) ) {
@@ -41,11 +58,22 @@ class Netarz_FX_Client {
 	}
 
 	/**
-	 * The full board keyed by currency code, or a WP_Error when nothing is available.
+	 * The full currency board keyed by currency code, or a WP_Error when nothing is available.
+	 *
+	 * With a key it is the FX API's /rates (buy, sell and average for every
+	 * currency of the app's plan). Without a key it is the currencies on the
+	 * keyless public board of the markets API.
 	 *
 	 * @return array{rates: array<string, array>, meta: array}|WP_Error
 	 */
 	public static function board() {
+		if ( ! self::connected() ) {
+			return self::not_connected();
+		}
+		if ( ! self::has_key() ) {
+			return Netarz_FX_Markets::fiat_board();
+		}
+
 		$cached = get_transient( self::TRANSIENT );
 		if ( is_array( $cached ) ) {
 			return $cached;
@@ -67,9 +95,9 @@ class Netarz_FX_Client {
 			'rates' => array(),
 			'meta'  => isset( $response['meta'] ) && is_array( $response['meta'] ) ? $response['meta'] : array(),
 		);
-		foreach ( (array) $response['data'] as $row ) {
-			if ( isset( $row['code'] ) ) {
-				$board['rates'][ strtoupper( $row['code'] ) ] = $row;
+		foreach ( (array) ( isset( $response['data'] ) ? $response['data'] : array() ) as $row ) {
+			if ( is_array( $row ) && isset( $row['code'] ) ) {
+				$board['rates'][ strtoupper( (string) $row['code'] ) ] = $row;
 			}
 		}
 
@@ -110,6 +138,9 @@ class Netarz_FX_Client {
 	 * once a day, and only when a page asks for a code the board lacks.
 	 */
 	public static function is_pro_only( $code ) {
+		if ( ! self::connected() || ! self::has_key() ) {
+			return false;
+		}
 		$catalogue = get_transient( self::CATALOGUE );
 		if ( ! is_array( $catalogue ) ) {
 			$catalogue = array();
@@ -131,29 +162,45 @@ class Netarz_FX_Client {
 	}
 
 	/**
-	 * GET a path on the API. Returns the decoded body or a WP_Error whose data
-	 * carries the API's error object (code, message, and `ip` for IP refusals).
-	 *
-	 * The request deliberately sends no Origin or Referer header: server calls
-	 * are matched by IP, as the API expects.
+	 * GET a path on the FX API with the saved key.
 	 *
 	 * @return array|WP_Error
 	 */
 	public static function request( $path ) {
-		$key = (string) Netarz_FX_Settings::get( 'api_key' );
-		if ( '' === $key ) {
+		if ( ! self::has_key() ) {
 			return new WP_Error( 'netarz_fx_no_key', __( 'No API key is set.', 'netarz-fx' ) );
+		}
+		return self::get( NETARZ_FX_API . $path, true );
+	}
+
+	/**
+	 * GET a URL on NetArz. Returns the decoded body or a WP_Error whose data
+	 * carries the API's error object (code, message, and `ip` for IP refusals).
+	 *
+	 * The request deliberately sends no Origin or Referer header: server calls
+	 * are matched by IP, as the API expects. Nothing is sent before the
+	 * administrator has turned the connection on.
+	 *
+	 * @param string $url      Full URL under NETARZ_FX_API or NETARZ_FX_MARKETS_API.
+	 * @param bool   $with_key Send the saved key as a Bearer token.
+	 * @return array|WP_Error
+	 */
+	public static function get( $url, $with_key ) {
+		if ( ! self::connected() ) {
+			return self::not_connected();
+		}
+
+		$headers = array( 'Accept' => 'application/json' );
+		if ( $with_key ) {
+			$headers['Authorization'] = 'Bearer ' . (string) Netarz_FX_Settings::get( 'api_key' );
 		}
 
 		$response = wp_remote_get(
-			NETARZ_FX_API . $path,
+			$url,
 			array(
 				'timeout'    => 10,
 				'user-agent' => 'NetArz-FX-WordPress/' . NETARZ_FX_VERSION,
-				'headers'    => array(
-					'Authorization' => 'Bearer ' . $key,
-					'Accept'        => 'application/json',
-				),
+				'headers'    => $headers,
 			)
 		);
 
@@ -173,6 +220,10 @@ class Netarz_FX_Client {
 		return $body;
 	}
 
+	public static function not_connected() {
+		return new WP_Error( 'netarz_fx_not_connected', __( 'The connection to NetArz is off. Turn it on in Settings > NetArz FX.', 'netarz-fx' ) );
+	}
+
 	public static function cache_seconds() {
 		$minutes = (int) Netarz_FX_Settings::get( 'cache_minutes' );
 		return max( 1, min( 60, $minutes ) ) * MINUTE_IN_SECONDS;
@@ -181,5 +232,6 @@ class Netarz_FX_Client {
 	public static function flush() {
 		delete_transient( self::TRANSIENT );
 		delete_transient( self::CATALOGUE );
+		Netarz_FX_Markets::flush();
 	}
 }

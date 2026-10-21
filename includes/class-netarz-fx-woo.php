@@ -28,7 +28,9 @@ class Netarz_FX_Woo {
 	 * @param \WC_Product $product The product.
 	 */
 	public static function price_html( $html, $product ) {
-		if ( '' === (string) $html || ! Netarz_FX_Settings::get( 'woo_toman' ) || 'browser' === Netarz_FX_Settings::get( 'mode' ) ) {
+		// Browser mode with a key means the server may not call NetArz; without a key the server reads the keyless board.
+		$browser = 'browser' === Netarz_FX_Settings::get( 'mode' ) && Netarz_FX_Client::has_key();
+		if ( '' === (string) $html || ! Netarz_FX_Settings::get( 'woo_toman' ) || $browser || ! Netarz_FX_Client::connected() ) {
 			return $html;
 		}
 		if ( ! is_object( $product ) || ! function_exists( 'get_woocommerce_currency' ) || ! function_exists( 'wc_get_price_to_display' ) ) {
