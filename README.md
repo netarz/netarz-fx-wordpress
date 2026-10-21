@@ -8,7 +8,7 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 [![CI](https://github.com/netarz/netarz-fx-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/netarz/netarz-fx-wordpress/actions/workflows/ci.yml)
 [![License: GPL v2+](https://img.shields.io/badge/license-GPL--2.0--or--later-ffc700?style=flat-square&labelColor=14161f)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.1-ffc700?style=flat-square&labelColor=14161f)](https://github.com/netarz/netarz-fx-wordpress/releases)
+[![Version](https://img.shields.io/badge/version-2.0.2-ffc700?style=flat-square&labelColor=14161f)](https://github.com/netarz/netarz-fx-wordpress/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-ffc700?style=flat-square&labelColor=14161f&logo=wordpress&logoColor=white)](readme.txt)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-ffc700?style=flat-square&labelColor=14161f&logo=php&logoColor=white)](netarz-fx.php)
 [![Docs](https://img.shields.io/badge/docs-netarz.ir%2Fdocs%2Ffx-ffc700?style=flat-square&labelColor=14161f)](https://netarz.ir/docs/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=header)
@@ -45,7 +45,7 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 **تا شما اجازه ندهید، افزونه به هیچ‌جا درخواستی نمی‌فرستد.** بعد از فعال‌سازی، در «تنظیمات ← نرخ ارز نِت اَرز» گزینهٔ
 «اجازهٔ دریافت نرخ از netarz.ir» را روشن کنید. تا آن موقع بازدیدکننده چیزی نمی‌بیند و مدیر سایت به‌جای نرخ یک یادداشت کوتاه می‌بیند.
-برای شروع کلید هم لازم نیست: بدون کلید، تابلوی عمومی (مجموعهٔ ثابتی از ارز، طلا و سکه با چند دقیقه تأخیر) خوانده می‌شود.
+تابلوی عمومی بدون کلید (مجموعهٔ ثابتی از ارز و طلا) به‌زودی راه می‌افتد؛ تا آن موقع برای دیدن نرخ‌ها کلید رایگان لازم است.
 
 <p align="center">
   <img src=".github/screenshots/frontend-fa.png" alt="جدول نرخ ارز با ستون تغییر از دیروز و مبدل ارز در یک سایت فارسی" width="720">
@@ -70,11 +70,11 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 ## نصب در چهار قدم
 
-1. فایل `netarz-fx-2.0.1.zip` را از [صفحهٔ نسخه‌ها (Releases)](https://github.com/netarz/netarz-fx-wordpress/releases/latest) دانلود کنید و از
+1. فایل `netarz-fx-2.0.2.zip` را از [صفحهٔ نسخه‌ها (Releases)](https://github.com/netarz/netarz-fx-wordpress/releases/latest) دانلود کنید و از
    «افزونه‌ها ← افزودن ← بارگذاری افزونه» نصب و فعال کنید. دکمهٔ سبز «Code ← Download ZIP» هم کار می‌کند، ولی پوشهٔ افزونه
    نام دیگری می‌گیرد؛ فایل Releases پوشهٔ درست `netarz-fx` را دارد.
 2. در وردپرس به «تنظیمات ← نرخ ارز نِت اَرز» بروید (در وردپرس انگلیسی: Settings ← NetArz FX)، گزینهٔ «اجازهٔ دریافت نرخ از
-   netarz.ir» را روشن و ذخیره کنید. از همین لحظه `[netarz_gold]` و `[netarz_rate currency="usd"]` بدون کلید کار می‌کنند.
+   netarz.ir» را روشن و ذخیره کنید. پس از راه افتادن تابلوی عمومی نِت اَرز، `[netarz_gold]` و `[netarz_rate currency="usd"]` بدون کلید هم کار می‌کنند؛ تا آن موقع کلید رایگان قدم ۳ را بگیرید.
 3. برای هر ارز یا نماد طرحتان و برای نمودار، کلید رایگان بگیرید: در [پنل API نرخ ارز](https://netarz.ir/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=install) یک اپ با دامنهٔ سایتتان بسازید و کلید `fx-ntz-v1-…` را کپی کنید.
    کلید را فقط همان یک بار می‌بینید. مالکیت دامنه را در همان پنل تأیید کنید: فایل آماده را بدون ویرایش در پوشهٔ `.well-known` بگذارید، یا رکورد TXT بسازید.
 4. کلید را در همان صفحهٔ تنظیمات بگذارید و ذخیره کنید، بعد «آزمایش اتصال» را بزنید.
@@ -130,9 +130,10 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 - **ارزش محاسبه‌ای قیمت بازار نیست.** انس جهانی × نرخ دلار نِت اَرز × عیار و وزن. حباب سکه و اجرت در آن نیست و قیمت بازار
   تهران معمولاً با آن فرق دارد. افزونه این را کنار هر ردیف و زیر هر جدول و نمودار می‌نویسد.
-- **نام منبع همیشه زیر جدول می‌آید** (مثلاً «منبع: gold-api.com»)، چون شرط مجوز داده است. این خط متن ساده است، نه لینک.
+- **نام منبع همیشه زیر جدول می‌آید** (مثلاً «منبع: gold-api.com»)، تا خواننده بداند هر عدد از کجا آمده است. این خط متن ساده است، نه لینک.
 - **نمودار** (`[netarz_chart]` یا بلوک «نمودار قیمت») روی سرور خودتان به‌صورت SVG کشیده می‌شود و هیچ کتابخانهٔ JavaScriptی بار
   نمی‌کند. بازه‌ها: `7d`، `30d`، `90d`، `6m`، `1y`، `5y`. نمودار کلید لازم دارد و طرح رایگان ۳۰ روز آخر را می‌دهد.
+  تاریخچهٔ انس، طلا و سکه را نِت اَرز از ۲۹ مهر ۱۴۰۵ (۲۱ اکتبر ۲۰۲۶) ثبت می‌کند؛ بازهٔ بلندتر فعلاً همین روزها را نشان می‌دهد.
 - **کش:** نرخ‌ها به اندازهٔ زمانی که خودتان تعیین می‌کنید (۱ تا ۶۰ دقیقه) و تاریخچهٔ نمودار ۱۲ ساعت کش می‌شود. اگر نِت اَرز در دسترس
   نباشد، آخرین عددها با «آخرین به‌روزرسانی …» نشان داده می‌شوند.
 
@@ -236,7 +237,8 @@ from the [NetArz FX API](https://netarz.ir/fx-api?utm_source=github&utm_medium=r
 
 - **Nothing is fetched until the site owner allows it** (Settings > NetArz FX > "Allow this site to fetch rates from
   netarz.ir", off on a new install). Sites updating from 1.x with a saved key stay connected.
-- **No key needed to start:** without one the plugin reads the keyless public board (a fixed set, a few minutes behind).
+- **Keyless public board (coming soon):** once NetArz opens it, the plugin reads a fixed set of currencies and gold
+  without a key. Until then a free key is needed to show rates.
 - **Computed values are always labelled.** 18k gold, the mesghal and the coins are worked out from the global ounce and
   the NetArz dollar rate; they are not the Tehran market price. Each such row gets a "Computed value" badge and the note,
   and the source line ("Source: gold-api.com, ...") is printed as plain text under every market table and chart.
@@ -256,7 +258,7 @@ from the [NetArz FX API](https://netarz.ir/fx-api?utm_source=github&utm_medium=r
 - Server mode sends no Origin/Referer: calls are matched by the server's IP. Browser mode relies on the domain lock.
 - Translation-ready (`netarz-fx`), Persian translation included; all output escaped; `uninstall.php` removes its options.
 
-**Install:** download `netarz-fx-2.0.1.zip` from [Releases](https://github.com/netarz/netarz-fx-wordpress/releases/latest),
+**Install:** download `netarz-fx-2.0.2.zip` from [Releases](https://github.com/netarz/netarz-fx-wordpress/releases/latest),
 upload it under Plugins > Add New > Upload Plugin, turn on the connection in Settings > NetArz FX; for charts and any
 symbol of your plan, create an app and key at [netarz.ir/fx](https://netarz.ir/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english), verify the domain,
 paste the key in Settings > NetArz FX and click "Test connection".

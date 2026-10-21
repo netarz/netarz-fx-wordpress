@@ -4,7 +4,7 @@ Tags: exchange rate, currency, gold price, toman, woocommerce
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,7 +38,7 @@ WooCommerce (optional, off by default): in a store priced in a foreign currency 
 
 What it does for you:
 
-* **No key needed to start.** Without a key the plugin reads the keyless public board: a fixed set of currencies, gold and coins, a few minutes behind. A free NetArz FX API key lets you choose any currency or symbol of your plan and draw charts.
+* **Keyless public board, coming soon.** Once NetArz opens its keyless public board, the plugin can show a fixed set of currencies and gold without a key. Until then a free NetArz FX API key is needed; it lets you choose any currency or symbol of your plan and draw charts.
 * **Few requests.** Every answer is cached (1 to 60 minutes for rates, your choice; 12 hours for chart history), and every shortcode on the site shares the same copy.
 * **Never an empty box.** If NetArz cannot be reached, visitors see the last numbers that were fetched, with "Last updated" and their time.
 * **Sources named.** A plain-text line under each table says where the numbers come from (for example gold-api.com for the ounce).
@@ -95,7 +95,7 @@ No. It is a computed value from the global gold ounce and the NetArz dollar rate
 
 = Do I need an API key? =
 
-No. Without a key you get the keyless public board (a fixed set, a few minutes behind). A free key lets you pick any symbol of your plan and draw charts; the free plan's chart history covers the last 30 days.
+For now, yes: NetArz's keyless public board is not open yet, so without a key the plugin shows "Rates unavailable". A free key lets you pick any symbol of your plan and draw charts; the free plan's chart history covers the last 30 days. NetArz records gold and silver history from 21 October 2026.
 
 = I get ip_not_allowed or origin_required =
 
@@ -107,7 +107,7 @@ Check the symbol. Without a key, only the symbols on the public board are availa
 
 = Can I remove the source line? =
 
-No. Naming the source of the numbers is a condition of the data licence. It is plain text, not a link. The optional "Rates by NetArz" credit link is a separate setting and is off by default.
+No. The source line tells readers where each number comes from. It is plain text, not a link. The optional "Rates by NetArz" credit link is a separate setting and is off by default.
 
 == Screenshots ==
 
@@ -115,6 +115,10 @@ No. Naming the source of the numbers is a condition of the data licence. It is p
 2. The rates table block and its settings in the block editor.
 
 == Changelog ==
+
+= 2.0.2 =
+* Persian translation: clearer wording for computed values, the chart, the symbol example and the keyless board.
+* Readme: the keyless public board is not open yet; a free key is needed until it is.
 
 = 2.0.1 =
 * Matched to the live NetArz markets API: history points, `unit_amount`, bid and ask.
@@ -143,6 +147,9 @@ No. Naming the source of the numbers is a condition of the data licence. It is p
 * First release.
 
 == Upgrade Notice ==
+
+= 2.0.2 =
+Translation and readme fixes only.
 
 = 2.0.1 =
 Matches the live NetArz markets API. Update if you use gold, coins or charts.

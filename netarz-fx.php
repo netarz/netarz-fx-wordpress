@@ -3,7 +3,7 @@
  * Plugin Name:       NetArz Currency & Gold Rates
  * Plugin URI:        https://github.com/netarz/netarz-fx-wordpress
  * Description:       Exchange rates in Iranian Toman, the global gold and silver price and a clearly labelled computed value of 18k gold and Iranian gold coins, from NetArz. Shortcodes, blocks, charts and widgets. Nothing is fetched until you turn the connection on.
- * Version:           2.0.1
+ * Version:           2.0.2
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            NetArz
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NETARZ_FX_VERSION', '2.0.1' );
+define( 'NETARZ_FX_VERSION', '2.0.2' );
 define( 'NETARZ_FX_FILE', __FILE__ );
 define( 'NETARZ_FX_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NETARZ_FX_URL', plugin_dir_url( __FILE__ ) );

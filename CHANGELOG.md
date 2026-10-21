@@ -6,6 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-10-21
+
+### Changed
+
+- Persian translation reviewed by the NetArz brand team: «طلا و سکه از نِت اَرز», «قیمت / ارزش» column,
+  chart titles without «قیمت», a copyable symbol example, «جست‌وجو», «ارقام انگلیسی», «نرخ‌ها الان در دسترس نیستند».
+- Readme: the keyless public board is not open yet, so a free key is needed until it is; the source line is named
+  for readers, not as a licence condition; gold history starts on 2026-10-21.
+
 ## [2.0.1] - 2026-10-21
 
 ### Fixed
@@ -93,7 +102,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   browser modes, "Test connection" with the IP NetArz saw, cache with a last-good fallback, and the
   Persian translation.
 
-[Unreleased]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.0.0...v1.1.0
