@@ -1,5 +1,6 @@
 /**
- * NetArz FX blocks in the editor: netarz-fx/rate, netarz-fx/rates, netarz-fx/convert.
+ * NetArz FX blocks in the editor: netarz-fx/rate, netarz-fx/rates, netarz-fx/convert,
+ * netarz-fx/market and netarz-fx/chart.
  *
  * Plain ES5 on the wp.* globals, no build step. Titles, icons and attributes
  * come from each block.json (registered in PHP); this file adds the sidebar
@@ -66,14 +67,19 @@
 		});
 	}
 
-	function notices() {
+	function notices(name) {
 		var out = [];
-		if (!cfg.hasKey) {
-			out.push(el(c.Notice, { key: 'key', status: 'warning', isDismissible: false },
-				(L.noKey || '') + ' ',
+		if (!cfg.connected) {
+			out.push(el(c.Notice, { key: 'connect', status: 'warning', isDismissible: false },
+				(L.notConnected || '') + ' ',
 				el('a', { href: cfg.settingsUrl }, L.openSettings || 'Settings')
 			));
-		} else if (cfg.browserMode) {
+		} else if (name === 'netarz-fx/chart' && (!cfg.hasKey || cfg.browserMode)) {
+			out.push(el(c.Notice, { key: 'chart', status: 'info', isDismissible: false },
+				(L.chartNeedsKey || '') + ' ',
+				el('a', { href: cfg.settingsUrl }, L.openSettings || 'Settings')
+			));
+		} else if (cfg.browserMode && name !== 'netarz-fx/market') {
 			out.push(el(c.Notice, { key: 'browser', status: 'info', isDismissible: false }, L.browserNote || ''));
 		}
 		return out;
@@ -88,7 +94,7 @@
 					el(c.PanelBody, { title: L.settings || 'Settings', initialOpen: true }, controls(a, set))
 				),
 				el('div', useBlockProps(),
-					notices(),
+					notices(name),
 					ServerSideRender ? el(ServerSideRender, { block: name, attributes: a }) : null
 				)
 			);
@@ -151,6 +157,66 @@
 					onChange: function (v) { var n = parseFloat(v); set({ amount: isNaN(n) || n < 0 ? 1 : n }); }
 				}),
 				el('div', { key: 'updated' }, toggle(L.showUpdated || 'Show when the rates were updated', 'showUpdated', a, set)),
+				el('div', { key: 'digits' }, digitsControl(a, set))
+			];
+		}),
+		save: save
+	});
+	wp.blocks.registerBlockType('netarz-fx/market', {
+		edit: makeEdit('netarz-fx/market', function (a, set) {
+			var sets = L.presetSets || {};
+			return [
+				el(c.SelectControl, {
+					key: 'preset',
+					label: L.presets || 'Quick choice',
+					value: '',
+					options: [
+						{ value: '', label: '-' },
+						{ value: sets.gold || '', label: L.goldSet || 'Gold' },
+						{ value: sets.coins || '', label: L.coinsSet || 'Coins' },
+						{ value: sets.metals || '', label: L.metalsSet || 'Gold and silver ounce' }
+					],
+					onChange: function (v) { if (v) { set({ symbols: v }); } }
+				}),
+				el(c.TextControl, {
+					key: 'symbols',
+					label: L.symbols || 'Symbols',
+					help: L.symbolsHelp || '',
+					value: a.symbols,
+					onChange: function (v) { set({ symbols: v.toUpperCase() }); }
+				}),
+				el('div', { key: 'change' }, toggle(L.showChange || 'Show the change since yesterday', 'showChange', a, set)),
+				el('div', { key: 'updated' }, toggle(L.showUpdated || 'Show when the rates were updated', 'showUpdated', a, set)),
+				el('div', { key: 'digits' }, digitsControl(a, set))
+			];
+		}),
+		save: save
+	});
+
+	wp.blocks.registerBlockType('netarz-fx/chart', {
+		edit: makeEdit('netarz-fx/chart', function (a, set) {
+			var ranges = L.ranges || {};
+			var options = ['7d', '30d', '90d', '6m', '1y', '5y'].map(function (r) {
+				return { value: r, label: ranges[r] || r };
+			});
+			return [
+				el(c.TextControl, {
+					key: 'symbol',
+					label: L.symbol || 'Symbol',
+					help: L.symbolHelp || '',
+					value: a.symbol,
+					onChange: function (v) { set({ symbol: v.toUpperCase() }); }
+				}),
+				el(c.SelectControl, { key: 'range', label: L.range || 'Period', value: a.range, options: options, onChange: function (v) { set({ range: v }); } }),
+				el(c.TextControl, {
+					key: 'height',
+					type: 'number',
+					min: 120,
+					max: 480,
+					label: L.height || 'Height (pixels)',
+					value: String(a.height),
+					onChange: function (v) { var n = parseInt(v, 10); set({ height: isNaN(n) ? 220 : Math.max(120, Math.min(480, n)) }); }
+				}),
 				el('div', { key: 'digits' }, digitsControl(a, set))
 			];
 		}),

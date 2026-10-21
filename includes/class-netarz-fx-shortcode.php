@@ -5,6 +5,10 @@
  *
  * [netarz_convert currencies="usd,eur,aed,try" field="sell" amount="1" updated="0" digits=""]
  *
+ * [netarz_market symbols="XAU,GOLD18" change="0" updated="0" digits=""]
+ * [netarz_gold] [netarz_coins] [netarz_metals]  (same options; preset symbols)
+ * [netarz_chart symbol="XAU" range="30d" height="220" digits=""]
+ *
  * digits: "persian" or "latin" overrides Settings > NetArz FX for one shortcode.
  *
  * @package NetArzFX
@@ -20,11 +24,17 @@ class Netarz_FX_Shortcode {
 		add_shortcode( 'netarz_rate', array( __CLASS__, 'rate' ) );
 		add_shortcode( 'netarz_rates', array( __CLASS__, 'rates' ) );
 		add_shortcode( 'netarz_convert', array( __CLASS__, 'convert' ) );
+		add_shortcode( 'netarz_market', array( __CLASS__, 'market' ) );
+		add_shortcode( 'netarz_gold', array( __CLASS__, 'gold' ) );
+		add_shortcode( 'netarz_coins', array( __CLASS__, 'coins' ) );
+		add_shortcode( 'netarz_metals', array( __CLASS__, 'metals' ) );
+		add_shortcode( 'netarz_chart', array( __CLASS__, 'chart' ) );
 		// Registered on init, not wp_enqueue_scripts: the blocks name this style in
 		// block.json and the block editor needs it too.
 		add_action( 'init', array( __CLASS__, 'styles' ) );
 		// Priority 1: after all content and widgets have rendered, before footer scripts print.
 		add_action( 'wp_footer', array( 'Netarz_FX_Render', 'maybe_enqueue' ), 1 );
+		add_action( 'wp_footer', array( 'Netarz_FX_Market_Render', 'maybe_enqueue' ), 1 );
 	}
 
 	public static function styles() {
@@ -117,6 +127,83 @@ class Netarz_FX_Shortcode {
 			array(
 				'updated' => self::yes( $atts['updated'] ),
 				'digits'  => $atts['digits'],
+			)
+		);
+	}
+
+	public static function market( $atts, $content = '', $tag = 'netarz_market' ) {
+		$presets = array(
+			'netarz_gold'   => Netarz_FX_Markets::GOLD,
+			'netarz_coins'  => Netarz_FX_Markets::COINS,
+			'netarz_metals' => Netarz_FX_Markets::METALS,
+		);
+		$default = isset( $presets[ $tag ] ) ? $presets[ $tag ] : Netarz_FX_Markets::GOLD;
+
+		$atts = shortcode_atts(
+			array(
+				'symbols' => implode( ',', $default ),
+				'change'  => '1',
+				'updated' => '1',
+				'digits'  => '',
+			),
+			$atts,
+			$tag
+		);
+
+		$symbols = Netarz_FX_Markets::symbols( $atts['symbols'] );
+		if ( ! $symbols ) {
+			return '';
+		}
+
+		wp_enqueue_style( 'netarz-fx' );
+
+		return Netarz_FX_Market_Render::table(
+			$symbols,
+			array(
+				'change'  => self::yes( $atts['change'] ),
+				'updated' => self::yes( $atts['updated'] ),
+				'digits'  => $atts['digits'],
+			)
+		);
+	}
+
+	public static function gold( $atts ) {
+		return self::market( $atts, '', 'netarz_gold' );
+	}
+
+	public static function coins( $atts ) {
+		return self::market( $atts, '', 'netarz_coins' );
+	}
+
+	public static function metals( $atts ) {
+		return self::market( $atts, '', 'netarz_metals' );
+	}
+
+	public static function chart( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'symbol' => 'XAU',
+				'range'  => '30d',
+				'height' => '220',
+				'digits' => '',
+			),
+			$atts,
+			'netarz_chart'
+		);
+
+		$symbols = Netarz_FX_Markets::symbols( $atts['symbol'] );
+		if ( ! $symbols ) {
+			return '';
+		}
+
+		wp_enqueue_style( 'netarz-fx' );
+
+		return Netarz_FX_Market_Render::chart(
+			$symbols[0],
+			strtolower( (string) $atts['range'] ),
+			array(
+				'height' => absint( $atts['height'] ),
+				'digits' => $atts['digits'],
 			)
 		);
 	}

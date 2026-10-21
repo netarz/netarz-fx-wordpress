@@ -121,8 +121,9 @@ class Netarz_FX_Render {
 		return ! empty( $row['name_en'] ) ? (string) $row['name_en'] : (string) $row['code'];
 	}
 
+	/** Browser mode needs a key and the connection; without a key the server reads the keyless board. */
 	private static function browser_mode() {
-		return 'browser' === Netarz_FX_Settings::get( 'mode' );
+		return 'browser' === Netarz_FX_Settings::get( 'mode' ) && Netarz_FX_Client::connected() && Netarz_FX_Client::has_key();
 	}
 
 	/** The data attribute that carries a per-shortcode digits choice to the browser script. */
@@ -134,6 +135,9 @@ class Netarz_FX_Render {
 	 * One price as inline HTML.
 	 */
 	public static function inline( $code, $field, $show_name ) {
+		if ( ! Netarz_FX_Client::connected() ) {
+			return Netarz_FX_Market_Render::not_connected();
+		}
 		$field = self::field( $field );
 
 		if ( self::browser_mode() ) {
@@ -314,6 +318,9 @@ class Netarz_FX_Render {
 	 * @param array    $opts   change (bool), updated (bool), digits ("persian" | "latin" | "").
 	 */
 	public static function board_html( array $codes, $fields, array $opts = array() ) {
+		if ( ! Netarz_FX_Client::connected() ) {
+			return Netarz_FX_Market_Render::not_connected();
+		}
 		self::use_digits( isset( $opts['digits'] ) ? $opts['digits'] : '' );
 
 		$html = '<div class="netarz-fx"' . self::digits_attr() . '>'
@@ -336,6 +343,9 @@ class Netarz_FX_Render {
 	 * @param array    $opts   updated (bool), digits ("persian" | "latin" | "").
 	 */
 	public static function converter( array $codes, $field, $amount, array $opts = array() ) {
+		if ( ! Netarz_FX_Client::connected() ) {
+			return Netarz_FX_Market_Render::not_connected();
+		}
 		self::use_digits( isset( $opts['digits'] ) ? $opts['digits'] : '' );
 		$field  = self::field( $field );
 		$amount = max( 0, (float) $amount );

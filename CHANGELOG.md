@@ -6,6 +6,37 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-21
+
+### Added
+
+- Gold, silver and coins from the NetArz markets API (`/api/markets/v1`): `[netarz_gold]`, `[netarz_coins]`,
+  `[netarz_metals]` and `[netarz_market symbols="..."]`, and the `netarz-fx/market` block. The ounce comes from
+  gold-api.com through NetArz; 18k gold per gram and per mesghal and five Iranian coins are a NetArz computed value.
+- Every computed row carries a "Computed value" badge and every table or chart that shows one prints the note that it
+  is not the Tehran market price (it leaves out the coin premium and making charges). Not switchable. A row is treated
+  as computed when the API says so, when its source is `computed`, or, when the API is silent, for the `gold_ir` and
+  `coin_ir` classes.
+- `[netarz_chart symbol="XAU" range="30d"]` and the `netarz-fx/chart` block: a server-side SVG line chart from
+  `history/{symbol}`, at most 240 points, no chart library.
+- Classic widget "NetArz currency and gold rates" with currency, gold and coin tabs (`assets/netarz-fx-tabs.js`,
+  vanilla, keyboard-friendly; without JavaScript the panels stack).
+- Keyless mode: without a key the plugin reads `/api/markets/v1/public/board`, and the 1.x currency shortcodes, the
+  converter and the WooCommerce line read the board's currencies.
+- Consent: a "Connection to NetArz" switch, off on a new install. Until it is on, no request is made from the server
+  and the browser-mode script is not loaded; visitors see nothing and administrators see a pointer to the settings.
+  Sites updating from 1.x with a saved key are switched on once, on update.
+- Plain-text source line under every market table and chart (data licence condition; not a link).
+- Last good answers for the markets API, shown with "Last updated" when NetArz cannot be reached.
+- `NETARZ_FX_MARKETS_API` can be defined in `wp-config.php` for staging and tests.
+- `./build.sh wporg [dir]` builds the WordPress.org package (unzipped folder plus `netarz-fx.zip`).
+
+### Changed
+
+- Plugin name: "NetArz Currency & Gold Rates" (slug and text domain stay `netarz-fx`).
+- `readme.txt` rewritten in the WordPress.org format with an "External services" section.
+- Uninstall also removes the markets cache, its last good copies and the version option.
+
 ## [1.1.0] - 2026-09-28
 
 ### Added
@@ -51,6 +82,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   browser modes, "Test connection" with the IP NetArz saw, cache with a last-good fallback, and the
   Persian translation.
 
-[Unreleased]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/netarz/netarz-fx-wordpress/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/netarz/netarz-fx-wordpress/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/netarz/netarz-fx-wordpress/releases/tag/v1.0.0

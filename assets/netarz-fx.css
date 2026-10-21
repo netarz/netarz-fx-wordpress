@@ -109,3 +109,120 @@ div.netarz-fx {
 	font-size: 0.85em;
 	opacity: 0.8;
 }
+
+/* 2.0: gold, coins, metals, charts and tabs. */
+
+.netarz-fx {
+	--netarz-fx-accent: #c89b00;
+}
+
+.netarz-fx-computed-badge {
+	display: inline-block;
+	margin-inline-start: 0.3em;
+	padding: 0 0.4em;
+	border: 1px solid rgba(200, 155, 0, 0.55);
+	border-radius: 0.3em;
+	font-size: 0.75em;
+	line-height: 1.6;
+	white-space: nowrap;
+}
+
+.netarz-fx-computed-note,
+.netarz-fx-sources {
+	margin: 0.4em 0 0;
+	font-size: 0.8em;
+	opacity: 0.8;
+}
+
+.netarz-fx-stale {
+	opacity: 1;
+	color: #8a5a00;
+}
+
+.netarz-fx-chart-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.4em 0.6em;
+	margin-bottom: 0.4em;
+}
+
+.netarz-fx-chart-name {
+	font-weight: 600;
+}
+
+.netarz-fx-chart-last {
+	font-variant-numeric: tabular-nums;
+}
+
+.netarz-fx-chart-range {
+	font-size: 0.8em;
+	opacity: 0.7;
+}
+
+.netarz-fx-chart-svg {
+	display: block;
+	width: 100%;
+	height: 220px;
+	overflow: visible;
+}
+
+.netarz-fx-chart-line {
+	fill: none;
+	stroke: var(--netarz-fx-accent);
+	stroke-width: 2;
+	stroke-linejoin: round;
+}
+
+.netarz-fx-chart-area {
+	fill: var(--netarz-fx-accent);
+	fill-opacity: 0.12;
+	stroke: none;
+}
+
+.netarz-fx-chart-foot {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.3em 1em;
+	margin-top: 0.3em;
+	font-size: 0.8em;
+	opacity: 0.75;
+	font-variant-numeric: tabular-nums;
+}
+
+.netarz-fx-tablist {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3em;
+	margin-bottom: 0.5em;
+}
+
+.netarz-fx-tablist[hidden] {
+	display: none;
+}
+
+.netarz-fx-tablist button {
+	padding: 0.3em 0.8em;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 999px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-size: 0.9em;
+	cursor: pointer;
+}
+
+.netarz-fx-tablist button[aria-selected="true"] {
+	border-color: var(--netarz-fx-accent, #c89b00);
+	background: rgba(200, 155, 0, 0.14);
+}
+
+.netarz-fx-tabtitle {
+	margin: 0.6em 0 0.2em;
+	font-weight: 600;
+}
+
+.netarz-fx-tabs-ready .netarz-fx-tabtitle {
+	display: none;
+}

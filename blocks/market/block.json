@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "netarz-fx/market",
+	"version": "2.0.0",
+	"title": "NetArz gold and coins",
+	"category": "widgets",
+	"icon": "awards",
+	"description": "The global gold and silver ounce and the computed value of 18k gold and Iranian gold coins, from NetArz. Computed values are always labelled; they are not the Tehran market price.",
+	"keywords": [ "gold", "coin", "silver", "ounce", "price" ],
+	"textdomain": "netarz-fx",
+	"attributes": {
+		"symbols": { "type": "string", "default": "XAU,GOLD18,MESGHAL" },
+		"showChange": { "type": "boolean", "default": true },
+		"showUpdated": { "type": "boolean", "default": true },
+		"digits": { "type": "string", "enum": [ "", "persian", "latin" ], "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true },
+		"color": { "text": true, "background": true }
+	},
+	"editorScript": "netarz-fx-blocks",
+	"style": "netarz-fx"
+}
