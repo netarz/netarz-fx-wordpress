@@ -6,6 +6,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-10-24
+
+### Added
+
+- Automatic WooCommerce prices (`Netarz_FX_Woo_Pricing`): a product or variation gets a currency and a regular and
+  sale price in it (`_netarz_fx_currency`, `_netarz_fx_regular`, `_netarz_fx_sale`, optional `_netarz_fx_fee`).
+  Price = amount x rate x (1 + fee / 100) + fixed Toman fee, rounded to a step (1 to 100,000 Toman, up or nearest),
+  in the store's unit (IRT, IRR, IRHT, IRHR). Written into the normal WooCommerce regular and sale prices.
+- A recurring WP-Cron event every 1, 3, 6, 12 or 24 hours, in batches of 100 products a minute apart; "Update prices
+  now" in the settings; the converted price applies at once when an administrator saves the product.
+- A safety catch: a product whose rate moved more than `woo_max_jump` percent (default 20) since its last update keeps
+  its price and is listed as held until an administrator saves it.
+- Declared compatible with WooCommerce HPOS.
+
 ## [2.0.3] - 2026-10-21
 
 ### Changed

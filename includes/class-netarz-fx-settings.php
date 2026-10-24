@@ -19,15 +19,23 @@ class Netarz_FX_Settings {
 	const VERSION_OPTION = 'netarz_fx_version';
 
 	const DEFAULTS = array(
-		'connect'       => 0,         // No request to NetArz until an administrator turns this on (WordPress.org guideline 7).
-		'api_key'       => '',
-		'mode'          => 'server',  // server | browser.
-		'cache_minutes' => 5,
-		'digits'        => 'auto',    // auto | persian | latin.
-		'attribution'   => 0,         // «نرخ از نِت اَرز» link: off until the owner turns it on (WordPress.org guideline 10).
-		'force_ipv4'    => 1,
-		'woo_toman'     => 0,         // WooCommerce: "about X Toman" after foreign-currency prices.
-		'woo_field'     => 'sell',
+		'connect'         => 0,         // No request to NetArz until an administrator turns this on (WordPress.org guideline 7).
+		'api_key'         => '',
+		'mode'            => 'server',  // server | browser.
+		'cache_minutes'   => 5,
+		'digits'          => 'auto',    // auto | persian | latin.
+		'attribution'     => 0,         // «نرخ از نِت اَرز» link: off until the owner turns it on (WordPress.org guideline 10).
+		'force_ipv4'      => 1,
+		'woo_toman'       => 0,         // WooCommerce: "about X Toman" after foreign-currency prices.
+		'woo_field'       => 'sell',
+		'woo_pricing'     => 0,         // WooCommerce: reprice products priced in a foreign currency.
+		'woo_price_field' => 'sell',
+		'woo_fee_percent' => 0,
+		'woo_fee_fixed'   => 0,         // Toman per item.
+		'woo_rounding'    => 1000,      // Toman.
+		'woo_round_mode'  => 'up',      // up | nearest.
+		'woo_interval'    => 3,         // Hours.
+		'woo_max_jump'    => 20,        // Percent; 0 = no guard.
 	);
 
 	public static function init() {
@@ -120,6 +128,15 @@ class Netarz_FX_Settings {
 		$out['force_ipv4']    = empty( $input['force_ipv4'] ) ? 0 : 1;
 		$out['woo_toman']     = empty( $input['woo_toman'] ) ? 0 : 1;
 		$out['woo_field']     = isset( $input['woo_field'] ) && in_array( $input['woo_field'], Netarz_FX_Render::FIELDS, true ) ? $input['woo_field'] : 'sell';
+
+		$out['woo_pricing']     = empty( $input['woo_pricing'] ) ? 0 : 1;
+		$out['woo_price_field'] = isset( $input['woo_price_field'] ) && in_array( $input['woo_price_field'], Netarz_FX_Render::FIELDS, true ) ? $input['woo_price_field'] : 'sell';
+		$out['woo_fee_percent'] = isset( $input['woo_fee_percent'] ) && is_numeric( $input['woo_fee_percent'] ) ? max( -90, min( 1000, round( (float) $input['woo_fee_percent'], 2 ) ) ) : 0;
+		$out['woo_fee_fixed']   = isset( $input['woo_fee_fixed'] ) ? absint( $input['woo_fee_fixed'] ) : 0;
+		$out['woo_rounding']    = isset( $input['woo_rounding'] ) && in_array( (int) $input['woo_rounding'], Netarz_FX_Woo_Pricing::ROUNDINGS, true ) ? (int) $input['woo_rounding'] : 1000;
+		$out['woo_round_mode']  = isset( $input['woo_round_mode'] ) && 'nearest' === $input['woo_round_mode'] ? 'nearest' : 'up';
+		$out['woo_interval']    = isset( $input['woo_interval'] ) && in_array( (int) $input['woo_interval'], Netarz_FX_Woo_Pricing::INTERVALS, true ) ? (int) $input['woo_interval'] : 3;
+		$out['woo_max_jump']    = isset( $input['woo_max_jump'] ) ? min( 100, absint( $input['woo_max_jump'] ) ) : 20;
 
 		return $out;
 	}
@@ -220,9 +237,12 @@ class Netarz_FX_Settings {
 							<p class="description"><?php esc_html_e( 'For a store priced in a foreign currency such as USD: each price gets "about ... Toman" after it. Needs WooCommerce and works in server mode only; it uses the cached rates, so it adds no requests.', 'netarz-fx' ); ?></p>
 						</td>
 					</tr>
+					<?php Netarz_FX_Woo_Pricing::settings_rows( $o, $n ); ?>
 				</table>
 				<?php submit_button(); ?>
 			</form>
+
+			<?php Netarz_FX_Woo_Pricing::status_box(); ?>
 
 			<h2><?php esc_html_e( 'Test connection', 'netarz-fx' ); ?></h2>
 			<p><?php esc_html_e( 'Calls NetArz from this server with the saved settings (the connection must be on). With a key, if NetArz refuses the server\'s IP, the IP it saw is shown here so you can add exactly that one.', 'netarz-fx' ); ?></p>

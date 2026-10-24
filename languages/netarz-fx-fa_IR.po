@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Plugin Name of the plugin
-#: netarz-fx.php includes/class-netarz-fx-settings.php:85
-#: includes/class-netarz-fx-settings.php:135
+#: netarz-fx.php includes/class-netarz-fx-settings.php:93
+#: includes/class-netarz-fx-settings.php:152
 msgid "NetArz Currency & Gold Rates"
 msgstr "نرخ ارز و طلای نِت اَرز"
 
@@ -43,7 +43,7 @@ msgstr "نِت اَرز"
 msgid "https://netarz.ir/fx-api"
 msgstr "https://netarz.ir/fx-api"
 
-#: includes/class-netarz-fx-blocks.php:70 netarz-fx.php:69
+#: includes/class-netarz-fx-blocks.php:70 netarz-fx.php:73
 msgid "Settings"
 msgstr "تنظیمات"
 
@@ -64,28 +64,32 @@ msgid "Three-letter codes, for example USD,EUR,AED,TRY."
 msgstr "کد سه‌حرفی ارزها، مثلاً USD,EUR,AED,TRY."
 
 #: includes/class-netarz-fx-blocks.php:74
-#: includes/class-netarz-fx-settings.php:215
+#: includes/class-netarz-fx-settings.php:232
+#: includes/class-netarz-fx-woo-pricing.php:336
 msgid "Rate"
 msgstr "نرخ"
 
 #: includes/class-netarz-fx-blocks.php:75
 #: includes/class-netarz-fx-render.php:271
-#: includes/class-netarz-fx-settings.php:217
+#: includes/class-netarz-fx-settings.php:234
 #: includes/class-netarz-fx-widget.php:69
+#: includes/class-netarz-fx-woo-pricing.php:339
 msgid "Buy"
 msgstr "خرید"
 
 #: includes/class-netarz-fx-blocks.php:76
 #: includes/class-netarz-fx-render.php:272
-#: includes/class-netarz-fx-settings.php:216
+#: includes/class-netarz-fx-settings.php:233
 #: includes/class-netarz-fx-widget.php:68
+#: includes/class-netarz-fx-woo-pricing.php:338
 msgid "Sell"
 msgstr "فروش"
 
 #: includes/class-netarz-fx-blocks.php:77
 #: includes/class-netarz-fx-render.php:273
-#: includes/class-netarz-fx-settings.php:218
+#: includes/class-netarz-fx-settings.php:235
 #: includes/class-netarz-fx-widget.php:70
+#: includes/class-netarz-fx-woo-pricing.php:340
 msgid "Average"
 msgstr "میانگین"
 
@@ -110,7 +114,7 @@ msgid "Starting amount"
 msgstr "مقدار اولیه"
 
 #: includes/class-netarz-fx-blocks.php:82
-#: includes/class-netarz-fx-settings.php:189
+#: includes/class-netarz-fx-settings.php:206
 msgid "Digits"
 msgstr "ارقام"
 
@@ -119,12 +123,12 @@ msgid "As in the plugin settings"
 msgstr "مطابق تنظیمات افزونه"
 
 #: includes/class-netarz-fx-blocks.php:84
-#: includes/class-netarz-fx-settings.php:193
+#: includes/class-netarz-fx-settings.php:210
 msgid "Persian digits"
 msgstr "ارقام فارسی"
 
 #: includes/class-netarz-fx-blocks.php:85
-#: includes/class-netarz-fx-settings.php:194
+#: includes/class-netarz-fx-settings.php:211
 msgid "Latin digits"
 msgstr "ارقام انگلیسی"
 
@@ -184,7 +188,7 @@ msgstr "انتخاب سریع"
 
 #: includes/class-netarz-fx-blocks.php:105
 #: includes/class-netarz-fx-market-render.php:180
-#: includes/class-netarz-fx-settings.php:72
+#: includes/class-netarz-fx-settings.php:80
 msgid "Open settings"
 msgstr "باز کردن تنظیمات"
 
@@ -210,6 +214,7 @@ msgstr "%s دلار"
 #: includes/class-netarz-fx-market-render.php:63
 #: includes/class-netarz-fx-render.php:184
 #: includes/class-netarz-fx-render.php:500
+#: includes/class-netarz-fx-woo-pricing.php:361
 #, php-format
 msgid "%s Toman"
 msgstr "%s تومان"
@@ -441,160 +446,161 @@ msgid "Rates by NetArz"
 msgstr "نرخ از نِت اَرز"
 
 #. translators: %s: link to the plugin settings.
-#: includes/class-netarz-fx-settings.php:71
+#: includes/class-netarz-fx-settings.php:79
 #, php-format
 msgid "NetArz Currency & Gold Rates does not contact NetArz until you allow it. %s"
 msgstr "افزونهٔ نرخ ارز و طلای نِت اَرز تا شما اجازه ندهید به نِت اَرز وصل نمی‌شود. %s"
 
-#: includes/class-netarz-fx-settings.php:86
+#: includes/class-netarz-fx-settings.php:94
 msgid "NetArz FX"
 msgstr "نرخ ارز نِت اَرز"
 
-#: includes/class-netarz-fx-settings.php:111
+#: includes/class-netarz-fx-settings.php:119
 msgid "The key should start with fx-ntz-v1-. Copy it again from the NetArz panel."
 msgstr "کلید باید با fx-ntz-v1- شروع شود. آن را دوباره از پنل نِت اَرز کپی کنید."
 
-#: includes/class-netarz-fx-settings.php:143
+#: includes/class-netarz-fx-settings.php:160
 msgid "Connection to NetArz"
 msgstr "اتصال به نِت اَرز"
 
-#: includes/class-netarz-fx-settings.php:145
+#: includes/class-netarz-fx-settings.php:162
 msgid "Allow this site to fetch rates from netarz.ir"
 msgstr "اجازهٔ دریافت نرخ از netarz.ir"
 
-#: includes/class-netarz-fx-settings.php:147
+#: includes/class-netarz-fx-settings.php:164
 msgid "Off by default. While it is off the plugin sends nothing anywhere and the shortcodes, blocks and widgets show nothing to visitors."
 msgstr "به‌طور پیش‌فرض خاموش است. تا وقتی خاموش است، افزونه هیچ درخواستی به هیچ‌جا نمی‌فرستد و کدهای کوتاه، بلوک‌ها و ابزارک‌ها چیزی به بازدیدکننده نشان نمی‌دهند."
 
-#: includes/class-netarz-fx-settings.php:148
+#: includes/class-netarz-fx-settings.php:165
 msgid "When it is on, this site requests rates from netarz.ir (and, in browser mode, each visitor's browser does). NetArz sees the requesting IP address and, with a key, your key."
 msgstr "وقتی روشن باشد، این سایت نرخ‌ها را از netarz.ir می‌گیرد (و در حالت «از مرورگر»، مرورگر هر بازدیدکننده). نِت اَرز نشانی IP درخواست‌کننده و اگر کلید داشته باشید، کلید شما را می‌بیند."
 
 #. translators: %s: link to the NetArz terms and privacy page.
-#: includes/class-netarz-fx-settings.php:152
+#: includes/class-netarz-fx-settings.php:169
 #, php-format
 msgid "Terms of use and privacy: %s"
 msgstr "قوانین استفاده و حریم خصوصی: %s"
 
-#: includes/class-netarz-fx-settings.php:160
+#: includes/class-netarz-fx-settings.php:177
 msgid "API key"
 msgstr "کلید API"
 
 #. translators: %s: link to the NetArz FX panel.
-#: includes/class-netarz-fx-settings.php:167
+#: includes/class-netarz-fx-settings.php:184
 #, php-format
 msgid "Optional. Without a key the plugin reads the keyless public board: a fixed set of currencies, gold and coins, a few minutes behind. With a free key you choose any currency or symbol of your plan and can draw charts. Create an app for this site's domain and copy its key from %s, then verify the domain in the same panel."
 msgstr "اختیاری است. بدون کلید، افزونه تابلوی عمومی را می‌خواند: مجموعهٔ ثابتی از ارز و طلا. با کلید رایگان هر ارز یا نمادی را که طرح شما دارد انتخاب می‌کنید و نمودار هم می‌کشید. در %s برای دامنهٔ این سایت اپ بسازید، کلیدش را کپی کنید و دامنه را در همان پنل تأیید کنید."
 
-#: includes/class-netarz-fx-settings.php:175
+#: includes/class-netarz-fx-settings.php:192
 msgid "Where rates are fetched"
 msgstr "نرخ از کجا گرفته شود"
 
-#: includes/class-netarz-fx-settings.php:177
+#: includes/class-netarz-fx-settings.php:194
 msgid "From this server (recommended). Add the server's outgoing IP to the app's allowed IPs."
 msgstr "از همین سرور (پیشنهادی). IP خروجی سرور را در «IPهای مجاز» اپ اضافه کنید."
 
-#: includes/class-netarz-fx-settings.php:178
+#: includes/class-netarz-fx-settings.php:195
 msgid "From the visitor's browser. For hosts without a fixed IP. The key appears in the page source but only works on your verified domain; each visitor uses some of the app's daily quota."
 msgstr "از مرورگر بازدیدکننده، برای هاستی که IP ثابت ندارد. کلید در سورس صفحه دیده می‌شود ولی فقط روی دامنهٔ تأییدشدهٔ شما کار می‌کند؛ هر بازدیدکننده بخشی از سهمیهٔ روزانهٔ اپ را مصرف می‌کند."
 
-#: includes/class-netarz-fx-settings.php:182
+#: includes/class-netarz-fx-settings.php:199
 msgid "Cache (minutes)"
 msgstr "کش (دقیقه)"
 
-#: includes/class-netarz-fx-settings.php:185
+#: includes/class-netarz-fx-settings.php:202
 msgid "Rates change every few minutes. One request refreshes every rate on the site."
 msgstr "نرخ‌ها هر چند دقیقه عوض می‌شوند. یک درخواست همهٔ نرخ‌های سایت را تازه می‌کند."
 
-#: includes/class-netarz-fx-settings.php:192
+#: includes/class-netarz-fx-settings.php:209
 msgid "Follow the site language"
 msgstr "مطابق زبان سایت"
 
-#: includes/class-netarz-fx-settings.php:199
+#: includes/class-netarz-fx-settings.php:216
 msgid "Credit link"
 msgstr "لینک منبع"
 
-#: includes/class-netarz-fx-settings.php:201
+#: includes/class-netarz-fx-settings.php:218
 msgid "Show a small \"Rates by NetArz\" link under the rates (once per page)."
 msgstr "لینک کوچک «نرخ از نِت اَرز» زیر نرخ‌ها نشان داده شود (یک بار در هر صفحه)."
 
-#: includes/class-netarz-fx-settings.php:202
+#: includes/class-netarz-fx-settings.php:219
 msgid "Optional, off by default. Turn it on if you want readers to see where the numbers come from."
 msgstr "اختیاری است و به‌طور پیش‌فرض خاموش است. اگر می‌خواهید خوانندگان ببینند عددها از کجا می‌آیند، روشنش کنید."
 
-#: includes/class-netarz-fx-settings.php:206
+#: includes/class-netarz-fx-settings.php:223
 msgid "Network"
 msgstr "شبکه"
 
-#: includes/class-netarz-fx-settings.php:208
+#: includes/class-netarz-fx-settings.php:225
 msgid "Connect over IPv4, so the IP NetArz sees is the IPv4 address you allow-listed."
 msgstr "اتصال با IPv4، تا IPی که نِت اَرز می‌بیند همان IPv4 ثبت‌شدهٔ شما باشد."
 
-#: includes/class-netarz-fx-settings.php:212
+#: includes/class-netarz-fx-settings.php:229
 msgid "WooCommerce"
 msgstr "ووکامرس"
 
-#: includes/class-netarz-fx-settings.php:214
+#: includes/class-netarz-fx-settings.php:231
 msgid "Show the Toman equivalent after product prices"
 msgstr "معادل تومانی کنار قیمت محصولات نشان داده شود"
 
-#: includes/class-netarz-fx-settings.php:220
+#: includes/class-netarz-fx-settings.php:237
 msgid "For a store priced in a foreign currency such as USD: each price gets \"about ... Toman\" after it. Needs WooCommerce and works in server mode only; it uses the cached rates, so it adds no requests."
 msgstr "برای فروشگاهی که قیمت‌هایش به ارز خارجی (مثلاً دلار) است: کنار هر قیمت «حدود … تومان» می‌آید. ووکامرس لازم دارد و فقط در حالت «از همین سرور» کار می‌کند. از نرخ‌های کش‌شده استفاده می‌کند و درخواست تازه‌ای نمی‌فرستد."
 
-#: includes/class-netarz-fx-settings.php:227
-#: includes/class-netarz-fx-settings.php:232
+#: includes/class-netarz-fx-settings.php:247
+#: includes/class-netarz-fx-settings.php:252
 msgid "Test connection"
 msgstr "آزمایش اتصال"
 
-#: includes/class-netarz-fx-settings.php:228
+#: includes/class-netarz-fx-settings.php:248
 msgid "Calls NetArz from this server with the saved settings (the connection must be on). With a key, if NetArz refuses the server's IP, the IP it saw is shown here so you can add exactly that one."
 msgstr "با تنظیمات ذخیره‌شده از همین سرور به نِت اَرز درخواست می‌فرستد (اتصال باید روشن باشد). اگر کلید دارید و نِت اَرز IP سرور را نپذیرد، همان IPی که نِت اَرز دیده این‌جا نشان داده می‌شود تا دقیقاً همان را اضافه کنید."
 
-#: includes/class-netarz-fx-settings.php:235
+#: includes/class-netarz-fx-settings.php:255
 msgid "Usage"
 msgstr "نحوهٔ استفاده"
 
-#: includes/class-netarz-fx-settings.php:238
+#: includes/class-netarz-fx-settings.php:258
 msgid "Symbols: XAU (gold ounce), XAG (silver ounce), GOLD18 (18k gold per gram), MESGHAL (18k gold per mesghal), COIN_EMAMI, COIN_BAHAR, COIN_HALF, COIN_QUARTER, COIN_GERAMI, and currency codes such as USD. Chart ranges: 7d, 30d, 90d, 6m, 1y, 5y (the free plan covers 30 days)."
 msgstr "نمادها: XAU (انس طلا)، XAG (انس نقره)، GOLD18 (هر گرم طلای ۱۸ عیار)، MESGHAL (هر مثقال طلای ۱۸ عیار)، COIN_EMAMI، COIN_BAHAR، COIN_HALF، COIN_QUARTER، COIN_GERAMI و کد ارزها مثل USD. بازه‌های نمودار: 7d، 30d، 90d، 6m، 1y و 5y (طرح رایگان ۳۰ روز را پوشش می‌دهد)."
 
-#: includes/class-netarz-fx-settings.php:239
+#: includes/class-netarz-fx-settings.php:259
 msgid "18k gold, the mesghal and the coins are a computed value from the global gold ounce and the NetArz dollar rate, not the Tehran market price. The plugin always labels them so."
 msgstr "طلای ۱۸ عیار، مثقال و سکه ارزش محاسبه‌ای از انس جهانی طلا و نرخ دلار نِت اَرز هستند، نه قیمت بازار تهران. افزونه همیشه همین برچسب را کنارشان می‌گذارد."
 
-#: includes/class-netarz-fx-settings.php:240
+#: includes/class-netarz-fx-settings.php:260
 msgid "In the block editor, search for \"NetArz\" to add the exchange rate, rates table, converter, gold and coins, or chart block."
 msgstr "در ویرایشگر بلوک «نِت اَرز» را جست‌وجو کنید تا بلوک نرخ ارز، جدول نرخ، مبدل، طلا و سکه یا نمودار را اضافه کنید."
 
 #. translators: %s: link to the NetArz FX documentation.
-#: includes/class-netarz-fx-settings.php:245
+#: includes/class-netarz-fx-settings.php:265
 #, php-format
 msgid "Fields: buy, sell, mid. Documentation: %s"
 msgstr "فیلدها: buy (خرید)، sell (فروش)، mid (میانگین). مستندات: %s"
 
-#: includes/class-netarz-fx-settings.php:256
+#: includes/class-netarz-fx-settings.php:276
+#: includes/class-netarz-fx-woo-pricing.php:306
 msgid "You are not allowed to do this."
 msgstr "اجازهٔ این کار را ندارید."
 
-#: includes/class-netarz-fx-settings.php:267
+#: includes/class-netarz-fx-settings.php:287
 msgid "NetArz could not be reached; the last saved rates are shown."
 msgstr "اتصال به نِت اَرز برقرار نشد؛ آخرین نرخ‌های ذخیره‌شده نمایش داده می‌شوند."
 
 #. translators: %s: number of rows on the keyless public board.
-#: includes/class-netarz-fx-settings.php:321
+#: includes/class-netarz-fx-settings.php:341
 #, php-format
 msgid "Connected without a key. The public board has %s items."
 msgstr "اتصال بدون کلید برقرار است. تابلوی عمومی %s ردیف دارد."
 
 #. translators: 1: app name, 2: plan name (free or pro), 3: requests left today.
-#: includes/class-netarz-fx-settings.php:332
+#: includes/class-netarz-fx-settings.php:352
 #, php-format
 msgid "Connected. App: %1$s, plan: %2$s, requests left today: %3$s."
 msgstr "اتصال برقرار است. اپ: %1$s، طرح: %2$s، درخواست باقی‌ماندهٔ امروز: %3$s."
 
 #. translators: %s: an IP address.
-#: includes/class-netarz-fx-settings.php:346
+#: includes/class-netarz-fx-settings.php:366
 #, php-format
 msgid "NetArz saw this server as %s. Add exactly this address to the app's allowed IPs at netarz.ir/fx, or switch to browser mode."
 msgstr "نِت اَرز این سرور را با IP %s دید. دقیقاً همین آدرس را در «IPهای مجاز» اپ در netarz.ir/fx اضافه کنید، یا حالت مرورگر را انتخاب کنید."
@@ -618,6 +624,153 @@ msgstr "خرید و فروش"
 #: includes/class-netarz-fx-widget.php:94
 msgid "Exchange rates"
 msgstr "نرخ ارز"
+
+#. translators: %d: number of hours.
+#: includes/class-netarz-fx-woo-pricing.php:80
+#, php-format
+msgid "Every %d hour (NetArz FX)"
+msgid_plural "Every %d hours (NetArz FX)"
+msgstr[0] "هر %d ساعت (نِت اَرز)"
+
+#: includes/class-netarz-fx-woo-pricing.php:320
+#: includes/class-netarz-fx-woo-pricing.php:402
+msgid "Automatic WooCommerce prices"
+msgstr "قیمت خودکار ووکامرس"
+
+#: includes/class-netarz-fx-woo-pricing.php:322
+msgid "Update the Toman price of products priced in a foreign currency"
+msgstr "به‌روزرسانی خودکار قیمت تومانی محصولاتی که قیمت ارزی دارند"
+
+#: includes/class-netarz-fx-woo-pricing.php:323
+msgid "On the product page, under Price, give the product a currency and its regular (and, if you like, sale) price in that currency. The plugin turns them into the store currency at the NetArz rate plus your fee, and repeats it on the schedule below. Products without a currency are never touched."
+msgstr "در صفحهٔ هر محصول، زیر بخش قیمت، ارز محصول و قیمت عادی آن را به همان ارز وارد کنید (قیمت فروش ویژه اختیاری است). افزونه این مبلغ را با نرخ نِت اَرز و کارمزد شما به واحد پول فروشگاه تبدیل می‌کند و طبق زمان‌بندی پایین تکرار می‌کند. به محصولی که ارز ندارد دست نمی‌زند."
+
+#. translators: %s: the WooCommerce store currency code, such as USD.
+#: includes/class-netarz-fx-woo-pricing.php:329
+#, php-format
+msgid "Your store currency is %s. Automatic prices work when the store currency is Toman or Rial (WooCommerce > Settings > General)."
+msgstr "واحد پول فروشگاه شما %s است. قیمت خودکار وقتی کار می‌کند که واحد پول فروشگاه تومان یا ریال باشد (ووکامرس ← پیکربندی ← عمومی)."
+
+#: includes/class-netarz-fx-woo-pricing.php:345
+msgid "Fee (percent)"
+msgstr "کارمزد (درصد)"
+
+#: includes/class-netarz-fx-woo-pricing.php:349
+msgid "Fixed fee (Toman per item)"
+msgstr "کارمزد ثابت (تومان برای هر عدد)"
+
+#: includes/class-netarz-fx-woo-pricing.php:353
+msgid "Price = amount × rate × (1 + fee ÷ 100) + fixed fee, then rounded. A product can have its own fee percent; empty means this one."
+msgstr "قیمت = مبلغ ارزی × نرخ × (۱ + کارمزد ÷ ۱۰۰) + کارمزد ثابت، بعد گرد می‌شود. هر محصول می‌تواند درصد کارمزد خودش را داشته باشد؛ اگر خالی بماند همین عدد حساب می‌شود."
+
+#: includes/class-netarz-fx-woo-pricing.php:355
+msgid "Round to"
+msgstr "گرد کردن به"
+
+#: includes/class-netarz-fx-woo-pricing.php:367
+msgid "Rounding direction"
+msgstr "جهت گرد کردن"
+
+#: includes/class-netarz-fx-woo-pricing.php:368
+msgid "Upwards"
+msgstr "رو به بالا"
+
+#: includes/class-netarz-fx-woo-pricing.php:369
+msgid "To the nearest"
+msgstr "به نزدیک‌ترین"
+
+#: includes/class-netarz-fx-woo-pricing.php:373
+msgid "Update every"
+msgstr "به‌روزرسانی هر"
+
+#. translators: %d: number of hours.
+#: includes/class-netarz-fx-woo-pricing.php:379
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d ساعت"
+
+#: includes/class-netarz-fx-woo-pricing.php:386
+msgid "Hold a product if the rate moved more than (percent)"
+msgstr "نگه‌داشتن قیمت، اگر نرخ بیش از این درصد تغییر کرده باشد"
+
+#: includes/class-netarz-fx-woo-pricing.php:390
+msgid "A safety catch against a wrong rate: when the rate moved more than this since the product's last update, its price is left as it is and the product is listed below until you save it. 0 turns the catch off."
+msgstr "محافظ در برابر نرخ اشتباه: اگر نرخ از آخرین به‌روزرسانی محصول بیش از این درصد تغییر کرده باشد، قیمت آن دست نمی‌خورد و محصول در فهرست پایین می‌آید تا خودتان آن را ذخیره کنید. عدد ۰ این محافظ را خاموش می‌کند."
+
+#: includes/class-netarz-fx-woo-pricing.php:391
+msgid "WordPress runs scheduled tasks when the site has visitors. On a quiet site, point a server cron job at wp-cron.php so prices are updated on time."
+msgstr "وردپرس کارهای زمان‌بندی‌شده را وقتی اجرا می‌کند که سایت بازدیدکننده دارد. اگر بازدید سایت کم است، یک کران‌جاب (cron job) روی سرور برای wp-cron.php بسازید تا قیمت‌ها سر وقت به‌روز شوند."
+
+#. translators: 1: date and time, 2: products updated, 3: products unchanged, 4: products held.
+#: includes/class-netarz-fx-woo-pricing.php:409
+#, php-format
+msgid "Last run: %1$s. Updated: %2$s, unchanged: %3$s, held: %4$s."
+msgstr "آخرین اجرا: %1$s. به‌روز شد: %2$s، بدون تغییر: %3$s، نگه داشته شد: %4$s."
+
+#: includes/class-netarz-fx-woo-pricing.php:416
+msgid "Still running: the rest follow a minute apart."
+msgstr "هنوز در حال اجراست: بقیهٔ محصولات با فاصلهٔ یک دقیقه به‌روز می‌شوند."
+
+#: includes/class-netarz-fx-woo-pricing.php:420
+msgid "No price was changed: the rates could not be read."
+msgstr "هیچ قیمتی تغییر نکرد، چون نرخ‌ها خوانده نشدند."
+
+#: includes/class-netarz-fx-woo-pricing.php:432
+msgid "Held products (open one to see why):"
+msgstr "محصولات نگه‌داشته‌شده (برای دیدن دلیل، محصول را باز کنید):"
+
+#. translators: %s: date and time.
+#: includes/class-netarz-fx-woo-pricing.php:441
+#, php-format
+msgid "Next run: %s."
+msgstr "اجرای بعدی: %s."
+
+#: includes/class-netarz-fx-woo-pricing.php:452
+msgid "Update prices now"
+msgstr "به‌روزرسانی قیمت‌ها"
+
+#: includes/class-netarz-fx-woo-pricing.php:460
+msgid "None (price set by hand)"
+msgstr "هیچ‌کدام (قیمت دستی)"
+
+#: includes/class-netarz-fx-woo-pricing.php:489
+msgid "Price currency (NetArz)"
+msgstr "ارز قیمت (نِت اَرز)"
+
+#: includes/class-netarz-fx-woo-pricing.php:494
+msgid "Pick a currency to have this price follow the NetArz rate. The regular and sale prices above are then filled in by the plugin."
+msgstr "اگر ارزی انتخاب کنید، قیمت این محصول با نرخ نِت اَرز به‌روز می‌شود و قیمت عادی و ویژهٔ بالا را افزونه پر می‌کند."
+
+#: includes/class-netarz-fx-woo-pricing.php:498
+msgid "Regular price in that currency"
+msgstr "قیمت عادی به همان ارز"
+
+#: includes/class-netarz-fx-woo-pricing.php:499
+msgid "Sale price in that currency"
+msgstr "قیمت فروش ویژه به همان ارز"
+
+#: includes/class-netarz-fx-woo-pricing.php:500
+msgid "Fee for this product (percent)"
+msgstr "کارمزد این محصول (درصد)"
+
+#: includes/class-netarz-fx-woo-pricing.php:523
+msgid "Held: the rate moved more than the safety catch allows since the last update. Check the rate and save the product to apply it."
+msgstr "نگه داشته شد: نرخ از آخرین به‌روزرسانی بیشتر از حد محافظ تغییر کرده است. نرخ را بررسی کنید و محصول را ذخیره کنید تا قیمت تازه اعمال شود."
+
+#: includes/class-netarz-fx-woo-pricing.php:525
+msgid "Held: NetArz has no rate for this currency on your plan."
+msgstr "نگه داشته شد: نرخ این ارز در طرح شما نیست."
+
+#: includes/class-netarz-fx-woo-pricing.php:527
+msgid "Held: the regular price in that currency is empty."
+msgstr "نگه داشته شد: قیمت عادی به ارز خالی است."
+
+#. translators: 1: date and time, 2: currency code, 3: rate in Toman.
+#: includes/class-netarz-fx-woo-pricing.php:531
+#, php-format
+msgid "Last updated %1$s at 1 %2$s = %3$s Toman."
+msgstr "آخرین به‌روزرسانی: %1$s با نرخ ۱ %2$s = %3$s تومان."
 
 #. translators: %s: a price in Iranian Toman, already formatted.
 #: includes/class-netarz-fx-woo.php:71

@@ -8,7 +8,7 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 [![CI](https://github.com/netarz/netarz-fx-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/netarz/netarz-fx-wordpress/actions/workflows/ci.yml)
 [![License: GPL v2+](https://img.shields.io/badge/license-GPL--2.0--or--later-ffc700?style=flat-square&labelColor=14161f)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.3-ffc700?style=flat-square&labelColor=14161f)](https://github.com/netarz/netarz-fx-wordpress/releases)
+[![Version](https://img.shields.io/badge/version-2.1.0-ffc700?style=flat-square&labelColor=14161f)](https://github.com/netarz/netarz-fx-wordpress/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-ffc700?style=flat-square&labelColor=14161f&logo=wordpress&logoColor=white)](readme.txt)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-ffc700?style=flat-square&labelColor=14161f&logo=php&logoColor=white)](netarz-fx.php)
 [![Docs](https://img.shields.io/badge/docs-netarz.ir%2Fdocs%2Ffx-ffc700?style=flat-square&labelColor=14161f)](https://netarz.ir/docs/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=header)
@@ -70,7 +70,7 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 
 ## نصب در چهار قدم
 
-1. فایل `netarz-fx-2.0.3.zip` را از [صفحهٔ نسخه‌ها (Releases)](https://github.com/netarz/netarz-fx-wordpress/releases/latest) دانلود کنید و از
+1. فایل `netarz-fx-2.1.0.zip` را از [صفحهٔ نسخه‌ها (Releases)](https://github.com/netarz/netarz-fx-wordpress/releases/latest) دانلود کنید و از
    «افزونه‌ها ← افزودن ← بارگذاری افزونه» نصب و فعال کنید. دکمهٔ سبز «Code ← Download ZIP» هم کار می‌کند، ولی پوشهٔ افزونه
    نام دیگری می‌گیرد؛ فایل Releases پوشهٔ درست `netarz-fx` را دارد.
 2. در وردپرس به «تنظیمات ← نرخ ارز نِت اَرز» بروید (در وردپرس انگلیسی: Settings ← NetArz FX)، گزینهٔ «اجازهٔ دریافت نرخ از
@@ -151,6 +151,33 @@ WordPress plugin for Iranian Toman exchange rates, the gold and silver ounce and
 <a id="woocommerce"></a>
 
 ## ووکامرس
+
+### قیمت خودکار محصولات ارزی
+
+اگر فروشگاه شما به تومان یا ریال است ولی قیمت بعضی محصولات به دلار، یورو یا ارز دیگری تعیین می‌شود، افزونه قیمت تومانی
+آن‌ها را خودکار به‌روز نگه می‌دارد:
+
+1. در «تنظیمات ← نرخ ارز نِت اَرز» گزینهٔ «به‌روزرسانی خودکار قیمت تومانی محصولاتی که قیمت ارزی دارند» را روشن کنید و
+   نرخ (فروش، خرید یا میانگین)، کارمزد درصدی، کارمزد ثابت تومانی، گرد کردن و فاصلهٔ به‌روزرسانی (۱ تا ۲۴ ساعت) را انتخاب کنید.
+2. در صفحهٔ هر محصول، زیر بخش قیمت، «ارز قیمت» را انتخاب کنید و قیمت عادی و (اگر خواستید) قیمت فروش ویژه را به همان ارز
+   بنویسید. در محصول متغیر، هر گونه فیلدهای خودش را دارد. هر محصول می‌تواند درصد کارمزد خودش را داشته باشد.
+3. با ذخیرهٔ محصول قیمت تومانی همان لحظه حساب می‌شود و بعد طبق زمان‌بندی تکرار می‌شود. دکمهٔ «به‌روزرسانی قیمت‌ها»
+   در همان صفحه، همهٔ محصولات را فوراً به‌روز می‌کند.
+
+```text
+قیمت = مبلغ ارزی × نرخ × (۱ + کارمزد ÷ ۱۰۰) + کارمزد ثابت  ← گرد کردن  ← قیمت عادی/ویژهٔ ووکامرس
+```
+
+- به محصولی که ارز ندارد دست نمی‌زند.
+- برای همهٔ محصولات فقط یک درخواست نرخ فرستاده می‌شود؛ محصولات ۱۰۰ تا ۱۰۰ تا با فاصلهٔ یک دقیقه به‌روز می‌شوند.
+- **محافظ نرخ اشتباه:** اگر نرخ از آخرین به‌روزرسانی محصول بیش از درصد تعیین‌شده (پیش‌فرض ۲۰٪) تغییر کند، قیمت آن محصول
+  دست نمی‌خورد و در صفحهٔ تنظیمات در فهرست «نگه‌داشته‌شده» می‌آید تا خودتان آن را ذخیره کنید.
+- فروشگاه تومان، ریال، هزار تومان و هزار ریال پشتیبانی می‌شود. این قابلیت در حالت «از همین سرور» یا بدون کلید کار می‌کند.
+- وردپرس کارهای زمان‌بندی‌شده را با بازدید سایت اجرا می‌کند؛ اگر بازدید سایت کم است، برای `wp-cron.php` یک کران‌جاب روی سرور بسازید.
+- فیلدها در متای محصول ذخیره می‌شوند (`_netarz_fx_currency`، `_netarz_fx_regular`، `_netarz_fx_sale`، `_netarz_fx_fee`)، پس با
+  درون‌ریزی CSV ووکامرس (ستون‌های `Meta: _netarz_fx_currency` و …) هم پر می‌شوند.
+
+### «حدود … تومان» کنار قیمت ارزی
 
 اگر قیمت محصولات فروشگاهتان به ارز خارجی (مثلاً دلار) است، در «تنظیمات ← نرخ ارز نِت اَرز» گزینهٔ ووکامرس را روشن کنید تا
 کنار هر قیمت «حدود … تومان» بیاید. این گزینه به‌طور پیش‌فرض خاموش است، فقط در حالت «از همین سرور» کار می‌کند و از
@@ -249,6 +276,11 @@ from the [NetArz FX API](https://netarz.ir/fx-api?utm_source=github&utm_medium=r
 - `digits="persian"` or `digits="latin"` on any shortcode overrides the site-wide setting.
 - The converter carries the cached rates with the page, so typing makes no API request; Persian digits are accepted.
 - Pro-only currencies (for example `UZS`) show "Rate unavailable" to visitors on the free plan and a short note to administrators.
+- Automatic WooCommerce prices (off by default): in a Toman or Rial store, a product or variation gets a currency and a
+  regular and sale price in it; the plugin converts them at the NetArz rate plus your fee (percent and/or fixed Toman,
+  per-product percent), rounds them and writes the normal WooCommerce prices, every 1 to 24 hours or at once with
+  "Update prices now". A safety catch holds a product when the rate moved more than a set percentage. Meta keys
+  `_netarz_fx_currency`, `_netarz_fx_regular`, `_netarz_fx_sale`, `_netarz_fx_fee` work with the CSV importer.
 - Optional WooCommerce line: "about ... Toman" after prices in a foreign-currency store (off by default, server mode only).
 - Settings > NetArz FX: API key, server or browser mode, cache minutes (default 5), Persian/Latin digits,
   WooCommerce, an optional "Rates by NetArz" credit link (off by default; turn it on in settings, or filter it with `netarz_fx_show_attribution`),
@@ -258,7 +290,7 @@ from the [NetArz FX API](https://netarz.ir/fx-api?utm_source=github&utm_medium=r
 - Server mode sends no Origin/Referer: calls are matched by the server's IP. Browser mode relies on the domain lock.
 - Translation-ready (`netarz-fx`), Persian translation included; all output escaped; `uninstall.php` removes its options.
 
-**Install:** download `netarz-fx-2.0.3.zip` from [Releases](https://github.com/netarz/netarz-fx-wordpress/releases/latest),
+**Install:** download `netarz-fx-2.1.0.zip` from [Releases](https://github.com/netarz/netarz-fx-wordpress/releases/latest),
 upload it under Plugins > Add New > Upload Plugin, turn on the connection in Settings > NetArz FX; for charts and any
 symbol of your plan, create an app and key at [netarz.ir/fx](https://netarz.ir/fx?utm_source=github&utm_medium=referral&utm_campaign=netarz-fx-wordpress&utm_content=english), verify the domain,
 paste the key in Settings > NetArz FX and click "Test connection".
