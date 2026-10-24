@@ -4,7 +4,7 @@ Tags: exchange rate, currency, gold price, toman, woocommerce
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.3
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,10 @@ Blocks: "NetArz exchange rate", "NetArz rates table", "NetArz currency converter
 
 Widgets: "NetArz currency and gold rates" (classic widget with currency, gold and coin tabs) and "NetArz exchange rates" (a table of currencies).
 
-WooCommerce (optional, off by default): in a store priced in a foreign currency such as USD, each product price can get "about ... Toman" after it, from the cached rates.
+WooCommerce (optional, off by default):
+
+* **Automatic prices from a foreign-currency price.** In a store priced in Toman or Rial, give a product (or each variation) a currency and its regular and sale price in that currency. The plugin converts them at the NetArz rate (sell, buy or average), adds your fee (a percentage, a fixed Toman amount per item, or both; a product can have its own percentage), rounds (to 1 up to 100,000 Toman, upwards or to the nearest) and writes the result into the product's normal WooCommerce prices. It repeats this every 1, 3, 6, 12 or 24 hours, and "Update prices now" does it at once. A safety catch holds a product's price when the rate moved more than a set percentage since its last update. Products without a currency are never touched. One API request serves the whole catalogue.
+* In a store priced in a foreign currency such as USD, each product price can get "about ... Toman" after it, from the cached rates.
 
 What it does for you:
 
@@ -60,6 +63,7 @@ When requests are made, once the connection is on:
 * When a page with a shortcode, block or widget is shown and the cached answer has expired (rates: after the cache time you set, 1 to 60 minutes; chart history: after 12 hours).
 * When an administrator opens the block editor with a key saved, to list the currencies for the picker (from the same cache).
 * When an administrator clicks "Test connection".
+* With automatic WooCommerce prices on: once per run (every 1 to 24 hours, your choice), when an administrator saves a product that has a currency, and when an administrator clicks "Update prices now". Each run fetches the rates once for every product; no product data is sent.
 * At most once a day, with a key, the currency list (`/currencies`, no prices) when a page asks for a currency the rates did not include.
 
 What is sent:
@@ -105,6 +109,10 @@ With a key in server mode, your server's outgoing IP must be on the app's allow-
 
 Check the symbol. Without a key, only the symbols on the public board are available. Administrators see a note saying which symbols NetArz did not return; visitors never see it.
 
+= Can WooCommerce product prices follow the dollar rate? =
+
+Yes. Turn on "Automatic WooCommerce prices" in Settings > NetArz FX (the store currency must be Toman or Rial, and the plugin must fetch rates from the server). Then, on each product under Price, pick the currency and enter the regular and sale price in it. Price = amount x rate x (1 + fee / 100) + fixed fee, rounded. The fields are stored as product meta (`_netarz_fx_currency`, `_netarz_fx_regular`, `_netarz_fx_sale`, `_netarz_fx_fee`), so the WooCommerce CSV importer can fill them as "Meta: _netarz_fx_currency" and so on.
+
 = Can I remove the source line? =
 
 No. The source line tells readers where each number comes from. It is plain text, not a link. The optional "Rates by NetArz" credit link is a separate setting and is off by default.
@@ -115,6 +123,11 @@ No. The source line tells readers where each number comes from. It is plain text
 2. The rates table block and its settings in the block editor.
 
 == Changelog ==
+
+= 2.1.0 =
+* New: automatic WooCommerce prices. Give a product or variation a currency and a regular and sale price in it; the plugin converts them at the NetArz rate plus your fee (percent, fixed Toman, or both, with a per-product percent), rounds, and updates the product's prices every 1 to 24 hours, or at once with "Update prices now".
+* New: a safety catch that holds a product's price when the rate moved more than a set percentage since its last update, and a list of held products in the settings.
+* Toman, Rial, thousand Toman and thousand Rial stores are supported; HPOS compatible.
 
 = 2.0.3 =
 * Readme: NetArz's keyless public board is now open, so a key is optional; it is only needed for other symbols and charts.
@@ -150,6 +163,9 @@ No. The source line tells readers where each number comes from. It is plain text
 * First release.
 
 == Upgrade Notice ==
+
+= 2.1.0 =
+Automatic WooCommerce prices from a foreign-currency price plus your fee. Off until you turn it on.
 
 = 2.0.3 =
 Readme fix only: the keyless public board is open.
